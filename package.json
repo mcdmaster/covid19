@@ -57,6 +57,7 @@
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "@mdi/font": "^5.3.45",
     "@nuxt/typescript-build": "^2.0.0",
+    "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/google-analytics": "^2.3.0",
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
