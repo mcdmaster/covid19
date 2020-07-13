@@ -57,21 +57,17 @@
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "@mdi/font": "^5.3.45",
     "@nuxt/typescript-build": "^2.0.0",
-    "@nuxtjs/eslint-config": "^3.0.0",
-    "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/google-analytics": "^2.3.0",
     "@nuxtjs/stylelint-module": "^4.0.0",
     "@nuxtjs/vuetify": "^1.11.2",
     "@types/chart.js": "^2.9.22",
     "@vue/test-utils": "^1.0.3",
     "autoprefixer": "^9.8.4",
-    "babel-jest": "^25.5.1",
-    "eslint": "^7.4.0",
+    "eslint": "6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-tsdoc": "^0.2.5",
     "husky": "^4.2.5",
-    "jest": "^25.5.4",
     "lint-staged": "^10.2.11",
     "nodemon": "^2.0.4",
     "nuxt-purgecss": "^1.0.0",
@@ -85,7 +81,12 @@
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.6",
     "vue-axe": "^2.3.1",
-    "vue-jest": "^4.0.0-0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.43.0"
+  },
+  "resolutions": {
+    "chokidar": "^3.4.0",
+    "core-js": "^3.6.5",
+    "source-map-resolve": "^0.6.0"
   }
 }
