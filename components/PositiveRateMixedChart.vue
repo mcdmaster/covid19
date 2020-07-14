@@ -26,7 +26,7 @@
           <div
             v-else-if="i === 5"
             :style="{
-              backgroundColor: colors[4].fillColor,
+              background: `repeating-linear-gradient(90deg, ${colors[2].fillColor}, ${colors[2].fillColor} 20%, ${colors[4].fillColor})`,
               border: 0,
               height: '3px'
             }"
@@ -120,7 +120,7 @@ import {
   getGraphSeriesColor,
   SurfaceStyle
 } from '@/utils/colors'
-import { getNumberToFixedFunction } from '~/utils/monitoringStatusValueFormatters'
+import { getNumberToFixedFunction } from '@/utils/monitoringStatusValueFormatters'
 
 interface HTMLElementEvent<T extends HTMLElement> extends MouseEvent {
   currentTarget: T
@@ -142,19 +142,18 @@ type DisplayInfo = {
   unit: string
 }
 type Computed = {
+  displayData: DisplayData
+  displayDataHeader: DisplayData
   displayTransitionRatio: string
   displayInspectionsTransitionRatio: string
   displayInfo: DisplayInfo[]
-  displayData: DisplayData
   displayOption: Chart.ChartOptions
-  displayDataHeader: DisplayData
   displayOptionHeader: Chart.ChartOptions
   scaledTicksYAxisMax: number
   scaledTicksYAxisMaxRight: number
   tableHeaders: TableHeader[]
   tableData: TableItem[]
 }
-
 type Props = {
   title: string
   titleId: string
@@ -180,7 +179,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   Props
 > = {
   created() {
-    this.canvas = process.browser
+    // canvas = process.browser
   },
   components: {
     DataView,
@@ -215,7 +214,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     getFormatter: {
       type: Function,
       required: false,
-      default: (_: number) => getNumberToFixedFunction()
+      default: (_any: number) => getNumberToFixedFunction()
     },
     date: {
       type: String,
@@ -252,12 +251,183 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       default: () => yAxesBgRightPlugin
     }
   },
-  data: () => ({
-    displayLegends: [true, true, true, true, true, true],
-    colors: [...getGraphSeriesStyle(4), getGraphSeriesColor('E')],
-    canvas: true
-  }),
+  data() {
+    return {
+      displayLegends: [true, true, true, true, true, true],
+      colors: [...getGraphSeriesStyle(4), getGraphSeriesColor('E')],
+      canvas: true
+    }
+  },
   computed: {
+    displayData() {
+      const self = this
+      // let ret = false
+      let gradientStroke: any = self.colors[4].fillColor
+      // while (ret === false) {
+      //   async () => {
+      //     try {
+      // await
+      const ctx = (self.$refs[
+        `${this.chartId}`
+      ] as HTMLCanvasElement).getContext('2d')
+      if (ctx) {
+        const beginning = dayjs('2020-02-15').unix()
+        const earlyDays = dayjs('2020-05-07').unix() - beginning
+        const wholeDays =
+          dayjs(new Date(self.labels[self.labels.length - 1])).unix() -
+          beginning
+        const gradientRatio = parseFloat((earlyDays / wholeDays).toPrecision(2))
+        gradientStroke = ctx.createLinearGradient(0, 0, 300, 0)
+        gradientStroke.addColorStop(0, self.colors[2].fillColor)
+        if (gradientRatio > 0 && gradientRatio < 1) {
+          gradientStroke.addColorStop(gradientRatio, self.colors[2].fillColor)
+        }
+        gradientStroke.addColorStop(1, self.colors[4].fillColor)
+        //        ret = true
+        //       } else {
+        //         ret = false
+        //       }
+        //     } catch(error) {
+        //       ret = false
+        //    }
+        //  }
+      }
+
+      return {
+        labels: self.labels,
+        datasets: [
+          {
+            type: 'bar',
+            yAxisID: 'y-axis-1',
+            label: self.dataLabels[0],
+            data: self.chartData[0],
+            backgroundColor: self.colors[0].fillColor,
+            borderColor: self.colors[0].strokeColor,
+            borderWidth: 1,
+            borderDash: [0],
+            order: 1,
+            tension: 0
+          },
+          {
+            type: 'bar',
+            yAxisID: 'y-axis-1',
+            label: self.dataLabels[1],
+            data: self.chartData[1],
+            backgroundColor: self.colors[1].fillColor,
+            borderColor: self.colors[1].strokeColor,
+            borderWidth: 1,
+            borderDash: [0],
+            order: 2,
+            tension: 0
+          },
+          {
+            type: 'bar',
+            yAxisID: 'y-axis-1',
+            label: self.dataLabels[2],
+            data: self.chartData[2],
+            backgroundColor: self.colors[2].fillColor,
+            borderColor: self.colors[2].strokeColor,
+            borderWidth: 1,
+            borderDash: [0],
+            order: 3,
+            tension: 0
+          },
+          {
+            type: 'bar',
+            yAxisID: 'y-axis-1',
+            label: self.dataLabels[3],
+            data: self.chartData[3],
+            backgroundColor: self.colors[3].fillColor,
+            borderColor: self.colors[3].strokeColor,
+            borderWidth: 1,
+            borderDash: [0],
+            order: 4,
+            tension: 0
+          },
+          {
+            type: 'line',
+            yAxisID: 'y-axis-1',
+            label: self.dataLabels[4],
+            data: self.chartData[4],
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: self.colors[4].strokeColor,
+            borderWidth: 3,
+            borderDash: [4, 4],
+            order: 0,
+            tension: 0
+          },
+          {
+            type: 'line',
+            yAxisID: 'y-axis-2',
+            label: self.dataLabels[5],
+            data: self.chartData[5],
+            backgroundColor: 'rgba(0,0,0,0)',
+            borderColor: gradientStroke,
+            borderWidth: 3,
+            borderDash: [0],
+            order: 0,
+            tension: 0
+          }
+        ]
+      }
+    },
+    displayDataHeader() {
+      let n = 0
+      let max = 0
+      for (const i in this.displayData.datasets[0].data) {
+        const current =
+          this.displayData.datasets[0].data[i] +
+          this.displayData.datasets[1].data[i] +
+          this.displayData.datasets[2].data[i] +
+          this.displayData.datasets[3].data[i]
+        if (current > max) {
+          max = current
+          n = Number(i)
+        }
+      }
+
+      return {
+        labels: ['2020/1/1'],
+        datasets: [
+          {
+            data: [this.displayData.datasets[0].data[n]],
+            backgroundColor: 'transparent',
+            yAxisID: 'y-axis-1',
+            borderWidth: 0
+          },
+          {
+            data: [this.displayData.datasets[1].data[n]],
+            backgroundColor: 'transparent',
+            yAxisID: 'y-axis-1',
+            borderWidth: 0
+          },
+          {
+            data: [this.displayData.datasets[2].data[n]],
+            backgroundColor: 'transparent',
+            yAxisID: 'y-axis-1',
+            borderWidth: 0
+          },
+          {
+            data: [this.displayData.datasets[3].data[n]],
+            backgroundColor: 'transparent',
+            yAxisID: 'y-axis-1',
+            borderWidth: 0
+          },
+          {
+            data: [0],
+            backgroundColor: 'transparent',
+            yAxisID: 'y-axis-1',
+            borderWidth: 0
+          },
+          {
+            data: [this.displayData.datasets[5].data[n]],
+            backgroundColor: 'transparent',
+            yAxisID: 'y-axis-2',
+            borderWidth: 0
+          }
+        ]
+      }
+    },
     displayTransitionRatio() {
       const lastDay = this.pickLastNumber(this.chartData)[5]
       const lastDayBefore = this.pickLastSecondNumber(this.chartData)[5]
@@ -294,80 +464,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         }
       ]
     },
-    displayData() {
-      const graphSeries = [...getGraphSeriesStyle(4), getGraphSeriesColor('E')]
-      return {
-        labels: this.labels,
-        datasets: [
-          {
-            type: 'bar',
-            yAxisID: 'y-axis-1',
-            label: this.dataLabels[0],
-            data: this.chartData[0],
-            backgroundColor: graphSeries[0].fillColor,
-            borderColor: graphSeries[0].strokeColor,
-            borderWidth: 1,
-            order: 1
-          },
-          {
-            type: 'bar',
-            yAxisID: 'y-axis-1',
-            label: this.dataLabels[1],
-            data: this.chartData[1],
-            backgroundColor: graphSeries[1].fillColor,
-            borderColor: graphSeries[1].strokeColor,
-            borderWidth: 1,
-            order: 2
-          },
-          {
-            type: 'bar',
-            yAxisID: 'y-axis-1',
-            label: this.dataLabels[2],
-            data: this.chartData[2],
-            backgroundColor: graphSeries[2].fillColor,
-            borderColor: graphSeries[2].strokeColor,
-            borderWidth: 1,
-            order: 3
-          },
-          {
-            type: 'bar',
-            yAxisID: 'y-axis-1',
-            label: this.dataLabels[3],
-            data: this.chartData[3],
-            backgroundColor: graphSeries[3].fillColor,
-            borderColor: graphSeries[3].strokeColor,
-            borderWidth: 1,
-            order: 4
-          },
-          {
-            type: 'line',
-            yAxisID: 'y-axis-1',
-            label: this.dataLabels[4],
-            data: this.chartData[4],
-            pointBackgroundColor: 'rgba(0,0,0,0)',
-            pointBorderColor: 'rgba(0,0,0,0)',
-            borderColor: graphSeries[4].strokeColor,
-            borderWidth: 3,
-            fill: false,
-            order: 0,
-            borderDash: [4, 4]
-          },
-          {
-            type: 'line',
-            yAxisID: 'y-axis-2',
-            label: this.dataLabels[5],
-            data: this.chartData[5],
-            pointBackgroundColor: 'rgba(0,0,0,0)',
-            pointBorderColor: 'rgba(0,0,0,0)',
-            borderColor: graphSeries[4].strokeColor,
-            borderWidth: 3,
-            fill: false,
-            order: 0,
-            lineTension: 0
-          }
-        ]
-      }
-    },
     tableHeaders() {
       return [
         { text: this.$t('日付'), value: 'text' },
@@ -381,7 +477,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         .map((label, i) => {
           return Object.assign(
             { text: dayjs(label).format('M/D') },
-            ...(this.dataLabels as string[]).map((_, j) => {
+            ...(this.dataLabels as string[]).map((_any, j) => {
               if (this.chartData[j][i] === null) {
                 return {
                   [j]: ''
@@ -514,62 +610,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       }
       return options
     },
-    displayDataHeader() {
-      let n = 0
-      let max = 0
-      for (const i in this.displayData.datasets[0].data) {
-        const current =
-          this.displayData.datasets[0].data[i] +
-          this.displayData.datasets[1].data[i] +
-          this.displayData.datasets[2].data[i] +
-          this.displayData.datasets[3].data[i]
-        if (current > max) {
-          max = current
-          n = Number(i)
-        }
-      }
-      return {
-        labels: ['2020/1/1'],
-        datasets: [
-          {
-            data: [this.displayData.datasets[0].data[n]],
-            backgroundColor: 'transparent',
-            yAxisID: 'y-axis-1',
-            borderWidth: 0
-          },
-          {
-            data: [this.displayData.datasets[1].data[n]],
-            backgroundColor: 'transparent',
-            yAxisID: 'y-axis-1',
-            borderWidth: 0
-          },
-          {
-            data: [this.displayData.datasets[2].data[n]],
-            backgroundColor: 'transparent',
-            yAxisID: 'y-axis-1',
-            borderWidth: 0
-          },
-          {
-            data: [this.displayData.datasets[3].data[n]],
-            backgroundColor: 'transparent',
-            yAxisID: 'y-axis-1',
-            borderWidth: 0
-          },
-          {
-            data: [0],
-            backgroundColor: 'transparent',
-            yAxisID: 'y-axis-1',
-            borderWidth: 0
-          },
-          {
-            data: [this.displayData.datasets[5].data[n]],
-            backgroundColor: 'transparent',
-            yAxisID: 'y-axis-2',
-            borderWidth: 0
-          }
-        ]
-      }
-    },
     displayOptionHeader() {
       const options: Chart.ChartOptions = {
         maintainAspectRatio: false,
@@ -683,17 +723,17 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     }
   },
   methods: {
-    onClickLegend(i) {
-      this.displayLegends[i] = !this.displayLegends[i]
+    onClickLegend(_i: number) {
+      this.displayLegends[_i] = !this.displayLegends[_i]
       this.displayLegends = this.displayLegends.slice()
     },
     pickLastNumber(chartDataArray: number[][]) {
-      return chartDataArray.map((array, i) => {
+      return chartDataArray.map((array, _i) => {
         return array[array.length - 1]
       })
     },
     pickLastSecondNumber(chartDataArray: number[][]) {
-      return chartDataArray.map((array, i) => {
+      return chartDataArray.map((array, _i) => {
         return array[array.length - 2]
       })
     },
@@ -712,14 +752,15 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     }
   },
   mounted() {
-    const barChart = this.$refs.barChart as Vue
-    const barElement = barChart.$el
-    const canvas = barElement.querySelector('canvas')
-    const labelledbyId = `${this.titleId}-graph`
-
-    if (canvas) {
-      canvas.setAttribute('role', 'img')
-      canvas.setAttribute('aria-labelledby', labelledbyId)
+    const vueCanvas = this.$refs[`${this.chartId}`] as Element
+    if (vueCanvas) {
+      const labelledbyId = `${this.titleId}-graph`
+      vueCanvas.setAttribute('role', 'img')
+      vueCanvas.setAttribute('aria-labelledby', labelledbyId)
+    }
+    const chart = this.$data._chart
+    if (chart) {
+      chart.update()
     }
   }
 }
