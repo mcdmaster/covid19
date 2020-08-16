@@ -1,7 +1,7 @@
 import { NuxtConfig } from '@nuxt/types'
-import i18n from './nuxt-i18n.config'
-const purgecss = require('@fullhuman/postcss-purgecss')
-const autoprefixer = require('autoprefixer')
+import i18n from 'nuxt-i18n'
+// const purgecss = require('@fullhuman/postcss-purgecss')
+// import autoprefixer from 'autoprefixer'
 const environment = process.env.NODE_ENV || 'development'
 
 const config: NuxtConfig = {
@@ -61,7 +61,7 @@ const config: NuxtConfig = {
   /*
    ** Global CSS
    */
-  css: ['~assets/global.scss'],
+  css: ['@/assets/global.scss'],
   /*
    ** Plugins to load before mounting the App
    */
@@ -97,15 +97,17 @@ const config: NuxtConfig = {
     ['@nuxtjs/dotenv', { filename: `.env.${environment}` }],
     ['nuxt-i18n', i18n],
     'nuxt-svg-loader',
-    'nuxt-purgecss',
+    // 'nuxt-purgecss',
     ['vue-scrollto/nuxt', { duration: 1000, offset: -72 }],
+    '@nuxt/http',
+    // ['nuxt-compress', { gzip: { cache: true }, brotli: { threshold: 10240 } }],
   ],
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['@/assets/variables.scss'],
     treeShake: true,
     defaultAssets: {
       icons: false,
@@ -130,20 +132,11 @@ const config: NuxtConfig = {
   ], */
   build: {
     postcss: {
-      plugins: [
-        autoprefixer({ grid: 'autoplace' }),
-        purgecss({
-          content: [
-            './pages/**/*.vue',
-            './layouts/**/*.vue',
-            './components/**/*.vue',
-            './node_modules/vuetify/dist/vuetify.js',
-            './node_modules/vue-spinner/src/ScaleLoader.vue',
-          ],
-          whitelist: ['html', 'body', 'nuxt-progress', 'DataCard'],
-          whitelistPatterns: [/(col|row)/],
-        }),
-      ],
+      plugins: {
+        'autoprefixer': {
+          grid: 'autoplace',
+        },
+      },
     },
     extend(config) {
       // default externals option is undefined
@@ -151,6 +144,23 @@ const config: NuxtConfig = {
     },
     // https://ja.nuxtjs.org/api/configuration-build/#hardsource
     // hardSource: process.env.NODE_ENV === 'development'
+  },
+  purgeCSS: {
+    'nuxt-purgecss': {
+      options: {
+        dev: environment.includes('dev'),
+        mode: 'postcss',
+        content: [
+          '@/pages/**/*.vue',
+          '@/layouts/**/*.vue',
+          '@/components/**/*.vue',
+          '@/node_modules/vuetify/dist/vuetify.js',
+          '@/node_modules/vue-spinner/src/ScaleLoader.vue',
+        ],
+        whitelist: ['html', 'body', 'nuxt-progress', 'DataCard'],
+        whitelistPatterns: [/(col|row)/],
+      },
+    },
   },
   manifest: {
     name: '東京都 新型コロナウイルス感染症対策サイト',
@@ -191,6 +201,11 @@ const config: NuxtConfig = {
         .map((locale) => pages.map((page) => `/${locale}${page}`))
         .reduce((a, b) => [...a, ...b], [])
       return [...pages, ...localizedPages]
+    },
+  },
+  render: {
+    compressor: {
+      test: /\.(js|ts|vue|css|html?|svg|pdf|png|eot|ttf|woff2?)/i
     },
   },
   // /*

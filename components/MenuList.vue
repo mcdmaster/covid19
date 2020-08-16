@@ -55,7 +55,7 @@ export default Vue.extend({
   },
   methods: {
     linkTag(link: MenuItem['link']) {
-      return this.isExternal(link) ? 'a' : 'nuxt-link'
+      return this.isExternal(link) ? 'a' : 'router-link'
     },
     linkAttrs(link: MenuItem['link']) {
       return this.isExternal(link)
@@ -66,7 +66,7 @@ export default Vue.extend({
             class: 'MenuList-Link',
           }
         : {
-            to: link,
+            ':to': link,
             router: true,
             class: 'MenuList-Link',
           }
