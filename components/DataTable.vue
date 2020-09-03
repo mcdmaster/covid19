@@ -11,12 +11,13 @@
       fixed-header
       :mobile-breakpoint="0"
       :custom-sort="customSort"
+      class="cardTable"
       :footer-props="{
         'items-per-page-options': [15, 30, 50, 100, 200, 300, -1],
         'items-per-page-text': $t('1ページ当たり'),
       }"
-      class="cardTable"
     >
+      </template>
       <template v-slot:body="{ items }">
         <tbody>
           <tr v-for="item in items" :key="item.text">
@@ -34,7 +35,7 @@
             itemsLength: props.itemsLength,
             pageStart: props.pageStart,
             pageStop: props.pageStop,
-          })
+          }),
         }}
       </template>
     </v-data-table>
@@ -137,7 +138,6 @@ import Vue from 'vue'
 import DataView from '@/components/DataView.vue'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 import OpenDataLink from '@/components/OpenDataLink.vue'
-import { mdiChevronRight } from '@mdi/js'
 
 export default Vue.extend({
   components: { DataView, DataViewBasicInfoPanel, OpenDataLink },
@@ -166,10 +166,6 @@ export default Vue.extend({
       type: String,
       default: '',
     },
-    mdiChevronRight: {
-      type: String,
-      default: mdiChevronRight,
-    },
     customSort: {
       type: Function,
       default(items: Object[], index: string[], isDesc: boolean[]) {
@@ -181,7 +177,6 @@ export default Vue.extend({
             comparison = 1
           }
           // a と b が等しい場合は上記のif文を両方とも通過するので 0 のままとなる
-
           // 降順指定の場合は符号を反転
           if (comparison !== 0) {
             comparison = isDesc[0] ? comparison * -1 : comparison
@@ -193,14 +188,13 @@ export default Vue.extend({
     },
   },
   mounted() {
-    const vTables = this.$refs.displayedTable as Vue
-    const vTableElement = vTables.$el
-    const tables = vTableElement.querySelectorAll('table')
-    // NodeListをIE11でforEachするためのワークアラウンド
-    const nodes = Array.prototype.slice.call(tables, 0)
-    nodes.forEach((table: HTMLElement) => {
-      table.setAttribute('tabindex', '0')
-    })
+    const vTables = this.$refs['table'] as Element[]
+      // NodeListをIE11でforEachするためのワークアラウンド
+    if (vTables) {
+      vTables.forEach(table => {
+        (table as HTMLElement).setAttribute('tabindex', '0')
+      })
+    }
   },
 })
 </script>

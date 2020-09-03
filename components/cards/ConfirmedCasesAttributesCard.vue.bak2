@@ -11,10 +11,6 @@
         :url="'https://catalog.data.metro.tokyo.lg.jp/dataset/t000010d0000000068'"
         :source="$t('オープンデータを入手')"
         :custom-sort="customSort"
-        :footer-props="{
-          'prev-icon': mdiChevronLeft,
-          'next-icon': mdiChevronRight,
-        }"
       />
     </client-only>
   </v-col>
@@ -26,23 +22,7 @@ import formatGraph from '@/utils/formatGraph'
 import formatTable from '@/utils/formatTable'
 import { getDayjsObject } from '@/utils/formatDate'
 import DataTable from '@/components/DataTable.vue'
-import { mdiMenuDown, mdiChevronLeft, mdiChevronRight } from '@mdi/js'
-
 export default {
-  props: {
-    mdiMenuDown: {
-      type: String,
-      default: mdiMenuDown,
-    },
-    mdiChevronLeft: {
-      type: String,
-      default: mdiChevronLeft,
-    },
-    mdiChevronRight: {
-      type: String,
-      default: mdiChevronRight,
-    },
-  },
   components: {
     DataTable,
   },

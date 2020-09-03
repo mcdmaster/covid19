@@ -149,11 +149,11 @@
               <dd :class="$style.overrideExternalLink">
                 <i18n path="{publicHealthCenter}に掲載しています">
                   <template v-slot:publicHealthCenter>
-                    <external-link
-                      url="https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html"
+                    <app-link
+                      to="https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html"
                     >
                       {{ $t('各保健所の電話番号は福祉保健局HP') }}
-                    </external-link>
+                    </app-link>
                   </template>
                 </i18n>
               </dd>
@@ -299,14 +299,14 @@
       </div>
     </div>
     <div :class="$style.detail">
-      <a
-        href="https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html"
-        target="_blank"
+      <app-link
+        to="https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html"
+        :icon-size="20"
+        :icon-class="$style.icon"
         :class="$style.detailButton"
-        rel="noopener noreferrer"
         >{{ $t('詳細を見る（東京都福祉保健局）') }}
         <v-icon :class="$style.icon" size="2rem"> {{ mdiOpenInNew }} </v-icon>
-      </a>
+      </app-link>
     </div>
   </div>
 </template>
@@ -317,14 +317,14 @@ import { TranslateResult } from 'vue-i18n'
 import VueScrollTo from 'vue-scrollto'
 import PrinterButton from '@/components/PrinterButton.vue'
 import PageHeader from '@/components/PageHeader.vue'
-import ExternalLink from '@/components/ExternalLink.vue'
 import { mdiOpenInNew } from '@mdi/js'
-const CovidIcon = require('@/static/covid.svg')
-const FigCondSyDr = require('@/static/flow/cond_sydr.svg')
-const FigCondSy = require('@/static/flow/cond_sy.svg')
-const FigCondAnx = require('@/static/flow/cond_anx.svg')
-const IconPhone = require('@/static/flow/phone.svg')
-const IconBed = require('@/static/flow/bed.svg')
+import AppLink from '@/components/AppLink.vue'
+const CovidIcon = require('@/static/covid.svg?inline')
+const FigCondSyDr = require('@/static/flow/cond_sydr.svg?inline')
+const FigCondSy = require('@/static/flow/cond_sy.svg?inline')
+const FigCondAnx = require('@/static/flow/cond_anx.svg?inline')
+const IconPhone = require('@/static/flow/phone.svg?inline')
+const IconBed = require('@/static/flow/bed.svg?inline')
 
 type LocalData = {
   nav: HTMLElement | null // アンカーリンクコンテナ（フローティング対象）
@@ -348,7 +348,7 @@ export default Vue.extend({
     CovidIcon,
     PrinterButton,
     PageHeader,
-    ExternalLink,
+    AppLink,
     FigCondSyDr,
     FigCondSy,
     FigCondAnx,
@@ -885,7 +885,7 @@ $margin: 20;
     &:hover {
       color: $white !important;
     }
-    > .icon {
+    .icon {
       margin-left: 2px;
       color: $green-1 !important;
     }

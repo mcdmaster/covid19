@@ -6,15 +6,15 @@
       :class="['MenuList-Item', { '-border': item.divider }]"
       @click="$emit('click', $event)"
     >
-      <component :is="linkTag(item.link)" v-bind="linkAttrs(item.link)">
+      <app-link :to="item.link" class="MenuList-Link">
         <span v-if="item.icon" class="MenuList-Icon">
-          <component :is="iconTag(item.icon)" v-bind="iconAttrs(item.icon)">
+          <v-icon :is="iconTag(item.icon)" v-bind="iconAttrs(item.icon)">
             {{ item.icon }}
-          </component>
+          </v-icon>
         </span>
         <span class="MenuList-Title">{{ item.title }}</span>
         <v-icon
-          v-if="isExternal(item.link)"
+          v-if="item.link.indexOf('http') > -1"
           role="img"
           aria-hidden="false"
           :aria-label="$t('別タブで開く')"
@@ -23,7 +23,7 @@
         >
           {{ mdiOpenInNew }}
         </v-icon>
-      </component>
+      </app-link>
     </li>
   </ul>
 </template>
@@ -38,6 +38,7 @@ import {
   mdiDomain,
   mdiOpenInNew,
 } from '@mdi/js'
+import AppLink from '@/components/AppLink.vue'
 const isPath = require('is-svg-path')
 const CovidIcon = require('@/static/covid.svg?inline')
 const MaskTrashIcon = require('@/static/masktrash.svg?inline')
@@ -55,6 +56,7 @@ export default Vue.extend({
     CovidIcon,
     MaskTrashIcon,
     ParentIcon,
+    AppLink,
   },
   data() {
     const svgPath = {
@@ -74,36 +76,16 @@ export default Vue.extend({
     },
   },
   methods: {
-    linkTag(link: MenuItem['link']) {
-      return this.isExternal(link) ? 'a' : 'nuxt-link'
-    },
-    linkAttrs(link: MenuItem['link']) {
-      return this.isExternal(link)
-        ? {
-            href: link,
-            target: '_blank',
-            rel: 'noopener noreferrer',
-            class: 'MenuList-Link',
-          }
-        : {
-            href: '/#',
-            router: true,
-            class: 'MenuList-Link',
-            to: `${link}`,
-          }
-    },
     iconTag(icon: MenuItem['icon']) {
       return icon
-        ? // icon.includes('mdi') ||
-          isPath(icon)
+        ? isPath(icon)
           ? 'v-icon'
           : icon
         : null
     },
     iconAttrs(icon: MenuItem['icon']) {
       return icon
-        ? // icon.includes('mdi') ||
-          isPath(icon)
+        ? isPath(icon)
           ? {
               size: '2rem',
               class: 'MenuList-MdIcon',
@@ -113,9 +95,6 @@ export default Vue.extend({
               class: 'MenuList-SvgIcon',
             }
         : null
-    },
-    isExternal(path: MenuItem['link']): boolean {
-      return /^https?:\/\//.test(path)
     },
   },
 })
@@ -213,7 +192,7 @@ export default Vue.extend({
   }
 }
 
-.MenuList-ExternalIcon {
+.MenuList .v-deep .ExternalLinkIcon {
   margin-left: 5px;
   color: $gray-3;
   @include lessThan($small) {
