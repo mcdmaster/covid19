@@ -344,7 +344,7 @@ type LocalData = {
   timerId: number // scrollイベントのdebounce用タイマーID
 }
 
-export default Vue.extend({
+const options = {
   components: {
     CovidIcon,
     PrinterButton,
@@ -527,7 +527,9 @@ export default Vue.extend({
       title,
     }
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" module>

@@ -1,9 +1,9 @@
 import { Plugin } from '@nuxt/types'
 import { ChartData, ChartOptions } from 'chart.js'
-import Vue, { PropType } from 'vue'
+import { Vue } from 'nuxt-property-decorator'
 import { Bar, Doughnut, Line, mixins } from 'vue-chartjs'
 
-import { EventBus, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
+import { TOGGLE_EVENT, $on, $off } from '@/utils/tab-event-bus.ts'
 
 import { useDayjsAdapter } from './chartjs-adapter-dayjs'
 
@@ -25,76 +25,75 @@ const rgba1 = 'rgba(255,255,255,1)'
 const createCustomChart = () => {
   const { reactiveProp } = mixins
 
-  const watchDisplayLegends = function (this: Vue, v?: boolean[] | null) {
-    if (v == null) {
-      return
+  const generalChart = {
+    'general-chart': {
+      props: {
+        chartData: {
+          type: Object as ChartData,
+          default: () => {},
+        },
+        chartOptions: {
+          type: Object as ChartOptions,
+          default: () => {},
+        },
+      },
+      methods: {
+        renderChart() {
+          return { ChartVCMethod(chartData: ChartData, chartOptions: ChartOptions) {}, }
+        },
+      },
+      watch: {
+        displayLegends: {
+          default: {
+            watchDisplayLegend (vue: Vue, v: Array<any>) {
+              if (typeof v === 'undefined' || v.length === 0) {
+                return
+              }
+              const chart: Chart = vue.$data._chart
+              v.forEach((display: boolean, i: number) => {
+                chart.getDatasetMeta(i).hidden = !display
+              })
+              chart.update()
+            }
+          },
+        },
+        width: {
+          default: setTimeout((vue: Vue) => vue.$data._chart.resize()),
+        },
+      },
+      mounted() {
+        setTimeout(() => this.renderChart(this.chartData, this.options))
+        $on(TOGGLE_EVENT, () => {
+          setTimeout(() => this.renderChart(this.chartData, this.options))
+        })
+      },
+      // タブ変更時にグラフの`height`を再計算する
+      beforeDestroy() {
+        $off(TOGGLE_EVENT)
+      }
     }
-    if (v.length === 0) {
-      return
-    }
-    const chart: Chart = this.$data._chart
-    v.forEach((display, i) => {
-      chart.getDatasetMeta(i).hidden = !display
-    })
-    chart.update()
   }
 
-  const generalChart = Vue.component<
-    ChartVCData,
-    ChartVCMethod,
-    ChartVCComputed,
-    ChartVCProps
-  >('general-chart', {
-    mixins: [reactiveProp],
-    props: {
-      displayLegends: {
-        type: Array,
-        default: () => null,
-      },
-      options: {
-        type: Object as PropType<ChartOptions>,
-        default: () => {},
-      },
-    },
-    watch: {
-      displayLegends: watchDisplayLegends,
-      width() {
-        setTimeout(() => this.$data._chart.resize())
-      },
-    },
-    mounted() {
-      setTimeout(() => this.renderChart(this.chartData, this.options))
-
-      // タブ変更時にグラフの`height`を再計算する
-      EventBus.$on(TOGGLE_EVENT, () => {
-        setTimeout(() => this.renderChart(this.chartData, this.options))
-      })
-    },
-    beforeDestroy() {
-      EventBus.$off(TOGGLE_EVENT)
-    },
-  })
-
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'line-chart',
+  const lineChart = {
+    'line-chart':
     {
       mixins: [reactiveProp, Line, generalChart],
     }
-  )
+  }
 
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'bar',
+  const barChart = {
+    'bar':
     {
       mixins: [reactiveProp, Bar, generalChart],
     }
-  )
+  }
 
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'doughnut-chart',
+  const doughnutChart = {
+    'doughnut-chart':
     {
       mixins: [reactiveProp, Doughnut, generalChart],
     }
-  )
+  }
 }
 
 export default VueChartPlugin

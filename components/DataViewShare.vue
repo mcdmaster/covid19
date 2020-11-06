@@ -111,7 +111,7 @@
 <script lang="ts">
 import { mdiClipboardOutline, mdiClose } from '@mdi/js'
 import Vue from 'vue'
-export default Vue.extend({
+const options = {
   props: {
     title: {
       type: String,
@@ -216,7 +216,9 @@ export default Vue.extend({
       window.open(url)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

@@ -36,13 +36,13 @@ import MetroBarChart from '@/components/MetroBarChart.vue'
 import MetroData from '@/data/metro.json'
 import { getComplementedDate } from '@/utils/formatDate'
 
-export default {
+const options = {
   components: {
     MetroBarChart,
   },
   data() {
     // 都営地下鉄の利用者数の推移
-    const datasets = MetroData.datasets.map((d) => ({
+    const datasets = MetroData.datasets.map((d) =>  ({
       ...d,
       label: this.getWeekLabel(d.label),
     }))
@@ -113,4 +113,6 @@ export default {
     },
   },
 }
+
+export default options
 </script>

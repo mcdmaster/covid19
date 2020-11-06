@@ -43,7 +43,7 @@ import SevereCaseBarChart from '@/components/SevereCaseBarChart.vue'
 import Data from '@/data/positive_status.json'
 import { convertDateToISO8601Format } from '@/utils/formatDate.ts'
 
-export default {
+const options = {
   components: {
     SevereCaseBarChart,
     AppLink,
@@ -53,7 +53,7 @@ export default {
     const graphData = Data.data
       .filter((d) => new Date(d.date) > new Date('2020-04-26'))
       .filter((d) => !isNaN(d.severe_case))
-      .map((d) => ({
+      .map((d) =>  ({
         label: convertDateToISO8601Format(d.date),
         transition: d.severe_case,
       }))
@@ -63,4 +63,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

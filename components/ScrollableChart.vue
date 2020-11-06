@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import Vue from 'nuxt-property-decorator'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import { DisplayData } from '@/plugins/vue-chart'
-import { EventBus, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
+import type { DisplayData } from '@/plugins/vue-chart'
+import { EventBus, TOGGLE_EVENT, $on } from '@/utils/tab-event-bus.ts'
 
 type Data = {
   chartWidth: number
@@ -43,8 +43,8 @@ const options: ThisTypedComponentOptionsWithRecordProps<
 > = {
   props: {
     displayData: {
-      type: Object as PropType<DisplayData>,
-      required: true,
+      type: Object,
+      default: {} as DisplayData,
     },
   },
   data() {
@@ -102,7 +102,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     })
 
     // タブ変更時にグラフ`width`を再計算する
-    EventBus.$on(TOGGLE_EVENT, () => {
+    $on(TOGGLE_EVENT, () => {
       setTimeout(() => this.adjustChartWidth())
     })
   },

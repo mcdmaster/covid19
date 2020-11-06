@@ -53,7 +53,7 @@ import Data from '@/data/data.json'
 import { getDayjsObject } from '@/utils/formatDate'
 dayjs.extend(duration)
 
-export default {
+const options = {
   components: {
     TimeStackedBarChart,
   },
@@ -73,7 +73,7 @@ export default {
       this.$t('健康安全研究センターが行った検査件数'),
       this.$t('医療機関等が行った検査件数'),
     ]
-    const inspectionsLabels = inspectionsSummary.labels.map((d) => {
+    const inspectionsLabels = inspectionsSummary.labels.map((d) =>  {
       return getDayjsObject(d).format('YYYY-MM-DD')
     })
     const inspectionsDataLabels = [
@@ -95,4 +95,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

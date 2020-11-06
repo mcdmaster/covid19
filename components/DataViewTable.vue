@@ -81,8 +81,8 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   computed: {
     dataKeys() {
       return this.headers
-        .map((h) => h.value)
-        .filter((h) => h !== this.headerKey)
+        .map((h: any) => h.value)
+        .filter((h: any) => h !== this.headerKey)
     },
   },
   methods: {
@@ -97,7 +97,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style lang="scss">

@@ -19,7 +19,7 @@ import Vue from 'vue'
 
 import AppLink from '@/components/AppLink.vue'
 
-export default Vue.extend({
+const options = {
   components: { AppLink },
   props: {
     mdiBullhorn: {
@@ -27,7 +27,9 @@ export default Vue.extend({
       default: () => mdiBullhorn,
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

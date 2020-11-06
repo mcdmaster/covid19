@@ -63,7 +63,7 @@ type CommentKey = {
   [key: string]: MonitoringComment
 }
 
-export default Vue.extend({
+const options = {
   components: {
     AppLink,
     MonitoringCommentFrame,
@@ -95,7 +95,9 @@ export default Vue.extend({
         : this.monitoringComment[item].display['@en']
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

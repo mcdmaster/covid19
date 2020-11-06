@@ -32,8 +32,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { LinkPropertyHref, MetaInfo } from 'vue-meta'
+import Vue from 'nuxt-property-decorator'
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 
 import DevelopmentModeMark from '@/components/DevelopmentModeMark.vue'
@@ -41,14 +40,13 @@ import NoScript from '@/components/NoScript.vue'
 import SideNavigation from '@/components/SideNavigation.vue'
 import Data from '@/data/data.json'
 import { convertDateToSimpleFormat } from '@/utils/formatDate'
-import { getLinksLanguageAlternative } from '@/utils/i18nUtils'
 
 type LocalData = {
   hasNavigation: boolean
   isOpenNavigation: boolean
   loading: boolean
 }
-export default Vue.extend({
+const options = {
   components: {
     DevelopmentModeMark,
     ScaleLoader,
@@ -89,112 +87,117 @@ export default Vue.extend({
       return window.matchMedia('(min-width: 601px)')
     },
   },
-  head(): MetaInfo {
-    const { htmlAttrs, meta } = this.$nuxtI18nSeo()
-    const ogLocale =
-      meta && meta.length > 0
-        ? meta[0]
-        : {
+  metaInfo: {
+    head() {
+      const { htmlAttrs, meta } = this.$nuxtI18nSeo()
+      const ogLocale =
+        meta && meta.length > 0
+          ? meta[0]
+          : {
             hid: 'og:locale',
             name: 'og:locale',
             content: this.$i18n.locale,
           }
 
-    let linksAlternate: LinkPropertyHref[] = []
-    const basename = this.getRouteBaseName()
-    // 404 エラーなどのときは this.getRouteBaseName() が null になるため除外
-    if (basename) {
-      linksAlternate = getLinksLanguageAlternative(
-        basename,
-        this.$i18n.locales,
-        this.$i18n.defaultLocale
-      )
-    }
+      let linksAlternate = htmlAttrs
+      const basename = this.getRouteBaseName()
+      // 404 エラーなどのときは this.getRouteBaseName() が null になるため除外
+      if (basename) {
+        linksAlternate = this.getLinksLanguageAlternative(
+          basename,
+          this.$i18n.locales,
+          this.$i18n.defaultLocale
+        )
+      }
 
-    const { lastUpdate } = Data
+      const { lastUpdate } = Data
 
-    return {
-      htmlAttrs,
-      link: [
-        {
-          rel: 'canonical',
-          href: `https://stopcovid19.metro.tokyo.lg.jp${this.$route.path}`,
-        },
-        ...linksAlternate,
-      ],
-      // Disable prettier for readability purposes
-      // eslint-disable-next-line prettier/prettier
-      titleTemplate: `%s | ${this.$t('東京都')} ${this.$t('新型コロナウイルス感染症')}${this.$t('対策サイト')}`,
-      meta: [
-        {
-          hid: 'author',
-          name: 'author',
-          content: this.$tc('東京都'),
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: `${this.$t('{date} 更新', {
-            date: convertDateToSimpleFormat(lastUpdate),
-          })}: ${this.$tc(
-            '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
-          )}`,
-        },
-        {
-          hid: 'og:site_name',
-          property: 'og:site_name',
-          content: `${this.$t('東京都')} ${this.$t(
-            '新型コロナウイルス感染症'
-          )} ${this.$t('対策サイト')}`,
-        },
-        {
-          hid: 'og:url',
-          property: 'og:url',
-          content: `https://stopcovid19.metro.tokyo.lg.jp${this.$route.path}`,
-        },
-        ogLocale,
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: `${this.$t('東京都')} ${this.$t(
-            '新型コロナウイルス感染症'
-          )} ${this.$t('対策サイト')}`,
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: `${this.$t('{date} 更新', {
-            date: convertDateToSimpleFormat(lastUpdate),
-          })}: ${this.$tc(
-            '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
-          )}`,
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: this.$tc('ogp.og:image'),
-        },
-        {
-          hid: 'apple-mobile-web-app-title',
-          name: 'apple-mobile-web-app-title',
-          content: `${this.$t('東京都')} ${this.$t(
-            '新型コロナウイルス感染症'
-          )} ${this.$t('対策サイト')}`,
-        },
-        {
-          hid: 'twitter:image',
-          name: 'twitter:image',
-          content: this.$tc('ogp.og:image'),
-        },
-      ],
-    }
+      return {
+        htmlAttrs,
+        link: [
+          {
+            rel: 'canonical',
+            href: `https://stopcovid19.metro.tokyo.lg.jp${this.$route.path}`,
+          },
+          ...linksAlternate,
+        ],
+        // Disable prettier for readability purposes
+        // eslint-disable-next-line prettier/prettier
+        titleTemplate: `%s | ${this.$t('東京都')} ${this.$t('新型コロナウイルス感染症')}${this.$t('対策サイト')}`,
+        meta: [
+          {
+            hid: 'author',
+            name: 'author',
+            content: this.$tc('東京都'),
+          },
+          {
+            hid: 'description',
+            name: 'description',
+            content: `${this.$t('{date} 更新', {
+              date: convertDateToSimpleFormat(lastUpdate),
+            })}: ${this.$tc(
+              '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
+            )}`,
+          },
+          {
+            hid: 'og:site_name',
+            property: 'og:site_name',
+            content: `${this.$t('東京都')} ${this.$t(
+              '新型コロナウイルス感染症'
+            )} ${this.$t('対策サイト')}`,
+          },
+          {
+            hid: 'og:url',
+            property: 'og:url',
+            content: `https://stopcovid19.metro.tokyo.lg.jp${this.$route.path}`,
+          },
+          ogLocale,
+          {
+            hid: 'og:title',
+            property: 'og:title',
+            content: `${this.$t('東京都')} ${this.$t(
+              '新型コロナウイルス感染症'
+            )} ${this.$t('対策サイト')}`,
+          },
+          {
+            hid: 'og:description',
+            property: 'og:description',
+            content: `${this.$t('{date} 更新', {
+              date: convertDateToSimpleFormat(lastUpdate),
+            })}: ${this.$tc(
+              '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
+            )}`,
+          },
+          {
+            hid: 'og:image',
+            property: 'og:image',
+            content: this.$tc('ogp.og:image'),
+          },
+          {
+            hid: 'apple-mobile-web-app-title',
+            name: 'apple-mobile-web-app-title',
+            content: `${this.$t('東京都')} ${this.$t(
+              '新型コロナウイルス感染症'
+            )} ${this.$t('対策サイト')}`,
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: this.$tc('ogp.og:image'),
+          },
+        ],
+      }
+    },
   },
-})
+}
+
+export default options
 </script>
 <style lang="scss">
 @font-face {
   font-family: Roboto;
   font-display: swap;
+  src: url('https://fonts.googleapis.com/css2?family=Roboto') format('svg');
 }
 .app {
   max-width: 1440px;

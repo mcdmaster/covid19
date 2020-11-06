@@ -158,13 +158,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         ? 'cumulative'
         : 'transition'
   },
-  components: {
-    DataView,
-    DataSelector,
-    DataViewTable,
-    DataViewBasicInfoPanel,
-    ScrollableChart,
-  },
   props: {
     title: {
       type: String,
@@ -244,7 +237,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       if (this.dataKind === 'transition') {
         return {
           labels: this.labels,
-          datasets: this.chartData.map((item, index) => {
+          datasets: this.chartData.map((item: any, index: number) => {
             return {
               label: this.items[index],
               data: item,
@@ -257,7 +250,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       }
       return {
         labels: this.labels,
-        datasets: this.chartData.map((item, index) => {
+        datasets: this.chartData.map((item: any, index: number) => {
           return {
             label: this.items[index],
             data: this.cumulative(item),
@@ -292,10 +285,10 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     tableData() {
       return this.labels
-        .map((label, i) => {
+        .map((label: any, i: number) => {
           return Object.assign(
             { text: label },
-            ...this.tableHeaders.map((_, j) => {
+            ...this.tableHeaders.map((_any: any, j: number) => {
               const index = j < 2 ? 0 : 1
               const transition = this.chartData[index]
               const cumulative = this.cumulative(transition)
@@ -308,7 +301,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
             })
           )
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
     displayOption() {
@@ -316,7 +309,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       const unit = this.unit
       const sumArray = this.eachArraySum(this.chartData)
       const data = this.chartData
-      const cumulativeData = this.chartData.map((item) => {
+      const cumulativeData = this.chartData.map((item: any) => {
         return this.cumulative(item)
       })
       const cumulativeSumArray = this.eachArraySum(cumulativeData)
@@ -540,7 +533,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     scaledTicksYAxisMax() {
       return Array.from(this.chartData[0].keys())
-        .map((i) => this.chartData[0][i] + this.chartData[1][i])
+        .map((i) => this.chartData[0][i as number] + this.chartData[1][i as number])
         .reduce((a, b) => Math.max(a, b), 0)
     },
   },
@@ -605,7 +598,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style module lang="scss">

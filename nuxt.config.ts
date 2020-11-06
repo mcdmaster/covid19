@@ -1,7 +1,8 @@
+import Vue from 'nuxt-property-decorator'
 import i18n from './nuxt-i18n.config'
 const environment = process.env.NODE_ENV || 'development'
 
-const config = {
+const options = {
   // Since nuxt@2.14.5, there have been significant changes.
   // We dealt with typical two (2) out of them:
   // 1) The "mode:" directive got deprecated (seen right below);
@@ -95,9 +96,9 @@ const config = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
+    '@nuxt/typescript-build',
     '@nuxtjs/stylelint-module',
     '@nuxtjs/vuetify',
-    '@nuxt/typescript-build',
     '@nuxtjs/device',
     '@nuxtjs/google-analytics',
     '@nuxtjs/gtm',
@@ -165,6 +166,7 @@ const config = {
     extend(config) {
       // default externals option is undefined
       config.externals = [{ moment: 'moment' }]
+      config.node = { fs: 'empty', }
     },
     // https://ja.nuxtjs.org/api/configuration-build/#hardsource
     // hardSource: process.env.NODE_ENV === 'development'
@@ -234,4 +236,4 @@ const config = {
   },
 }
 
-export default config
+export default options

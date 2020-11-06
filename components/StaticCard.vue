@@ -7,7 +7,9 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend()
+const options = Vue
+
+export default options
 </script>
 
 <style lang="scss">

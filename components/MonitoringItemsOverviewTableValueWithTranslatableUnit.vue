@@ -11,7 +11,7 @@ import Vue, { PropType } from 'vue'
 
 import { Unit } from '@/utils/formatMonitoringItems'
 
-export default Vue.extend({
+const options = {
   props: {
     value: {
       type: String,
@@ -22,7 +22,9 @@ export default Vue.extend({
       required: true,
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" module>

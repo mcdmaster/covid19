@@ -28,7 +28,7 @@
 <script lang="ts">
 import Vue from 'vue'
 
-export default Vue.extend({
+const options = {
   name: 'DataSelector',
   props: {
     value: {
@@ -42,7 +42,9 @@ export default Vue.extend({
       },
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

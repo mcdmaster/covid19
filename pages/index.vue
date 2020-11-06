@@ -25,14 +25,14 @@
 
 <script lang="ts">
 import { mdiChartTimelineVariant } from '@mdi/js'
-import Vue from 'vue'
+import { Vue, Emit } from 'nuxt-property-decorator'
 
 import CardsMonitoring from '@/components/CardsMonitoring.vue'
 import CardsReference from '@/components/CardsReference.vue'
 import SiteTopUpper from '@/components/SiteTopUpper.vue'
 import { EventBus, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
 
-export default Vue.extend({
+const options = {
   components: {
     SiteTopUpper,
     CardsMonitoring,
@@ -55,10 +55,12 @@ export default Vue.extend({
   },
   methods: {
     change() {
-      EventBus.$emit(TOGGLE_EVENT)
+      Emit(TOGGLE_EVENT)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

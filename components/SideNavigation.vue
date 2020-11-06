@@ -168,7 +168,7 @@ type Item = {
   divider?: boolean
 }
 
-export default Vue.extend({
+const options = {
   components: {
     LanguageSelector,
     MenuList,
@@ -290,7 +290,9 @@ export default Vue.extend({
       ]
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

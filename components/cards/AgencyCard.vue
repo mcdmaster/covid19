@@ -22,7 +22,7 @@ import AgencyBarChart from '@/components/AgencyBarChart.vue'
 import AgencyData from '@/data/agency.json'
 import { getComplementedDate } from '@/utils/formatDate'
 
-export default {
+const options = {
   components: {
     AgencyBarChart,
   },
@@ -46,4 +46,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

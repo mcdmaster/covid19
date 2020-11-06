@@ -24,7 +24,7 @@
 
 <script lang="ts">
 import { ChartOptions } from 'chart.js'
-import Vue from 'vue'
+import Vue from 'nuxt-property-decorator'
 import VueI18n from 'vue-i18n'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
@@ -77,7 +77,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   created() {
     this.canvas = process.browser
   },
-  components: { DataView, DataViewTable },
   props: {
     title: {
       type: String,
@@ -122,7 +121,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       const graphSeries = getGraphSeriesStyle(this.chartData.datasets.length)
       return {
         labels: this.chartData.labels as string[],
-        datasets: this.chartData.datasets.map((item, index) => {
+        datasets: this.chartData.datasets.map((item: any, index: number) => {
           return {
             label: this.agencies[index] as string,
             data: item.data,
@@ -205,17 +204,17 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     tableHeaders() {
       return [
         { text: this.$t('日付'), value: 'text' },
-        ...this.displayData.datasets.map((text, value) => {
+        ...this.displayData.datasets.map((text: any, value: any) => {
           return { text: text.label, value: String(value), align: 'end' }
         }),
       ]
     },
     tableData() {
       return this.displayData.datasets[0].data
-        .map((_, i) => {
+        .map((_any: any, i: number) => {
           return Object.assign(
             { text: this.displayData.labels![i] },
-            ...this.displayData.datasets!.map((_, j) => {
+            ...this.displayData.datasets!.map((_any: any, j: number) => {
               return {
                 [j]: this.displayData.datasets[j].data[i].toLocaleString(),
               }
@@ -238,5 +237,5 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>

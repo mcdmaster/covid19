@@ -92,8 +92,7 @@ import DataView from '@/components/DataView.vue'
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 import OpenDataLink from '@/components/OpenDataLink.vue'
 
-export default Vue.extend({
-  components: { DataView, DataViewBasicInfoPanel, OpenDataLink, ScaleLoader },
+const options = {
   props: {
     title: {
       type: String,
@@ -161,7 +160,9 @@ export default Vue.extend({
       table.setAttribute('tabindex', '0')
     })
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

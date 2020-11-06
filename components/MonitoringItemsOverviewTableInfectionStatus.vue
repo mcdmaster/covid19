@@ -81,7 +81,7 @@ import Vue, { PropType } from 'vue'
 import MonitoringItemsOverviewTableValueWithTranslatableUnit from '@/components/MonitoringItemsOverviewTableValueWithTranslatableUnit.vue'
 import { MonitoringItems } from '@/utils/formatMonitoringItems'
 
-export default Vue.extend({
+const options = {
   components: {
     MonitoringItemsOverviewTableValueWithTranslatableUnit,
   },
@@ -91,7 +91,9 @@ export default Vue.extend({
       required: true,
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" module>

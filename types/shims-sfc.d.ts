@@ -1,4 +1,4 @@
 declare module '*.vue' {
-  import Vue from 'vue'
-  export default Vue
+  import { Vue, Component } from 'nuxt-property-decorator'
+  export default Component
 }

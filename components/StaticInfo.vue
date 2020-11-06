@@ -14,7 +14,7 @@ import Vue from 'vue'
 
 import AppLink from '@/components/AppLink.vue'
 
-export default Vue.extend({
+const options = {
   components: { AppLink },
   props: {
     url: {
@@ -30,7 +30,9 @@ export default Vue.extend({
       default: '',
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

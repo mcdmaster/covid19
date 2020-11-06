@@ -47,33 +47,20 @@ import AgencyCard from '@/components/cards/AgencyCard.vue'
 /* eslint-enable simple-import-sort/sort */
 
 import { getLinksLanguageAlternative } from '@/utils/i18nUtils'
+import Vue from 'vue'
 
-export default {
-  components: {
-    // ---- モニタリング項目
-    ConfirmedCasesDetailsCard,
-    ConfirmedCasesNumberCard,
-    MonitoringItemsOverviewCard,
-    MonitoringConfirmedCasesNumberCard,
-    ConsultationAboutFeverNumberCard,
-    UntrackedRateCard,
-    PositiveRateCard,
-    TokyoRulesApplicationNumberCard,
-    HospitalizedNumberCard,
-    SevereCaseCard,
-    // ---- その他 参考指標
-    ConfirmedCasesAttributesCard,
-    ConfirmedCasesByMunicipalitiesCard,
-    PositiveNumberByDevelopedDateCard,
-    PositiveNumberByDiagnosedDateCard,
-    TestedNumberCard,
-    MonitoringConsultationDeskReportsNumberCard,
-    TelephoneAdvisoryReportsNumberCard,
-    MetroCard,
-    AgencyCard,
-  },
+const options = {
   data() {
-    let title, updatedAt, cardComponent
+    const title = ''
+    const updatedAt = ''
+    const cardComponent = ''
+    return {
+      title,
+      updatedAt,
+      cardComponent,
+    }
+  },
+  computed: () => {
     switch (this.$route.params.card) {
       // NOTE: 以下，ブラウザでの表示順に合わせて条件分岐を行う
       // ---- モニタリング項目
@@ -154,81 +141,80 @@ export default {
       case 'agency':
         cardComponent = 'agency-card'
     }
-
     return {
       cardComponent,
       title,
       updatedAt,
     }
   },
-  head() {
-    const url = 'https://stopcovid19.metro.tokyo.lg.jp'
-    const timestamp = new Date().getTime()
-    const ogpImage =
-      this.$i18n.locale === 'ja'
-        ? `${url}/ogp/${this.$route.params.card}.png?t=${timestamp}`
-        : `${url}/ogp/${this.$i18n.locale}/${this.$route.params.card}.png?t=${timestamp}`
-    const description = `${this.$t(
-      '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
-    )}`
-    const defaultTitle = `${this.$t('東京都')} ${this.$t(
-      '新型コロナウイルス感染症'
-    )}${this.$t('対策サイト')}`
+  metaInfo: {
+    head() {
+      return {
+        url: 'https://stopcovid19.metro.tokyo.lg.jp',
+        timestamp: new Date().getTime(),
+        ogpImage: this.$i18n.locale === 'ja'
+           ? `${url}/ogp/${this.$route.params.card}.png?t=${timestamp}`
+           : `${url}/ogp/${this.$i18n.locale}/${this.$route.params.card}.png?t=${timestamp}`,
+        description: `${this.$t(
+          '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
+        )}`,
+        defaultTitle: `${this.$t('東京都')} ${this.$t(
+          '新型コロナウイルス感染症'
+        )}${this.$t('対策サイト')}`,
 
-    return {
-      titleTemplate: (title) => `${this.title || title} | ${defaultTitle}`,
-      link: [
-        ...getLinksLanguageAlternative(
-          `cards/${this.$route.params.card}`,
-          this.$i18n.locales,
-          this.$i18n.defaultLocale
-        ),
-      ],
-      meta: [
-        {
-          hid: 'og:url',
-          property: 'og:url',
-          content: `${url}${this.$route.path}/`,
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          template: (title) =>
-            title !== ''
+        titleTemplate: (title) => `${this.title || title} | ${defaultTitle}`,
+        link: [
+          ...this.getLinksLanguageAlternative(
+            `cards/${this.$route.params.card}`,
+            this.$i18n.locales,
+            this.$i18n.defaultLocale
+          ),
+        ],
+        meta: [
+          {
+            hid: 'og:url',
+            property: 'og:url',
+            content: `${url}${this.$route.path}/`,
+          },
+          {
+            hid: 'og:title',
+            property: 'og:title',
+            template: (title) => title !== ''
               ? `${this.title || title} | ${defaultTitle}`
               : `${defaultTitle}`,
-          content: '',
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          template: (updatedAt) =>
-            updatedAt !== ''
+                  content: '',
+          },
+          {
+            hid: 'description',
+            name: 'description',
+            template: (updatedAt) => updatedAt !== ''
               ? `${this.updatedAt || updatedAt} | ${description}`
               : `${description}`,
-          content: '',
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          template: (updatedAt) =>
-            updatedAt !== ''
+                  content: '',
+          },
+          {
+            hid: 'og:description',
+            property: 'og:description',
+            template: (updatedAt) => updatedAt !== ''
               ? `${this.updatedAt || updatedAt} | ${description}`
               : `${description}`,
-          content: '',
-        },
-        {
-          hid: 'og:image',
-          property: 'og:image',
-          content: ogpImage,
-        },
-        {
-          hid: 'twitter:image',
-          name: 'twitter:image',
-          content: ogpImage,
-        },
-      ],
-    }
+                content: '',
+          },
+          {
+            hid: 'og:image',
+            property: 'og:image',
+            content: ogpImage,
+          },
+          {
+            hid: 'twitter:image',
+            name: 'twitter:image',
+            content: ogpImage,
+          },
+        ],
+      }
+    },
   },
 }
+
+export default options
 </script>

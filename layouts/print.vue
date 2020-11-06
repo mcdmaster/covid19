@@ -33,11 +33,10 @@
   </v-app>
 </template>
 <script lang="ts">
-import Vue from 'vue'
-import { MetaInfo } from 'vue-meta'
+import Vue from 'nuxt-property-decorator'
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 
-export default Vue.extend({
+const options = {
   components: {
     ScaleLoader,
   },
@@ -58,24 +57,28 @@ export default Vue.extend({
       window.print()
     },
   },
-  head(): MetaInfo {
-    return {
-      meta: [
-        {
-          hid: 'robots',
-          name: 'robots',
-          content: 'noindex',
-        },
-      ],
-      link: [
-        {
-          rel: 'canonical',
-          href: `https://stopcovid19.metro.tokyo.lg.jp${this.$route.path}`,
-        },
-      ],
-    }
+  metaInfo: {
+    head() {
+      return {
+        meta: [
+          {
+            hid: 'robots',
+            name: 'robots',
+            content: 'noindex',
+          },
+        ],
+        link: [
+          {
+            rel: 'canonical',
+            href: `https://stopcovid19.metro.tokyo.lg.jp${this.$route.path}`,
+          },
+        ],
+      }
+    },
   },
-})
+}
+
+export default options
 </script>
 <style lang="scss">
 .app-print {

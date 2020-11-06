@@ -148,13 +148,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   created() {
     this.canvas = process.browser
   },
-  components: {
-    DataView,
-    DataViewTable,
-    DataViewBasicInfoPanel,
-    ScrollableChart,
-    OpenDataLink,
-  },
   props: {
     title: {
       type: String,
@@ -230,11 +223,11 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayData() {
       const style = [getGraphSeriesColor('D')]
       return {
-        labels: this.chartData.map((d) => d.label),
+        labels: this.chartData.map((d: any) =>  d.label),
         datasets: [
           {
             label: this.items[0],
-            data: this.chartData.map((d) => d.transition),
+            data: this.chartData.map((d: any) =>  d.transition),
             backgroundColor: style[0].fillColor,
             borderColor: style[0].strokeColor,
             borderWidth: 1,
@@ -347,7 +340,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         labels: ['2020-01-01'],
         datasets: [
           {
-            data: [Math.max(...this.chartData.map((d) => d.transition))],
+            data: [Math.max(...this.chartData.map((d: any) =>  d.transition))],
             backgroundColor: 'transparent',
             pointBackgroundColor: 'rgba(0,0,0,0)',
             pointBorderColor: 'rgba(0,0,0,0)',
@@ -432,7 +425,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       return options
     },
     scaledTicksYAxisMax() {
-      const values = this.chartData.map((d) => d.transition)
+      const values = this.chartData.map((d: any) =>  d.transition)
       return Math.max(...values)
     },
     tableHeaders() {
@@ -447,13 +440,13 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     tableData() {
       return this.chartData
-        .map((d) => {
+        .map((d: any) =>  {
           return {
             text: d.label,
             transition: this.formatter(d.transition),
           }
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
   },
@@ -490,7 +483,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style module lang="scss">

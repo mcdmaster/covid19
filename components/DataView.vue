@@ -78,15 +78,14 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { MetaInfo } from 'vue-meta'
+import Vue from 'nuxt-property-decorator'
 
 import AppLink from '@/components/AppLink.vue'
 import DataViewExpantionPanel from '@/components/DataViewExpantionPanel.vue'
 import DataViewShare from '@/components/DataViewShare.vue'
 import { convertDatetimeToISO8601Format } from '@/utils/formatDate'
 
-export default Vue.extend({
+const options = {
   components: { DataViewExpantionPanel, DataViewShare, AppLink },
   props: {
     title: {
@@ -118,32 +117,36 @@ export default Vue.extend({
       return this.localePath(permalink)
     },
   },
-  head(): MetaInfo {
-    // カードの個別ページの場合は、タイトルと更新時刻を`page/cards/_card`に渡す
-    if (!this.$route.params.card) return {}
+  metaInfo: {
+    head() {
+      // カードの個別ページの場合は、タイトルと更新時刻を`page/cards/_card`に渡す
+      if (!this.$route.params.card) return {}
 
-    return {
-      title: this.headTitle ? this.headTitle : this.title,
-      meta: [
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: this.headTitle ? this.headTitle : this.title,
-        },
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.formattedDateForDisplay,
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: this.formattedDateForDisplay,
-        },
-      ],
-    }
+      return {
+        title: this.headTitle ? this.headTitle : this.title,
+        meta: [
+          {
+            hid: 'og:title',
+            property: 'og:title',
+            content: this.headTitle ? this.headTitle : this.title,
+          },
+          {
+            hid: 'description',
+            name: 'description',
+            content: this.formattedDateForDisplay,
+          },
+          {
+            hid: 'og:description',
+            property: 'og:description',
+            content: this.formattedDateForDisplay,
+          },
+        ],
+      }
+    },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

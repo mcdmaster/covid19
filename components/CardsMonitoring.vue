@@ -52,7 +52,7 @@ import HospitalizedNumberCard from '@/components/cards/HospitalizedNumberCard.vu
 import SevereCaseCard from '@/components/cards/SevereCaseCard.vue'
 /* eslint-enable simple-import-sort/sort */
 
-export default Vue.extend({
+const options = {
   components: {
     CardRow,
     ConfirmedCasesDetailsCard,
@@ -66,7 +66,9 @@ export default Vue.extend({
     HospitalizedNumberCard,
     SevereCaseCard,
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

@@ -19,7 +19,7 @@
 <script>
 import Vue from 'vue'
 
-export default Vue.extend({
+const options = {
   props: {
     level: {
       type: Number,
@@ -37,7 +37,9 @@ export default Vue.extend({
       colors: ['#96cd5f', '#fffc4e', '#fdbe40', '#fa1629'],
     }
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

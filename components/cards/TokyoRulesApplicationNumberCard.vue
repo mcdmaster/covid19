@@ -38,15 +38,15 @@ import {
   getNumberToLocaleStringFunction,
 } from '@/utils/monitoringStatusValueFormatters'
 
-export default {
+const options = {
   components: {
     MixedBarAndLineChart,
   },
   data() {
     const data = TokyoRule.data
-    const applicationReportsCount = data.map((d) => d.count)
-    const sevendayMoveAverages = data.map((d) => d.weekly_average_count)
-    const labels = data.map((d) => d.date)
+    const applicationReportsCount = data.map((d) =>  d.count)
+    const sevendayMoveAverages = data.map((d) =>  d.weekly_average_count)
+    const labels = data.map((d) =>  d.date)
     const chartData = [applicationReportsCount, sevendayMoveAverages]
     const dataLabels = [this.$t('適用件数'), this.$t('７日間移動平均')]
     const date = TokyoRule.date
@@ -67,4 +67,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

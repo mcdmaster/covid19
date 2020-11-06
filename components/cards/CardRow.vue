@@ -8,7 +8,7 @@
 import Vue from 'vue'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import { EventBus, TOGGLE_EVENT } from '@/utils/card-event-bus'
+import { EventBus, TOGGLE_EVENT, $on, $off } from '@/utils/card-event-bus'
 
 const cardClassName = '.DataCard'
 
@@ -85,18 +85,18 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
   mounted() {
     window.addEventListener('resize', this.handleCardHeight)
-    EventBus.$on(TOGGLE_EVENT, (payload: Payload) => {
+    $on(TOGGLE_EVENT, (payload: Payload) => {
       this.payload = payload
       this.alignHeight()
     })
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleCardHeight)
-    EventBus.$off(TOGGLE_EVENT)
+    $off(TOGGLE_EVENT)
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style lang="scss">

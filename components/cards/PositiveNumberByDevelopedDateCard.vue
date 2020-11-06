@@ -49,7 +49,7 @@ import { calcDayBeforeRatio } from '@/utils/formatDayBeforeRatio'
 import formatGraph from '@/utils/formatGraph'
 import { getCommaSeparatedNumberToFixedFunction } from '~/utils/monitoringStatusValueFormatters'
 
-export default {
+const options = {
   components: {
     TimeBarChart: {
       extends: TimeBarChart,
@@ -109,4 +109,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

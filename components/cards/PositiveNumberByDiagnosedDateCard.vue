@@ -32,7 +32,7 @@ import Data from '@/data/positive_by_diagnosed.json'
 import { calcDayBeforeRatio } from '@/utils/formatDayBeforeRatio'
 import formatGraph from '@/utils/formatGraph'
 
-export default {
+const options = {
   components: {
     TimeBarChart: {
       extends: TimeBarChart,
@@ -80,4 +80,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

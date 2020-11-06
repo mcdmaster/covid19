@@ -92,7 +92,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   created() {
     this.canvas = process.browser
   },
-  components: { DataView, DataViewTable, AppLink },
   props: {
     title: {
       type: String,
@@ -133,34 +132,34 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   computed: {
     displayData() {
       const graphSeries = getGraphSeriesStyle(this.chartData.labels!.length)
-      const datasets = this.chartData.labels!.map((label, i) => {
+      const datasets = this.chartData.labels!.map((label: any, i: number) => {
         return {
           label: label as string,
-          data: this.chartData.datasets!.map((d) => d.data![i]) as number[],
+          data: this.chartData.datasets!.map((d: any) =>  d.data![i]) as number[],
           backgroundColor: graphSeries[i].fillColor,
           borderColor: graphSeries[i].strokeColor,
           borderWidth: 1,
         }
       })
       return {
-        labels: this.chartData.datasets!.map((d) => d.label!),
+        labels: this.chartData.datasets!.map((d: any) =>  d.label!),
         datasets,
       }
     },
     tableHeaders() {
       return [
         { text: this.$t('日付'), value: 'text' },
-        ...this.chartData.labels!.map((text, value) => {
+        ...this.chartData.labels!.map((text: any, value: any) => {
           return { text: text as string, value: String(value), align: 'end' }
         }),
       ]
     },
     tableData() {
       return this.displayData.datasets[0].data
-        .map((_, i) => {
+        .map((_any: any, i: number) => {
           return Object.assign(
             { text: this.chartData.datasets![i].label },
-            ...this.chartData.labels!.map((_, j) => {
+            ...this.chartData.labels!.map((_any: any, j: number) => {
               return {
                 [j]: this.displayData.datasets[j].data[i],
               }
@@ -247,5 +246,5 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>

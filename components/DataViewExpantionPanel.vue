@@ -25,11 +25,11 @@
 
 <script lang="ts">
 import { mdiChevronRight, mdiOpenInNew } from '@mdi/js'
-import Vue from 'vue'
+import { Vue, Emit } from 'nuxt-property-decorator'
 
 import { EventBus, TOGGLE_EVENT } from '@/utils/card-event-bus'
 
-export default Vue.extend({
+const options = {
   props: {
     mdiOpenInNew: {
       type: String,
@@ -50,10 +50,12 @@ export default Vue.extend({
   },
   methods: {
     toggleDetails() {
-      EventBus.$emit(TOGGLE_EVENT, { dataView: this.$parent })
+      Emit(TOGGLE_EVENT)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

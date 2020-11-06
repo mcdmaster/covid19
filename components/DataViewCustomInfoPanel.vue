@@ -13,7 +13,7 @@
 
 <script lang="ts">
 import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
-export default DataViewBasicInfoPanel.extend({
+const options = {
   props: {
     lText: {
       type: String,
@@ -24,5 +24,7 @@ export default DataViewBasicInfoPanel.extend({
       default: '',
     },
   },
-})
+}
+
+export default options
 </script>

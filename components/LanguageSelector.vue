@@ -32,7 +32,7 @@ type LocalData = {
   currentLocaleCode: string
 }
 
-export default Vue.extend({
+const options = {
   components: {
     EarthIcon,
     SelectMenuIcon,
@@ -52,7 +52,9 @@ export default Vue.extend({
       this.$root.$i18n.setLocale(this.currentLocaleCode)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

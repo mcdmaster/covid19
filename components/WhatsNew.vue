@@ -37,7 +37,7 @@ import AppLink from '@/components/AppLink.vue'
 import LinkToInformationAboutEmergencyMeasure from '@/components/LinkToInformationAboutEmergencyMeasure.vue'
 import { convertDateToISO8601Format } from '@/utils/formatDate'
 
-export default Vue.extend({
+const options = {
   components: {
     LinkToInformationAboutEmergencyMeasure,
     AppLink,
@@ -65,7 +65,9 @@ export default Vue.extend({
       return this.$d(new Date(dateString), 'date')
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

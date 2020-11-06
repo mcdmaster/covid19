@@ -35,7 +35,7 @@ type MenuItem = {
   divider?: boolean
 }
 
-export default Vue.extend({
+const options = {
   components: {
     CovidIcon,
     MaskTrashIcon,
@@ -67,7 +67,9 @@ export default Vue.extend({
         : null
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

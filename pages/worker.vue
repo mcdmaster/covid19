@@ -69,23 +69,30 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { MetaInfo } from 'vue-meta'
+import Vue from 'nuxt-property-decorator'
 
 import AppLink from '@/components/AppLink.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import StaticCard from '@/components/StaticCard.vue'
 
-export default Vue.extend({
+const options = {
   components: {
     PageHeader,
     StaticCard,
     AppLink,
   },
-  head(): MetaInfo {
-    return {
-      title: this.$t('企業の皆様・はたらく皆様へ') as string,
-    }
+  metaInfo: {
+    head() {
+      return {
+        meta: [
+          {
+            title: this.$t('企業の皆様・はたらく皆様へ') as string,
+          },
+        ],
+      }
+    },
   },
-})
+}
+
+export default options
 </script>

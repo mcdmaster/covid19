@@ -33,7 +33,7 @@ import { getCommaSeparatedNumberToFixedFunction } from '~/utils/monitoringStatus
 
 const countFormatter = getCommaSeparatedNumberToFixedFunction()
 
-export default {
+const options = {
   components: {
     ConfirmedCasesByMunicipalitiesTable,
   },
@@ -85,7 +85,7 @@ export default {
     // データを追加
     municipalitiesTable.datasets = datasets.data
       .filter((d) => d.label !== '小計')
-      .map((d) => {
+      .map((d) =>  {
         const area = this.$t(d.area)
         const label = this.$t(d.label)
         const count = countFormatter(d.count)
@@ -111,4 +111,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

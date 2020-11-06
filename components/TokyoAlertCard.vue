@@ -23,7 +23,7 @@ import Vue from 'vue'
 import ActiveTokyoAlert from '@/components/ActiveTokyoAlert.vue'
 import tokyoAlert from '@/data/tokyo_alert.json'
 
-export default Vue.extend({
+const options = {
   components: {
     ActiveTokyoAlert,
   },
@@ -32,7 +32,9 @@ export default Vue.extend({
       tokyoAlert,
     }
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

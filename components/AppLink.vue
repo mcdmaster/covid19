@@ -38,7 +38,7 @@ type ExternalAttr = {
   class: String
 }
 
-export default Vue.extend({
+const options = {
   props: {
     to: {
       type: String,
@@ -103,7 +103,9 @@ export default Vue.extend({
       return `${this.iconSize / 10}rem`
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

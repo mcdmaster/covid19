@@ -1,4 +1,5 @@
-import type { NuxtVueI18n } from 'nuxt-i18n'
+import { NuxtI18nComponentOptions } from 'nuxt-i18n/types/nuxt-i18n'
+import { Vue } from 'nuxt-property-decorator'
 
 const dateTimeFormatsCommon = {
   dateTime: {
@@ -25,7 +26,7 @@ const dateTimeFormatsCommon = {
   },
 }
 
-const options: NuxtVueI18n.Options.AllOptionsInterface = {
+const options: NuxtI18nComponentOptions = {
   strategy: 'prefix_except_default',
   detectBrowserLanguage: false,
   defaultLocale: 'ja',

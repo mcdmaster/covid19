@@ -28,7 +28,6 @@
 <script lang="ts">
 import { mdiChartTimelineVariant } from '@mdi/js'
 import Vue from 'vue'
-import { MetaInfo } from 'vue-meta'
 
 import MonitoringCommentCard from '@/components/MonitoringCommentCard.vue'
 import PageHeader from '@/components/PageHeader.vue'
@@ -40,7 +39,7 @@ import News from '@/data/news.json'
 import TokyoAlert from '@/data/tokyo_alert.json'
 import { convertDatetimeToISO8601Format } from '@/utils/formatDate'
 
-export default Vue.extend({
+const options = {
   components: {
     PageHeader,
     WhatsNew,
@@ -68,12 +67,16 @@ export default Vue.extend({
       return `${this.$d(new Date(this.$data.lastUpdate), 'dateTime')} JST`
     },
   },
-  head(): MetaInfo {
-    return {
-      title: this.$t('都内の最新感染動向') as string,
-    }
+  metaInfo: {
+    head() {
+      return {
+        title: this.$t('都内の最新感染動向') as string,
+      }
+    },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

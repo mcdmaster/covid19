@@ -49,7 +49,7 @@ import {
   getNumberToLocaleStringFunction,
 } from '@/utils/monitoringStatusValueFormatters'
 
-export default {
+const options = {
   components: {
     MonitoringConfirmedCasesChart,
   },
@@ -86,4 +86,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

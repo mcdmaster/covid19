@@ -52,7 +52,7 @@ import MetroCard from '@/components/cards/MetroCard.vue'
 import AgencyCard from '@/components/cards/AgencyCard.vue'
 /* eslint-enable simple-import-sort/sort */
 
-export default Vue.extend({
+const options = {
   components: {
     CardRow,
     ConfirmedCasesAttributesCard,
@@ -65,7 +65,9 @@ export default Vue.extend({
     MetroCard,
     AgencyCard,
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>
