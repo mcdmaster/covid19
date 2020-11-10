@@ -1,5 +1,3 @@
-import dayjs from 'dayjs'
-
 type Header = {
   text: string
   value: string
@@ -41,18 +39,18 @@ type TableDateType = {
  *
  * @param data - Raw data
  */
-export default function (data: DataType[]): TableDateType {
-  const datasets = data
-    .map((d: any) =>  ({
-      公表日: d['公表_年月日'] ?? '不明',
-      居住地: d['患者_居住地'] ?? '調査中',
-      年代: d['患者_年代'] ?? '不明',
-      性別: d['患者_性別'] ?? '不明',
-      退院: d['退院済フラグ'] ? '〇' : '',
-    }))
-    .sort((a: any, b: any) => dayjs(a.公表日).unix() - dayjs(b.公表日).unix())=======
+const options = function (data: DataType[]): TableDateType {
+  const datasets = data.map((d) => ({
+    公表日: d['公表_年月日'] ?? '不明',
+    居住地: d['患者_居住地'] ?? '調査中',
+    年代: d['患者_年代'] ?? '不明',
+    性別: d['患者_性別'] ?? '不明',
+    退院: d['退院済フラグ'] ? '〇' : '',
+  }))
   return {
     headers,
     datasets,
   }
 }
+
+export default options

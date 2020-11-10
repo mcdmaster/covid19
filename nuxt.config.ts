@@ -1,4 +1,3 @@
-import Vue from 'nuxt-property-decorator'
 import i18n from './nuxt-i18n.config'
 const environment = process.env.NODE_ENV || 'development'
 
@@ -103,6 +102,7 @@ const options = {
     '@nuxtjs/google-analytics',
     '@nuxtjs/gtm',
     '@nuxtjs/pwa',
+    '@nuxtjs/router',
     'nuxt-svg-loader',
   ],
   /*
@@ -110,9 +110,9 @@ const options = {
    */
   modules: [
     // Doc: https://github.com/nuxt-community/dotenv-module
-    ['@nuxtjs/dotenv', { filename: `.env.${environment}`, }],
+    ['@nuxtjs/dotenv', { filename: `.env.${environment}` }],
     ['nuxt-i18n', i18n],
-    ['vue-scrollto/nuxt', { duration: 1000, offset: -72, }],
+    ['vue-scrollto/nuxt', { duration: 1000, offset: -72 }],
   ],
   /*
    ** vuetify module configuration
@@ -166,7 +166,7 @@ const options = {
     extend(config) {
       // default externals option is undefined
       config.externals = [{ moment: 'moment' }]
-      config.node = { fs: 'empty', }
+      config.node = { fs: 'empty' }
     },
     // https://ja.nuxtjs.org/api/configuration-build/#hardsource
     // hardSource: process.env.NODE_ENV === 'development'
@@ -196,35 +196,43 @@ const options = {
   },
   generate: {
     fallback: true,
-    routes() {
-      const locales = ['en', 'zh-cn', 'zh-tw', 'ko', 'ja-basic']
-      const pages = [
-        '/cards/details-of-confirmed-cases',
-        '/cards/number-of-confirmed-cases',
-        '/cards/number-of-confirmed-cases-by-municipalities',
-        '/cards/attributes-of-confirmed-cases',
-        '/cards/number-of-tested',
-        '/cards/number-of-reports-to-covid19-telephone-advisory-center',
-        '/cards/predicted-number-of-toei-subway-passengers',
-        '/cards/agency',
-        '/cards/positive-rate',
-        '/cards/positive-number-by-diagnosed-date',
-        '/cards/monitoring-number-of-confirmed-cases',
-        '/cards/untracked-rate',
-        '/cards/positive-status-severe-case',
-        '/cards/number-of-hospitalized',
-        '/cards/monitoring-number-of-reports-to-covid19-consultation-desk',
-        '/cards/monitoring-status-overview',
-        '/cards/number-of-reports-to-consultations-about-fever-in-7119',
-        '/cards/number-of-tokyo-rules-applied',
-        '/cards/monitoring-items-overview',
-        '/cards/positive-number-by-developed-date',
-      ]
-      const localizedPages = locales
-        .map((locale) => pages.map((page) => `/${locale}${page}`))
-        .reduce((a, b) => [...a, ...b], [])
-      return [...pages, ...localizedPages]
-    },
+    routes: [
+      // './.nuxt/router.js',
+      // './utils/router.ts',
+      {
+        locales: ['en', 'zh-cn', 'zh-tw', 'ko', 'ja-basic'],
+        pages: [
+          '/cards/details-of-confirmed-cases',
+          '/cards/number-of-confirmed-cases',
+          '/cards/number-of-confirmed-cases-by-municipalities',
+          '/cards/attributes-of-confirmed-cases',
+          '/cards/number-of-tested',
+          '/cards/number-of-reports-to-covid19-telephone-advisory-center',
+          '/cards/predicted-number-of-toei-subway-passengers',
+          '/cards/agency',
+          '/cards/positive-rate',
+          '/cards/positive-number-by-diagnosed-date',
+          '/cards/monitoring-number-of-confirmed-cases',
+          '/cards/untracked-rate',
+          '/cards/positive-status-severe-case',
+          '/cards/number-of-hospitalized',
+          '/cards/monitoring-number-of-reports-to-covid19-consultation-desk',
+          '/cards/monitoring-status-overview',
+          '/cards/number-of-reports-to-consultations-about-fever-in-7119',
+          '/cards/number-of-tokyo-rules-applied',
+          '/cards/monitoring-items-overview',
+          '/cards/positive-number-by-developed-date',
+        ],
+        localizedPages() {
+          const loc = this.locales
+            .map((locale: any) =>
+              this.pages.map((page: any) => `/${locale}${page}`)
+            )
+            .reduce((a: any, b: any) => [...a, ...b], [])
+          return [...loc]
+        },
+      },
+    ],
   },
   render: {
     compressor: {
