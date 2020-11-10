@@ -345,6 +345,7 @@ type LocalData = {
 }
 
 const options = {
+  middleware: 'redirect',
   components: {
     CovidIcon,
     PrinterButton,
