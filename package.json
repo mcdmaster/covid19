@@ -91,7 +91,7 @@
   },
   "resolutions": {
     "@vue/server-renderer/vue": "^3.0.2",
-    "vue-class-component/nuxt-property-decorator": "^8.0.0-4",
+    "vue-class-component/nuxt-property-decorator": "*",
     "vue-server-renderer/vue": "*"
   }
 }
