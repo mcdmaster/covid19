@@ -1,5 +1,6 @@
 import { Vue, On, Off } from 'nuxt-property-decorator'
-export const EventBus = Vue
+const options = Vue
+export default options
 export const $on = function (event?: any, method?: any) {
   return On(`${event}`), [`${method}`]
 }

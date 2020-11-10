@@ -30,7 +30,7 @@ import { Vue, Emit } from 'nuxt-property-decorator'
 import CardsMonitoring from '@/components/CardsMonitoring.vue'
 import CardsReference from '@/components/CardsReference.vue'
 import SiteTopUpper from '@/components/SiteTopUpper.vue'
-import { EventBus, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
+import EventBus, { TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
 
 const options = {
   components: {

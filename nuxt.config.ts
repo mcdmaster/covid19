@@ -110,9 +110,9 @@ const options = {
    */
   modules: [
     // Doc: https://github.com/nuxt-community/dotenv-module
-    ['@nuxtjs/dotenv', { filename: `.env.${environment}` }],
+    ['@nuxtjs/dotenv', { filename: `.env.${environment}`, }],
     ['nuxt-i18n', i18n],
-    ['vue-scrollto/nuxt', { duration: 1000, offset: -72 }],
+    ['vue-scrollto/nuxt', { duration: 1000, offset: -72, }],
   ],
   /*
    ** vuetify module configuration
@@ -224,6 +224,11 @@ const options = {
         .map((locale) => pages.map((page) => `/${locale}${page}`))
         .reduce((a, b) => [...a, ...b], [])
       return [...pages, ...localizedPages]
+    },
+  },
+  render: {
+    compressor: {
+      test: /\.(eot|woff2?|ttf)$/,
     },
   },
   // /*

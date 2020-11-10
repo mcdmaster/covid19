@@ -58,7 +58,11 @@ const createCustomChart = () => {
           },
         },
         width: {
-          default: setTimeout((vue: Vue) => vue.$data._chart.resize()),
+          default: setTimeout(() => {
+            parent.onresize = function () {
+              return parent.innerWidth
+            }
+          })
         },
       },
       mounted() {
