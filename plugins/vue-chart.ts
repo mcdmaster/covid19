@@ -1,5 +1,5 @@
-import Vue, { Plugin } from '@nuxt/types'
 import Chart, { ChartData, ChartOptions } from 'chart.js'
+import Vue from 'nuxt-property-decorator'
 
 import { $off, $on, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
 
@@ -73,10 +73,13 @@ const createCustomChart = {
 }
 // }
 
-const VueChartPlugin: Plugin = ({ app }) => {
-  const context = useDayjsAdapter(app.i18n)
+const VueChartPlugin = ({ app }: any) => {
+  const context = useDayjsAdapter(app.$config.i18n)
   const inject = createCustomChart
-  return { context, inject }
+  return {
+    context,
+    inject,
+  }
 }
 
 // const lineChart = {

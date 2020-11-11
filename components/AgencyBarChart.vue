@@ -51,8 +51,8 @@ type Methods = {}
 type Computed = {
   displayData: AgencyDisplayData
   displayOption: ChartOptions
-  tableHeaders: TableHeader
-  tableData: TableItem
+  tableHeaders: TableHeader[]
+  tableData: TableItem[]
 }
 type Props = {
   title: string
