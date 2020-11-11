@@ -111,13 +111,7 @@ import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import {
   DisplayData,
   yAxesBgPlugin,
@@ -629,12 +623,20 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     scaledTicksYAxisMax() {
       const max = Array.from(this.chartData[0].keys())
-        .map((i) => this.chartData[0][i as number] + this.chartData[1][i as number])
+        .map(
+          (i) => this.chartData[0][i as number] + this.chartData[1][i as number]
+        )
         .reduce((a: number, b: number) => Math.max(a, b), 0)
-      return this.chartData[2].reduce((a: number, b: number) => Math.max(a, b), max)
+      return this.chartData[2].reduce(
+        (a: number, b: number) => Math.max(a, b),
+        max
+      )
     },
     scaledTicksYAxisMaxRight() {
-      return this.chartData[3].reduce((a: number, b: number) => Math.max(a, b), 0)
+      return this.chartData[3].reduce(
+        (a: number, b: number) => Math.max(a, b),
+        0
+      )
     },
   },
   methods: {

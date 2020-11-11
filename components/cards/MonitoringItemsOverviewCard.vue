@@ -75,10 +75,6 @@
 </template>
 
 <script>
-import AppLink from '@/components/AppLink.vue'
-import DataView from '@/components/DataView.vue'
-import MonitoringItemsOverviewTableInfectionStatus from '@/components/MonitoringItemsOverviewTableInfectionStatus.vue'
-import MonitoringItemsOverviewTableMedicalSystem from '@/components/MonitoringItemsOverviewTableMedicalSystem.vue'
 import monitoringItemsData from '@/data/monitoring_items.json'
 import { formatMonitoringItems } from '@/utils/formatMonitoringItems'
 

@@ -82,14 +82,7 @@ import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import OpenDataLink from '@/components/OpenDataLink.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
 import { getGraphSeriesColor, SurfaceStyle } from '@/utils/colors'
 import { GraphDataType } from '@/utils/formatGraph'
@@ -223,11 +216,11 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayData() {
       const style = [getGraphSeriesColor('D')]
       return {
-        labels: this.chartData.map((d: any) =>  d.label),
+        labels: this.chartData.map((d: any) => d.label),
         datasets: [
           {
             label: this.items[0],
-            data: this.chartData.map((d: any) =>  d.transition),
+            data: this.chartData.map((d: any) => d.transition),
             backgroundColor: style[0].fillColor,
             borderColor: style[0].strokeColor,
             borderWidth: 1,
@@ -340,7 +333,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         labels: ['2020-01-01'],
         datasets: [
           {
-            data: [Math.max(...this.chartData.map((d: any) =>  d.transition))],
+            data: [Math.max(...this.chartData.map((d: any) => d.transition))],
             backgroundColor: 'transparent',
             pointBackgroundColor: 'rgba(0,0,0,0)',
             pointBorderColor: 'rgba(0,0,0,0)',
@@ -425,7 +418,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       return options
     },
     scaledTicksYAxisMax() {
-      const values = this.chartData.map((d: any) =>  d.transition)
+      const values = this.chartData.map((d: any) => d.transition)
       return Math.max(...values)
     },
     tableHeaders() {
@@ -440,7 +433,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     tableData() {
       return this.chartData
-        .map((d: any) =>  {
+        .map((d: any) => {
           return {
             text: d.label,
             transition: this.formatter(d.transition),
@@ -463,7 +456,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       }
     },
     makeLineData(value: number): number[] {
-      return this.chartData.map((_) => value)
+      return this.chartData.map((_any: any) => value)
     },
     onClickLegend(i) {
       this.displayLegends[i] = !this.displayLegends[i]

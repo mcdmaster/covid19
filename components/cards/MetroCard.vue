@@ -42,7 +42,7 @@ const options = {
   },
   data() {
     // 都営地下鉄の利用者数の推移
-    const datasets = MetroData.datasets.map((d) =>  ({
+    const datasets = MetroData.datasets.map((d) => ({
       ...d,
       label: this.getWeekLabel(d.label),
     }))

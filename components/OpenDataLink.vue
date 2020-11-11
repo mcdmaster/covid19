@@ -5,8 +5,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
 import AppLink from '@/components/AppLink.vue'
 
 const options = {

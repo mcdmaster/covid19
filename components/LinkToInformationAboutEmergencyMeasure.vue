@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import { mdiBullhorn } from '@mdi/js'
-import Vue from 'vue'
 
 import AppLink from '@/components/AppLink.vue'
 

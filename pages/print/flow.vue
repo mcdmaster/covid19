@@ -3,9 +3,7 @@
 </template>
 
 <script>
-import Vue from 'nuxt-property-decorator'
 import Flow from '@/pages/flow.vue'
-import { getLinksLanguageAlternative } from '@/utils/i18nUtils'
 
 const options = {
   components: {

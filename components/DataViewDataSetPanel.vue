@@ -17,8 +17,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
 const options = {
   props: {
     title: {

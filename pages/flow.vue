@@ -314,7 +314,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 import VueScrollTo from 'vue-scrollto'
 

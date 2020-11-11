@@ -223,8 +223,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'nuxt-property-decorator'
-
 import AppLink from '@/components/AppLink.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import StaticCard from '@/components/StaticCard.vue'
@@ -240,8 +238,8 @@ const options = {
       return {
         meta: [
           {
-            title: this.$t('当サイトについて')
-          }
+            title: this.$t('当サイトについて'),
+          },
         ],
       }
     },

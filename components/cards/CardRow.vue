@@ -8,7 +8,7 @@
 import Vue from 'vue'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import { EventBus, TOGGLE_EVENT, $on, $off } from '@/utils/card-event-bus'
+import { $off, $on, TOGGLE_EVENT } from '@/utils/card-event-bus'
 
 const cardClassName = '.DataCard'
 

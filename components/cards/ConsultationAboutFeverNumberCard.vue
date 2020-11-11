@@ -44,9 +44,9 @@ const options = {
   },
   data() {
     const data = ConsultationAboutFever.data
-    const consulationReportsCount = data.map((d) =>  d.count)
-    const sevendayMoveAverages = data.map((d) =>  d.weekly_average_count)
-    const labels = data.map((d) =>  d.date)
+    const consulationReportsCount = data.map((d) => d.count)
+    const sevendayMoveAverages = data.map((d) => d.weekly_average_count)
+    const labels = data.map((d) => d.date)
     const chartData = [consulationReportsCount, sevendayMoveAverages]
     const dataLabels = [this.$t('相談件数'), this.$t('７日間移動平均')]
     const date = ConsultationAboutFever.date

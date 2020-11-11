@@ -32,7 +32,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'nuxt-property-decorator'
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 
 import DevelopmentModeMark from '@/components/DevelopmentModeMark.vue'
@@ -94,10 +93,10 @@ const options = {
         meta && meta.length > 0
           ? meta[0]
           : {
-            hid: 'og:locale',
-            name: 'og:locale',
-            content: this.$i18n.locale,
-          }
+              hid: 'og:locale',
+              name: 'og:locale',
+              content: this.$i18n.locale,
+            }
 
       let linksAlternate = htmlAttrs
       const basename = this.getRouteBaseName()

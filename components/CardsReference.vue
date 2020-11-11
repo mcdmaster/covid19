@@ -29,7 +29,6 @@
 
 <script lang="ts">
 /* eslint-disable simple-import-sort/sort -- ブラウザでの表示順に合わせて各 card の component を import する */
-import Vue from 'vue'
 import CardRow from '@/components/cards/CardRow.vue'
 
 // 陽性者の属性

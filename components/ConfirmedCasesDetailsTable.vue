@@ -91,8 +91,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
 /* eslint-disable vue/prop-name-casing */
 const options = {
   props: {

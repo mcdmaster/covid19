@@ -76,8 +76,6 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
-
 import MonitoringItemsOverviewTableValueWithTranslatableUnit from '@/components/MonitoringItemsOverviewTableValueWithTranslatableUnit.vue'
 import { MonitoringItems } from '@/utils/formatMonitoringItems'
 
@@ -87,7 +85,7 @@ const options = {
   },
   props: {
     items: {
-      type: Object as PropType<MonitoringItems>,
+      type: {} as MonitoringItems,
       required: true,
     },
   },

@@ -53,7 +53,7 @@ const options = {
     const graphData = Data.data
       .filter((d) => new Date(d.date) > new Date('2020-04-26'))
       .filter((d) => !isNaN(d.severe_case))
-      .map((d) =>  ({
+      .map((d) => ({
         label: convertDateToISO8601Format(d.date),
         transition: d.severe_case,
       }))

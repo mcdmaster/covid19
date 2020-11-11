@@ -22,7 +22,6 @@ import {
   mdiDomain,
   mdiOpenInNew,
 } from '@mdi/js'
-import Vue from 'vue'
 
 import { isExternal } from '@/utils/urls.ts'
 

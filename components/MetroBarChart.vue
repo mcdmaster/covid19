@@ -47,12 +47,7 @@ import { Chart, ChartData, ChartOptions } from 'chart.js'
 import Vue from 'vue'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import AppLink from '@/components/AppLink.vue'
-import DataView from '@/components/DataView.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import { DisplayData } from '@/plugins/vue-chart'
 import { getGraphSeriesStyle } from '@/utils/colors'
 
@@ -135,14 +130,16 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       const datasets = this.chartData.labels!.map((label: any, i: number) => {
         return {
           label: label as string,
-          data: this.chartData.datasets!.map((d: any) =>  d.data![i]) as number[],
+          data: this.chartData.datasets!.map(
+            (d: any) => d.data![i]
+          ) as number[],
           backgroundColor: graphSeries[i].fillColor,
           borderColor: graphSeries[i].strokeColor,
           borderWidth: 1,
         }
       })
       return {
-        labels: this.chartData.datasets!.map((d: any) =>  d.label!),
+        labels: this.chartData.datasets!.map((d: any) => d.label!),
         datasets,
       }
     },

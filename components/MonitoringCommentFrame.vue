@@ -17,8 +17,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
-
 const options = {
   props: {
     level: {

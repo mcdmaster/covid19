@@ -55,14 +55,7 @@ import dayjs from 'dayjs'
 import Vue from 'vue'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import OpenDataLink from '@/components/OpenDataLink.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
 import { getGraphSeriesStyle } from '@/utils/colors'
 import { getComplementedDate } from '@/utils/formatDate'
@@ -273,8 +266,8 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         datasets: [
           {
             data: [
-              Math.max(...this.chartData.map((d: any) =>  d.transition)),
-              Math.min(...this.chartData.map((d: any) =>  d.transition)),
+              Math.max(...this.chartData.map((d: any) => d.transition)),
+              Math.min(...this.chartData.map((d: any) => d.transition)),
             ],
             backgroundColor: 'transparent',
             borderWidth: 0,
@@ -368,7 +361,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       return options
     },
     scaledTicksYAxisMax() {
-      const values = this.chartData.map((d: any) =>  d.transition)
+      const values = this.chartData.map((d: any) => d.transition)
       return Math.max(...values)
     },
     tableHeaders() {

@@ -66,13 +66,13 @@ const options = {
     const data = Data.data.filter(
       (d) => new Date(d.diagnosed_date) >= new Date('2020-03-27')
     )
-    const reportedCount = data.map((d) =>  d.reported_count)
-    const missingCount = data.map((d) =>  d.missing_count)
-    const untrackedRate = data.map((d) =>  d.weekly_average_untracked_count)
+    const reportedCount = data.map((d) => d.reported_count)
+    const missingCount = data.map((d) => d.missing_count)
+    const untrackedRate = data.map((d) => d.weekly_average_untracked_count)
     const untrackedIncreseRate = data.map(
       (d) => d.weekly_average_untracked_increse_percent
     )
-    const dateList = data.map((d) =>  d.diagnosed_date)
+    const dateList = data.map((d) => d.diagnosed_date)
     const updated = Data.date
     const graphData = [
       reportedCount,

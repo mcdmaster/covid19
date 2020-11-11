@@ -110,7 +110,6 @@
 
 <script lang="ts">
 import { mdiClipboardOutline, mdiClose } from '@mdi/js'
-import Vue from 'vue'
 const options = {
   props: {
     title: {

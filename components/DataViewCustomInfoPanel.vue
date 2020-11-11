@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts">
-import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
 const options = {
   props: {
     lText: {

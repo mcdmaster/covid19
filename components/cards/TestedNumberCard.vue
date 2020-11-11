@@ -73,7 +73,7 @@ const options = {
       this.$t('健康安全研究センターが行った検査件数'),
       this.$t('医療機関等が行った検査件数'),
     ]
-    const inspectionsLabels = inspectionsSummary.labels.map((d) =>  {
+    const inspectionsLabels = inspectionsSummary.labels.map((d) => {
       return getDayjsObject(d).format('YYYY-MM-DD')
     })
     const inspectionsDataLabels = [

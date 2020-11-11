@@ -49,7 +49,6 @@
 
 <script lang="ts">
 import { mdiChevronRight } from '@mdi/js'
-import Vue from 'vue'
 
 import AppLink from '@/components/AppLink.vue'
 import MonitoringCommentFrame from '@/components/MonitoringCommentFrame.vue'

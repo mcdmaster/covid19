@@ -1,4 +1,4 @@
-import { NuxtVueI18n } from 'nuxt-i18n'
+import { NuxtVueI18n } from 'nuxt-i18n/types'
 
 const dateTimeFormatsCommon = {
   dateTime: {

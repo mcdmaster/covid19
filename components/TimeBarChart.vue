@@ -66,15 +66,7 @@ import dayjs from 'dayjs'
 import Vue from 'vue'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataSelector from '@/components/DataSelector.vue'
-import DataView from '@/components/DataView.vue'
-import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import OpenDataLink from '@/components/OpenDataLink.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
 import { getGraphSeriesStyle } from '@/utils/colors'
 import { getComplementedDate } from '@/utils/formatDate'
@@ -376,7 +368,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         labels: ['2020-01-01'],
         datasets: [
           {
-            data: [Math.max(...this.chartData.map((d: any) =>  d.cumulative))],
+            data: [Math.max(...this.chartData.map((d: any) => d.cumulative))],
             backgroundColor: 'transparent',
             borderWidth: 0,
           },

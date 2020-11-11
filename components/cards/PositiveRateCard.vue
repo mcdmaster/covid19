@@ -118,7 +118,7 @@ const options = {
       this.$t('検査人数（７日間移動平均）'),
       this.$t('陽性率'),
     ]
-    const positiveRateTableLabels = positiveRateDataLabels.map((d) =>  d)
+    const positiveRateTableLabels = positiveRateDataLabels.map((d) => d)
 
     const getFormatter = (columnIndex) => {
       if (columnIndex === 4) {

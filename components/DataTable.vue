@@ -86,11 +86,6 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
-
-import DataView from '@/components/DataView.vue'
-import DataViewBasicInfoPanel from '@/components/DataViewBasicInfoPanel.vue'
-import OpenDataLink from '@/components/OpenDataLink.vue'
 
 const options = {
   props: {

@@ -28,11 +28,7 @@ import Vue from 'nuxt-property-decorator'
 import VueI18n from 'vue-i18n'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import AgencyData from '@/data/agency.json'
 import { DataSets, DisplayData } from '@/plugins/vue-chart'
 import { getGraphSeriesStyle } from '@/utils/colors'
@@ -55,8 +51,8 @@ type Methods = {}
 type Computed = {
   displayData: AgencyDisplayData
   displayOption: ChartOptions
-  tableHeaders: TableHeader[]
-  tableData: TableItem[]
+  tableHeaders: TableHeader
+  tableData: TableItem
 }
 type Props = {
   title: string

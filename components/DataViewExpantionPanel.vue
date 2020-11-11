@@ -25,9 +25,9 @@
 
 <script lang="ts">
 import { mdiChevronRight, mdiOpenInNew } from '@mdi/js'
-import { Vue, Emit } from 'nuxt-property-decorator'
+import { Emit } from 'nuxt-property-decorator'
 
-import { EventBus, TOGGLE_EVENT } from '@/utils/card-event-bus'
+import { TOGGLE_EVENT } from '@/utils/card-event-bus'
 
 const options = {
   props: {

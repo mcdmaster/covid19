@@ -62,14 +62,7 @@ import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import OpenDataLink from '@/components/OpenDataLink.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import {
   DataSets,
   DataSetsPoint,
@@ -342,7 +335,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         labels: ['2020-01-01'],
         datasets: [
           {
-            data: [Math.max(...this.chartData.map((d: any) =>  d.transition))],
+            data: [Math.max(...this.chartData.map((d: any) => d.transition))],
             backgroundColor: 'transparent',
             borderWidth: 0,
           },

@@ -31,7 +31,6 @@
 
 <script lang="ts">
 import { mdiInformation } from '@mdi/js'
-import Vue from 'vue'
 
 import AppLink from '@/components/AppLink.vue'
 import LinkToInformationAboutEmergencyMeasure from '@/components/LinkToInformationAboutEmergencyMeasure.vue'

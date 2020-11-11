@@ -27,7 +27,6 @@
 
 <script lang="ts">
 import { mdiChartTimelineVariant } from '@mdi/js'
-import Vue from 'vue'
 
 import MonitoringCommentCard from '@/components/MonitoringCommentCard.vue'
 import PageHeader from '@/components/PageHeader.vue'

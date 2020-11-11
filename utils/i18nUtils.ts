@@ -1,12 +1,12 @@
-import { Vue, Component, Emit } from 'nuxt-property-decorator'
 import type { NuxtVueI18n } from 'nuxt-i18n'
+import { Component, Emit, Vue } from 'nuxt-property-decorator'
 
 const links = []
 
 @Component
 export default class getLinksLanguageAlternative extends Vue {
-  @Emit() 
-  getLinksLanguageAlternative (
+  @Emit()
+  getLinksLanguageAlternative(
     routeBaseName: string,
     locales?: Array<NuxtVueI18n.Locale | NuxtVueI18n.Options.LocaleObject>,
     defaultLocale?: string

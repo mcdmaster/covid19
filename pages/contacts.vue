@@ -183,8 +183,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'nuxt-property-decorator'
-
 import PageHeader from '@/components/PageHeader.vue'
 
 const options = {

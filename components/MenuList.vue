@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import { PropType } from 'vue'
 
 import AppLink from '@/components/AppLink.vue'
 import CovidIcon from '@/static/covid.svg'

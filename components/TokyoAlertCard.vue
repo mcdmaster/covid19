@@ -18,8 +18,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
 import ActiveTokyoAlert from '@/components/ActiveTokyoAlert.vue'
 import tokyoAlert from '@/data/tokyo_alert.json'
 

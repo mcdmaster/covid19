@@ -47,7 +47,7 @@ const options = {
   data() {
     const formatData = positiveStatus.data
       .filter((d) => new Date(d.date) >= new Date('2020-03-06'))
-      .map((d) =>  ({
+      .map((d) => ({
         日付: new Date(d.date),
         小計: d.hospitalized,
       }))

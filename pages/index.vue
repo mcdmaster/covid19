@@ -25,12 +25,12 @@
 
 <script lang="ts">
 import { mdiChartTimelineVariant } from '@mdi/js'
-import { Vue, Emit } from 'nuxt-property-decorator'
+import { Emit } from 'nuxt-property-decorator'
 
 import CardsMonitoring from '@/components/CardsMonitoring.vue'
 import CardsReference from '@/components/CardsReference.vue'
 import SiteTopUpper from '@/components/SiteTopUpper.vue'
-import EventBus, { TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
+import { TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
 
 const options = {
   components: {

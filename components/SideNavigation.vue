@@ -154,7 +154,6 @@ import {
   mdiMenu,
 } from '@mdi/js'
 import isDesktopOrTablet from '@nuxtjs/device'
-import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 
 import AppLink from '@/components/AppLink.vue'

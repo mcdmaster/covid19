@@ -14,7 +14,7 @@ import Vue from 'nuxt-property-decorator'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
 import type { DisplayData } from '@/plugins/vue-chart'
-import { EventBus, TOGGLE_EVENT, $on } from '@/utils/tab-event-bus.ts'
+import { $on, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
 
 type Data = {
   chartWidth: number

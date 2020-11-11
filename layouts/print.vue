@@ -33,7 +33,6 @@
   </v-app>
 </template>
 <script lang="ts">
-import Vue from 'nuxt-property-decorator'
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 
 const options = {
