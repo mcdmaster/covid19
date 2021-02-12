@@ -57,6 +57,11 @@ import Data from '@/data/data.json'
 import formatConfirmedCases from '@/utils/formatConfirmedCases'
 
 const options = {
+  components: {
+    DataView,
+    ConfirmedCasesDetailsTable,
+    AppLink,
+  },
   data() {
     const mainSummary = Data.main_summary
     // 検査陽性者の状況

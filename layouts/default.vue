@@ -32,6 +32,9 @@
 </template>
 
 <script lang="ts">
+import type { NuxtConfig } from '@nuxt/types'
+import type { NuxtOptionsHead as MetaInfo } from '@nuxt/types/config/head'
+import { Component, Vue } from 'nuxt-property-decorator'
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 
 import DevelopmentModeMark from '@/components/DevelopmentModeMark.vue'
@@ -40,19 +43,16 @@ import SideNavigation from '@/components/SideNavigation.vue'
 import Data from '@/data/data.json'
 import { convertDateToSimpleFormat } from '@/utils/formatDate'
 
-type LocalData = {
-  hasNavigation: boolean
-  isOpenNavigation: boolean
-  loading: boolean
-}
-const options = {
+@Component({
   components: {
     DevelopmentModeMark,
     ScaleLoader,
     SideNavigation,
     NoScript,
   },
-  data(): LocalData {
+})
+export default class Default extends Vue implements NuxtConfig {
+  data() {
     let hasNavigation = true
     let loading = true
     if (this.$route.query.embed === 'true') {
@@ -67,136 +67,36 @@ const options = {
       loading,
       isOpenNavigation: false,
     }
-  },
+  }
+
   mounted() {
-    this.loading = false
+    this.$data.loading = false
     this.getMatchMedia().addListener(this.closeNavigation)
-  },
+  }
+
   beforeDestroy() {
     this.getMatchMedia().removeListener(this.closeNavigation)
-  },
-  methods: {
-    openNavigation(): void {
-      this.isOpenNavigation = true
-    },
-    closeNavigation(): void {
-      this.isOpenNavigation = false
-    },
-    getMatchMedia(): MediaQueryList {
-      return window.matchMedia('(min-width: 601px)')
-    },
-  },
-  metaInfo: {
-    head() {
-      const { htmlAttrs, meta } = this.$nuxtI18nSeo()
-      const ogLocale =
-        meta && meta.length > 0
-          ? meta[0]
-          : {
-              hid: 'og:locale',
-              name: 'og:locale',
-              content: this.$i18n.locale,
-            }
-
-      let linksAlternate = htmlAttrs
-      const basename = this.getRouteBaseName()
-      // 404 エラーなどのときは this.getRouteBaseName() が null になるため除外
-      if (basename) {
-        linksAlternate = this.getLinksLanguageAlternative(
-          basename,
-          this.$i18n.locales,
-          this.$i18n.defaultLocale
-        )
-      }
-
-      const { lastUpdate } = Data
-
-      return {
-        htmlAttrs,
-        link: [
-          {
-            rel: 'canonical',
-            href: `https://stopcovid19.metro.tokyo.lg.jp${this.$route.path}`,
-          },
-          ...linksAlternate,
-        ],
-        // Disable prettier for readability purposes
-        // eslint-disable-next-line prettier/prettier
-        titleTemplate: `%s | ${this.$t('東京都')} ${this.$t('新型コロナウイルス感染症')}${this.$t('対策サイト')}`,
-        meta: [
-          {
-            hid: 'author',
-            name: 'author',
-            content: this.$tc('東京都'),
-          },
-          {
-            hid: 'description',
-            name: 'description',
-            content: `${this.$t('{date} 更新', {
-              date: convertDateToSimpleFormat(lastUpdate),
-            })}: ${this.$tc(
-              '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
-            )}`,
-          },
-          {
-            hid: 'og:site_name',
-            property: 'og:site_name',
-            content: `${this.$t('東京都')} ${this.$t(
-              '新型コロナウイルス感染症'
-            )} ${this.$t('対策サイト')}`,
-          },
-          {
-            hid: 'og:url',
-            property: 'og:url',
-            content: `https://stopcovid19.metro.tokyo.lg.jp${this.$route.path}`,
-          },
-          ogLocale,
-          {
-            hid: 'og:title',
-            property: 'og:title',
-            content: `${this.$t('東京都')} ${this.$t(
-              '新型コロナウイルス感染症'
-            )} ${this.$t('対策サイト')}`,
-          },
-          {
-            hid: 'og:description',
-            property: 'og:description',
-            content: `${this.$t('{date} 更新', {
-              date: convertDateToSimpleFormat(lastUpdate),
-            })}: ${this.$tc(
-              '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
-            )}`,
-          },
-          {
-            hid: 'og:image',
-            property: 'og:image',
-            content: this.$tc('ogp.og:image'),
-          },
-          {
-            hid: 'apple-mobile-web-app-title',
-            name: 'apple-mobile-web-app-title',
-            content: `${this.$t('東京都')} ${this.$t(
-              '新型コロナウイルス感染症'
-            )} ${this.$t('対策サイト')}`,
-          },
-          {
-            hid: 'twitter:image',
-            name: 'twitter:image',
-            content: this.$tc('ogp.og:image'),
-          },
-        ],
-      }
-    },
-  },
-}
-
-export default options
 </script>
 <style lang="scss">
 .app {
   max-width: 1440px;
   margin: 0 auto;
   background-color: inherit !important;
+}
+.app:lang(en) {
+  font-family: $western, sans-serif;
+}
+.app:lang(ja) {
+  font-family: $western, $japanese, sans-serif;
+}
+.app:lang(zh-CN) {
+  font-family: $western, $chinese-hans, sans-serif;
+}
+.app:lang(zh-TW) {
+  font-family: $western, $chinese-hant, sans-serif;
+}
+.app:lang(ko) {
+  font-family: $western, $korean, sans-serif;
 }
 .v-application--wrap {
   width: 100%;
