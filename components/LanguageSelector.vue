@@ -23,8 +23,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
 import EarthIcon from '@/static/earth.svg'
 import SelectMenuIcon from '@/static/selectmenu.svg'
 
@@ -32,7 +30,7 @@ type LocalData = {
   currentLocaleCode: string
 }
 
-export default Vue.extend({
+const options = {
   components: {
     EarthIcon,
     SelectMenuIcon,
@@ -52,7 +50,9 @@ export default Vue.extend({
       this.$root.$i18n.setLocale(this.currentLocaleCode)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

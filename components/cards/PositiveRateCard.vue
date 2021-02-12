@@ -86,7 +86,7 @@ import {
 } from '@/utils/monitoringStatusValueFormatters'
 dayjs.extend(duration)
 
-export default {
+const options = {
   components: {
     PositiveRateMixedChart,
   },
@@ -142,4 +142,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

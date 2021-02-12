@@ -248,23 +248,28 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { MetaInfo } from 'vue-meta'
-
 import AppLink from '@/components/AppLink.vue'
 import PageHeader from '@/components/PageHeader.vue'
 import StaticCard from '@/components/StaticCard.vue'
 
-export default Vue.extend({
+const options = {
   components: {
     PageHeader,
     StaticCard,
     AppLink,
   },
-  head(): MetaInfo {
-    return {
-      title: this.$t('当サイトについて') as string,
-    }
+  metaInfo: {
+    head() {
+      return {
+        meta: [
+          {
+            title: this.$t('当サイトについて'),
+          },
+        ],
+      }
+    },
   },
-})
+}
+
+export default options
 </script>

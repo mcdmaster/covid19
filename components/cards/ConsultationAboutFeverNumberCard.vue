@@ -38,7 +38,7 @@ import {
   getNumberToLocaleStringFunction,
 } from '@/utils/monitoringStatusValueFormatters'
 
-export default {
+const options = {
   components: {
     MixedBarAndLineChart,
   },
@@ -67,4 +67,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

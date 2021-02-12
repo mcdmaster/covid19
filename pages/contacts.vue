@@ -179,19 +179,27 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { MetaInfo } from 'vue-meta'
-
 import PageHeader from '@/components/PageHeader.vue'
 
-export default Vue.extend({
+const options = {
   components: {
     PageHeader,
   },
-  data() {
-    return {
-      pc: true,
-    }
+  metaInfo: {
+    head() {
+      return {
+        meta: [
+          {
+            title: this.$t('お問い合わせ先一覧') as string,
+          },
+        ],
+      }
+    },
+    data() {
+      return {
+        pc: true,
+      }
+    },
   },
   computed: {
     tableAttrs(): any {
@@ -217,12 +225,9 @@ export default Vue.extend({
       this.pc = window.innerWidth > 768
     },
   },
-  head(): MetaInfo {
-    return {
-      title: this.$t('お問い合わせ先一覧') as string,
-    }
-  },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

@@ -205,21 +205,21 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         }
       })
       return {
-        labels: this.chartData.datasets!.map((d) => d.label!),
+        labels: this.chartData.datasets!.map((d: any) => d.label!),
         datasets,
       }
     },
     tableHeaders() {
       return [
         { text: this.$t('日付'), value: 'text' },
-        ...this.chartData.labels!.map((text, value) => {
+        ...this.chartData.labels!.map((text: any, value: any) => {
           return { text: text as string, value: String(value), align: 'end' }
         }),
       ]
     },
     tableData() {
       return this.displayData.datasets[0].data
-        .map((_, i) => {
+        .map((_any: any, i: number) => {
           return Object.assign(
             { text: this.periods[i] },
             ...this.chartData.labels!.map((_, j) => {
@@ -418,7 +418,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style module lang="scss">

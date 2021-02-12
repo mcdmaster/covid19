@@ -215,19 +215,19 @@ const options: ThisTypedComponentOptionsWithRecordProps<
 
       if (this.dataKind === 'transition') {
         return {
-          labels: this.chartData.map((d) => {
+          labels: this.chartData.map((d: any) => {
             return d.label
           }),
           datasets: [
             {
               label: this.dataKind,
-              data: this.chartData.map((_d) => {
+              data: this.chartData.map((_d: any) => {
                 return 0
               }),
               backgroundColor: transparentWhite,
               borderColor: transparentWhite,
               borderWidth: 0,
-              minBarLength: this.chartData.map((d) => {
+              minBarLength: this.chartData.map((d: any) => {
                 if (d.transition <= 0) {
                   return zeroMouseOverHeight
                 }
@@ -236,7 +236,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
             },
             {
               label: this.dataKind,
-              data: this.chartData.map((d) => {
+              data: this.chartData.map((d: any) => {
                 return d.transition
               }),
               backgroundColor: style.fillColor,
@@ -247,17 +247,17 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         }
       }
       return {
-        labels: this.chartData.map((d) => d.label),
+        labels: this.chartData.map((d: any) => d.label),
         datasets: [
           {
             label: this.dataKind,
-            data: this.chartData.map((_d) => {
+            data: this.chartData.map((_d: any) => {
               return 0
             }),
             backgroundColor: transparentWhite,
             borderColor: transparentWhite,
             borderWidth: 0,
-            minBarLength: this.chartData.map((d) => {
+            minBarLength: this.chartData.map((d: any) => {
               if (d.cumulative <= 0) {
                 return zeroMouseOverHeight
               }
@@ -266,7 +266,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
           },
           {
             label: this.dataKind,
-            data: this.chartData.map((d) => {
+            data: this.chartData.map((d: any) => {
               return d.cumulative
             }),
             backgroundColor: style.fillColor,
@@ -375,7 +375,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
           labels: ['2020-01-01'],
           datasets: [
             {
-              data: [Math.max(...this.chartData.map((d) => d.transition))],
+              data: [Math.max(...this.chartData.map((d: any) => d.transition))],
               backgroundColor: 'transparent',
               borderWidth: 0,
             },
@@ -386,7 +386,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         labels: ['2020-01-01'],
         datasets: [
           {
-            data: [Math.max(...this.chartData.map((d) => d.cumulative))],
+            data: [Math.max(...this.chartData.map((d: any) => d.cumulative))],
             backgroundColor: 'transparent',
             borderWidth: 0,
           },
@@ -469,7 +469,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     scaledTicksYAxisMax() {
       const dataKind =
         this.dataKind === 'transition' ? 'transition' : 'cumulative'
-      const values = this.chartData.map((d) => d[dataKind])
+      const values = this.chartData.map((d: any) => d[dataKind])
       return Math.max(...values)
     },
     tableHeaders() {
@@ -489,14 +489,14 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     tableData() {
       return this.chartData
-        .map((d, _) => {
+        .map((d: any, _any: any) => {
           return {
             text: d.label,
             transition: d.transition.toLocaleString(),
             cumulative: d.cumulative.toLocaleString(),
           }
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
   },
@@ -513,5 +513,5 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>

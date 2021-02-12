@@ -54,7 +54,7 @@ import TimeStackedBarChart from '@/components/TimeStackedBarChart.vue'
 import Data from '@/data/data.json'
 dayjs.extend(duration)
 
-export default {
+const options = {
   components: {
     TimeStackedBarChart,
   },
@@ -94,4 +94,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

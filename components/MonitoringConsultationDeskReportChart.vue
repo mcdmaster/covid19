@@ -261,14 +261,14 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     tableHeaders() {
       return [
         { text: this.$t('日付'), value: 'text' },
-        ...(this.dataLabels as string[]).map((text, i) => {
+        ...(this.dataLabels as string[]).map((text: any, i: any) => {
           return { text, value: String(i), align: 'end' }
         }),
       ]
     },
     tableData() {
       return this.labels
-        .map((label, i) => {
+        .map((label: any, i: number) => {
           return Object.assign(
             { text: label },
             ...(this.dataLabels as string[]).map((_, j) => {
@@ -278,7 +278,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
             })
           )
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
     displayOption() {
@@ -459,7 +459,10 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       return options
     },
     scaledTicksYAxisMax() {
-      return this.chartData.reduce((max, data) => Math.max(max, ...data), 0)
+      return this.chartData.reduce(
+        (max: any, data: any) => Math.max(max, ...data),
+        0
+      )
     },
   },
   methods: {
@@ -468,7 +471,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       this.displayLegends = this.displayLegends.slice()
     },
     makeLineData(value: number): number[] {
-      return this.chartData[0].map((_) => value)
+      return this.chartData[0].map((_any: any) => value)
     },
   },
   mounted() {
@@ -484,7 +487,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style module lang="scss">

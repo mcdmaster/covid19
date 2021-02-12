@@ -33,7 +33,7 @@ import { getCommaSeparatedNumberToFixedFunction } from '~/utils/monitoringStatus
 
 const countFormatter = getCommaSeparatedNumberToFixedFunction()
 
-export default {
+const options = {
   components: {
     ConfirmedCasesByMunicipalitiesTable,
   },
@@ -111,4 +111,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

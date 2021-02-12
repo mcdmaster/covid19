@@ -76,22 +76,22 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
-
 import MonitoringItemsOverviewTableValueWithTranslatableUnit from '@/components/MonitoringItemsOverviewTableValueWithTranslatableUnit.vue'
 import { MonitoringItems } from '@/utils/formatMonitoringItems'
 
-export default Vue.extend({
+const options = {
   components: {
     MonitoringItemsOverviewTableValueWithTranslatableUnit,
   },
   props: {
     items: {
-      type: Object as PropType<MonitoringItems>,
+      type: {} as MonitoringItems,
       required: true,
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" module>

@@ -36,7 +36,7 @@ import Vue from 'vue'
 import AppLink from '@/components/AppLink.vue'
 import { convertDateToISO8601Format } from '@/utils/formatDate'
 
-export default Vue.extend({
+const options = {
   components: {
     AppLink,
   },
@@ -49,6 +49,10 @@ export default Vue.extend({
       type: Boolean,
       required: false,
       default: false,
+    },
+    mdiInformation: {
+      type: String,
+      default: () => mdiInformation,
     },
   },
   data() {
@@ -64,7 +68,9 @@ export default Vue.extend({
       return this.$d(new Date(dateString), 'date')
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

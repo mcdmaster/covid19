@@ -10,7 +10,7 @@
 <script>
 import AppLink from '@/components/AppLink.vue'
 
-export default {
+const options = {
   name: 'DevelopmentModeMark',
   components: {
     AppLink,
@@ -31,6 +31,8 @@ export default {
     },
   },
 }
+
+export default options
 </script>
 
 <style lang="scss">

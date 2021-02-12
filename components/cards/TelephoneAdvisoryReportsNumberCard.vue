@@ -20,7 +20,7 @@ import TimeBarChart from '@/components/TimeBarChart.vue'
 import Data from '@/data/data.json'
 import formatGraph from '@/utils/formatGraph'
 
-export default {
+const options = {
   components: {
     TimeBarChart,
   },
@@ -36,4 +36,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

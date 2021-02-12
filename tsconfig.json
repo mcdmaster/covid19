@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es2020",
     "module": "esnext",
     "moduleResolution": "node",
     "lib": [
@@ -14,7 +14,7 @@
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
-    "noImplicitThis": true,
+    "noImplicitThis": false,
     "experimentalDecorators": true,
     "baseUrl": ".",
     "paths": {
@@ -26,12 +26,15 @@
       ]
     },
     "types": [
-      "@types/node",
       "@nuxt/types",
+      "@nuxtjs/vuetify",
+      "@types/node",
       "nuxt-i18n"
     ]
   },
   "exclude": [
-    "node_modules"
+    "build",
+    "node_modules",
+    "src"
   ]
 }

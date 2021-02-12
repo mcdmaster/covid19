@@ -25,7 +25,7 @@ import dayjs from 'dayjs'
 import AgencyBarChart from '@/components/AgencyBarChart.vue'
 import AgencyData from '@/data/agency.json'
 
-export default {
+const options = {
   components: {
     AgencyBarChart,
   },
@@ -52,4 +52,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

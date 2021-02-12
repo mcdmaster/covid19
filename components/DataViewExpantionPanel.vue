@@ -27,9 +27,19 @@
 import { mdiChevronRight } from '@mdi/js'
 import Vue from 'vue'
 
-import { EventBus, TOGGLE_EVENT } from '@/utils/card-event-bus'
+import { TOGGLE_EVENT } from '@/utils/card-event-bus'
 
-export default Vue.extend({
+const options = {
+  props: {
+    mdiOpenInNew: {
+      type: String,
+      default: () => mdiOpenInNew,
+    },
+    mdiChevronRight: {
+      type: String,
+      default: () => mdiChevronRight,
+    },
+  },
   data() {
     return {
       showDetails: false,
@@ -41,10 +51,12 @@ export default Vue.extend({
   },
   methods: {
     toggleDetails() {
-      EventBus.$emit(TOGGLE_EVENT, { dataView: this.$parent })
+      Emit(TOGGLE_EVENT)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

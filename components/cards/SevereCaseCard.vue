@@ -45,7 +45,7 @@ import SevereCaseBarChart from '@/components/SevereCaseBarChart.vue'
 import Data from '@/data/positive_status.json'
 import { convertDateToISO8601Format } from '@/utils/formatDate.ts'
 
-export default {
+const options = {
   components: {
     SevereCaseBarChart,
     AppLink,
@@ -65,4 +65,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

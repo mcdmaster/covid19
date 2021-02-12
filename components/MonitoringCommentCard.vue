@@ -16,6 +16,10 @@
       <v-icon color="#D9D9D9">{{ mdiChevronRight }}</v-icon>
       <app-link
         to="https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/monitoring.html"
+        :show-icon="true"
+        :icon-type="mdiChevronRight"
+        style="fill: #d9d9d9"
+        :aria-label="$t('最新のモニタリング項目の分析・総括コメントについて')"
       >
         {{ $t('最新のモニタリング項目の分析・総括コメントについて') }}
       </app-link>
@@ -57,10 +61,16 @@ type CommentKey = {
   [key: string]: MonitoringComment
 }
 
-export default Vue.extend({
+const options = {
   components: {
     AppLink,
     MonitoringCommentFrame,
+  },
+  props: {
+    mdiChevronRight: {
+      type: String,
+      default: () => mdiChevronRight,
+    },
   },
   data() {
     const monitoringComment: CommentKey = formatMonitoringComment(
@@ -78,7 +88,9 @@ export default Vue.extend({
         : this.monitoringComment[item].display['@en']
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

@@ -151,6 +151,8 @@
                   <template v-slot:publicHealthCenter>
                     <app-link
                       to="https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html"
+                      :show-icon="true"
+                      :class="$style.icon"
                     >
                       {{ $t('各保健所の電話番号は福祉保健局HP') }}
                     </app-link>
@@ -301,6 +303,7 @@
     <div :class="$style.detail">
       <app-link
         to="https://www.fukushihoken.metro.tokyo.lg.jp/iryo/kansen/coronasodan.html"
+        :show-icon="true"
         :icon-size="20"
         :icon-class="$style.icon"
         :class="$style.detailButton"
@@ -311,7 +314,6 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 import VueScrollTo from 'vue-scrollto'
 
@@ -341,7 +343,7 @@ type LocalData = {
   timerId: number // scrollイベントのdebounce用タイマーID
 }
 
-export default Vue.extend({
+const options = {
   middleware: 'redirect',
   components: {
     CovidIcon,
@@ -525,7 +527,9 @@ export default Vue.extend({
       title,
     }
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" module>
@@ -840,11 +844,14 @@ $margin: 20;
   width: 100%;
 }
 .overrideExternalLink {
-  i {
+  .ExternalLinkIcon {
     font-size: 1em !important;
     &::before {
       color: $white;
       margin-right: 0.2em;
+    }
+    .icon {
+      fill: $white;
     }
   }
 }

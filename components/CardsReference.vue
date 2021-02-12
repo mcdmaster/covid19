@@ -50,5 +50,7 @@ export default Vue.extend({
       ],
     }
   },
-})
+}
+
+export default options
 </script>

@@ -53,18 +53,10 @@
 <script>
 import dayjs from 'dayjs'
 
-import AppLink from '@/components/AppLink.vue'
-import ConfirmedCasesDetailsTable from '@/components/ConfirmedCasesDetailsTable.vue'
-import DataView from '@/components/DataView.vue'
 import Data from '@/data/data.json'
 import formatConfirmedCases from '@/utils/formatConfirmedCases'
 
-export default {
-  components: {
-    DataView,
-    ConfirmedCasesDetailsTable,
-    AppLink,
-  },
+const options = {
   data() {
     const mainSummary = Data.main_summary
     // 検査陽性者の状況
@@ -78,6 +70,8 @@ export default {
     }
   },
 }
+
+export default options
 </script>
 
 <style lang="scss" module>
