@@ -77,15 +77,15 @@ export default options
 .WhatsNew {
   @include card-container();
 
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 5px 18px;
+  margin-bottom: 10px;
 
   .WhatsNew-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
 
     .WhatsNew-title {
       display: flex;

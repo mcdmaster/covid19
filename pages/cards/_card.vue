@@ -2,7 +2,7 @@
   <component :is="cardComponent" />
 </template>
 
-<script>
+<script lang="ts">
 /* eslint-disable simple-import-sort/sort -- ブラウザでの表示順に合わせて各 card の component を import する */
 // ---- モニタリング項目
 // 検査陽性者の状況
@@ -48,9 +48,13 @@ import TokyoFeverConsultationCenterReportsNumberCard from '@/components/cards/To
 // import AgencyCard from '@/components/cards/AgencyCard.vue'
 /* eslint-enable simple-import-sort/sort */
 
-//  import { getLinksLanguageAlternative } from '@/utils/i18nUtils'
+import { Vue, Component } from 'nuxt-property-decorator'
+import type { NuxtOptionsHead as MetaInfo } from '@nuxt/types/config/head'
+import type { NuxtConfig } from '@nuxt/types'
+import { getLinksLanguageAlternative } from '@/utils/i18nUtils'
+import { convertDateToSimpleFormat } from '@/utils/formatDate'
 
-const options = {
+@Component({
   components: {
     // ---- モニタリング項目
     ConfirmedCasesDetailsCard,
@@ -75,6 +79,8 @@ const options = {
     MetroCard,
     AgencyCard,
   },
+})
+export default class CardContainer extends Vue implements NuxtConfig {
   data() {
     return {
       title: '',
@@ -165,32 +171,39 @@ const options = {
         break
       // 都庁来庁者数の推移
       case 'agency':
-        this.cardComponent = 'agency-card'
+        cardComponent = 'agency-card'
     }
-    return [this.cardComponent, this.title, this.updatedAt]
-  },
-  metaInfo: {
-    head: {
-      url: 'https://stopcovid19.metro.tokyo.lg.jp',
-      timestamp: new Date().getTime(),
-      ogpImage:
-        this.$i18n.locale === 'ja'
-          ? `${this.url}/ogp/${this.$route.params.card}.png?t=${this.timestamp}`
-          : `${this.url}/ogp/${this.$i18n.locale}/${this.$route.params.card}.png?t=${this.timestamp}`,
-      description: `${this.$t(
-        '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
-      )}`,
-      defaultTitle: `${this.$t('東京都')} ${this.$t(
-        '新型コロナウイルス感染症'
-      )}${this.$t('対策サイト')}`,
+    /* eslint-enable simple-import-sort/sort */
+    return {
+      cardComponent,
+      title,
+      updatedAt,
+    }
+  }
 
-      titleTemplate: (title) => `${this.title || title} | ${this.defaultTitle}`,
+  head() {
+    const url = 'https://stopcovid19.metro.tokyo.lg.jp'
+    const timestamp = new Date().getTime()
+    const defaultTitle = `${this.$t('東京都')} ${this.$t(
+      '新型コロナウイルス感染症'
+    )}${this.$t('対策サイト')}`
+    const ogpImage =
+      (this.$i18n.locale ?? 'ja') === 'ja'
+        ? `${url}/ogp/${this.$route.params.card}.png?t=${timestamp}`
+        : `${url}/ogp/${this.$i18n.locale}/${this.$route.params.card}.png?t=${timestamp}`
+
+    const mInfo: MetaInfo = {
+      title: `${
+        (this.$data.title ?? '') !== ''
+          ? this.$data.title + ' | ' + defaultTitle
+          : defaultTitle
+      }`,
       link: [
-        ...this.getLinksLanguageAlternative(
+        ...(getLinksLanguageAlternative(
           `cards/${this.$route.params.card}`,
           this.$i18n.locales,
           this.$i18n.defaultLocale
-        ),
+        ) as []),
       ],
       meta: [
         {
@@ -201,43 +214,43 @@ const options = {
         {
           hid: 'og:title',
           property: 'og:title',
-          template: (title) =>
-            title !== ''
-              ? `${this.title || title} | ${this.defaultTitle}`
-              : `${this.defaultTitle}`,
-          content: '',
+          content: `${
+            (this.$data.title ?? '') !== ''
+              ? this.$data.title + ' | ' + defaultTitle
+              : defaultTitle
+          }`,
         },
         {
           hid: 'description',
           name: 'description',
-          template: (updatedAt) =>
-            updatedAt !== ''
-              ? `${this.updatedAt || updatedAt} | ${this.description}`
-              : `${this.description}`,
-          content: '',
+          content: `${this.$t('{date} 更新', {
+            date: convertDateToSimpleFormat(this.$data.updatedAt),
+          })}: ${this.$tc(
+            '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
+          )}`,
         },
         {
           hid: 'og:description',
           property: 'og:description',
-          template: (updatedAt) =>
-            updatedAt !== ''
-              ? `${this.updatedAt || updatedAt} | ${this.description}`
-              : `${this.description}`,
-          content: '',
-        },
+          content: `${this.$t('{date} 更新', {
+            date: convertDateToSimpleFormat(this.$data.updatedAt),
+          })}: ${this.$tc(
+            '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
+          )}`,
         {
           hid: 'og:image',
           property: 'og:image',
-          content: this.ogpImage,
+          content: `${ogpImage}`,
         },
         {
           hid: 'twitter:image',
           name: 'twitter:image',
-          content: this.ogpImage,
+          content: `${ogpImage}`,
         },
       ],
-    },
-  },
+    }
+    return mInfo
+  }
 }
 
 export default options

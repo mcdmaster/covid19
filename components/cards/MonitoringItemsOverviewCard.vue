@@ -118,6 +118,6 @@ section {
 
 dfn {
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
 }
 </style>
