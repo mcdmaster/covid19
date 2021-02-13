@@ -38,22 +38,26 @@
         {{ mdiClose }}
       </v-icon>
 
-      <nav class="SideNavigation-Menu">
-        <div class="SideNavigation-Language">
-          <div
-            v-if="this.$i18n.locales.length > 1"
-            class="SideNavigation-Language"
-          >
-            <label class="SideNavigation-LanguageLabel" for="LanguageSelector">
-              {{ $t('多言語対応選択メニュー') }}
-            </label>
-            <language-selector />
+        <nav class="SideNavigation-Menu">
+          <div class="SideNavigation-Language">
+            <div
+              v-if="$i18n.locales.length > 1"
+              class="SideNavigation-Language"
+            >
+              <label
+                class="SideNavigation-LanguageLabel"
+                for="LanguageSelector"
+              >
+                {{ $t('多言語対応選択メニュー') }}
+              </label>
+              <language-selector />
+            </div>
           </div>
         </div>
         <menu-list :items="items" @click="$emit('close-navigation', $event)" />
       </nav>
 
-      <footer class="SideNavigation-Footer">
+      <v-item-group id="footer" class="SideNavigation-Footer">
         <div class="SideNavigation-Social">
           <app-link
             to="https://line.me/R/ti/p/%40822sysfc"
@@ -170,16 +174,36 @@ type Item = {
   divider?: boolean
 }
 
-export default Vue.extend({
+const options = {
   components: {
     LanguageSelector,
     MenuList,
     AppLink,
   },
   props: {
-    isNaviOpen: {
-      type: Boolean,
-      required: true,
+    mdiClose: {
+      type: String,
+      default: () => mdiClose,
+    },
+    mdiMenu: {
+      type: String,
+      default: () => mdiMenu,
+    },
+    mdiChartTimelineVariant: {
+      type: String,
+      default: () => mdiChartTimelineVariant,
+    },
+    mdiAccountMultiple: {
+      type: String,
+      default: () => mdiAccountMultiple,
+    },
+    mdiDomain: {
+      type: String,
+      default: () => mdiDomain,
+    },
+    drawer: {
+      type: [Boolean, Function],
+      default: () => isDesktopOrTablet,
     },
   },
   data() {
@@ -194,7 +218,7 @@ export default Vue.extend({
         {
           iconPath: mdiChartTimelineVariant,
           title: this.$t('都内の最新感染動向'),
-          link: this.localePath('/'),
+          link: `${this.localePath('/')}`,
         },
         {
           svg: 'CovidIcon',
@@ -226,7 +250,7 @@ export default Vue.extend({
         {
           svg: 'ParentIcon',
           title: this.$t('お子様をお持ちの皆様へ'),
-          link: this.localePath('/parent'),
+          link: `${this.localePath('/parent')}`,
         },
         {
           iconPath: mdiAccountMultiple,
@@ -236,7 +260,7 @@ export default Vue.extend({
         {
           iconPath: mdiDomain,
           title: this.$t('企業の皆様・はたらく皆様へ'),
-          link: this.localePath('/worker'),
+          link: `${this.localePath('/worker')}`,
           divider: true,
         },
         {
@@ -281,7 +305,7 @@ export default Vue.extend({
         },
         {
           title: this.$t('当サイトについて'),
-          link: this.localePath('/about'),
+          link: `${this.localePath('/about')}`,
         },
         {
           title: this.$t('ご意見はこちら（外部サービスを使用しています）'),
@@ -290,7 +314,7 @@ export default Vue.extend({
         },
         {
           title: this.$t('お問い合わせ先一覧'),
-          link: this.localePath('/contacts'),
+          link: `${this.localePath('/contacts')}`,
         },
         {
           title: this.$t('東京都公式ホームページ'),
@@ -313,21 +337,9 @@ export default Vue.extend({
       }
     },
   },
-  watch: {
-    $route: 'handleChageRoute',
-  },
-  methods: {
-    handleChageRoute() {
-      // nuxt-link で遷移するとフォーカスが残り続けるので $route を監視して SideNavigation にフォーカスする
-      return this.$nextTick().then(() => {
-        const $Side = this.$refs.Side as HTMLEmbedElement | undefined
-        if ($Side) {
-          $Side.focus()
-        }
-      })
-    },
-  },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>
@@ -343,46 +355,45 @@ export default Vue.extend({
 
 .SideNavigation-Header {
   height: 64px;
-  padding-left: 52px;
+  min-height: 64px;
   @include largerThan($small) {
-    height: auto;
-    padding: 20px;
+    padding: 20px 0 96px;
   }
   @include lessThan($small) {
     display: flex;
+    padding-left: 12px;
   }
   @include lessThan($tiny) {
-    padding-left: 44px;
+    padding-left: 10px;
   }
 }
 
 .SideNavigation-OpenIcon {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  padding: 18px 8px 18px 16px;
+  padding: 32px 8px 18px 2px;
   font-size: 28px;
+  @include largerThan($small) {
+    @include visually-hidden;
+  }
   @include lessThan($tiny) {
     font-size: 24px;
-    padding: 20px 10px;
-  }
-  @include largerThan($small) {
-    display: none;
   }
 }
 
 .SideNavigation-CloseIcon {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  padding: 18px 8px 18px 16px;
+  padding: 18px 8px 18px 12px;
   font-size: 28px;
   @include lessThan($tiny) {
     font-size: 24px;
     padding: 20px 10px;
   }
   @include largerThan($small) {
-    display: none;
+    @include visually-hidden;
   }
 }
 
@@ -392,8 +403,7 @@ export default Vue.extend({
   font-weight: 600;
   @include font-size(13);
   @include largerThan($small) {
-    margin: 0;
-    margin-top: 10px;
+    margin: 10px 0 0 0;
   }
 }
 
@@ -401,9 +411,7 @@ export default Vue.extend({
   display: flex;
   align-items: center;
   padding-right: 10px;
-  @include lessThan($small) {
-    height: 64px;
-  }
+  height: 64px;
   @include lessThan($tiny) {
     justify-content: space-between;
   }
@@ -415,16 +423,13 @@ export default Vue.extend({
     color: inherit;
     text-decoration: none;
   }
-
   &:hover,
   &:focus {
     font-weight: 600;
   }
-
   &:focus {
     outline: dotted $gray-3 1px;
   }
-
   @include largerThan($small) {
     display: block;
     padding: 15px 0;
@@ -442,82 +447,102 @@ export default Vue.extend({
   @include lessThan($small) {
     margin: 0 0 0 10px;
   }
-
   @include lessThan($tiny) {
     margin: 0;
   }
 }
 
-.SideNavigation-Body {
-  padding: 0 20px 20px;
-  @include lessThan($small) {
-    display: none;
-    padding: 0 36px 36px;
-    &.-opened {
-      position: fixed;
+.v-navigation-drawer {
+  position: relative;
+  overflow-y: visible;
+  z-index: 0;
+  @include largerThan($small) {
+    width: 256px;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    &::-webkit-scrollbar {
+      display: none none;
+    }
+  }
+
+  .SideNavigation-Body {
+    padding: 20px 20px 20px 20px;
+    position: relative;
+    @include largerThan($small) {
+      width: inherit;
+    }
+    @include lessThan($small) {
+      padding: 0 36px 36px 0;
       top: 0;
       bottom: 0;
       left: 0;
       display: block !important;
-      width: 100%;
-      z-index: z-index-of(opened-side-navigation);
       background-color: $white;
+      width: 100%;
       height: 100%;
-      overflow: auto;
       -webkit-overflow-scrolling: touch;
     }
   }
-}
 
-.SideNavigation-Menu {
-  @include lessThan($small) {
-    padding-top: 50px;
+  .v-navigation-drawer--is-mobile:not(.v-navigation-drawer--close)
+    + .v-navigation-drawer__content {
+    visibility: visible;
   }
-}
-
-.SideNavigation-LanguageLabel {
-  display: block;
-  margin-bottom: 5px;
-  @include font-size(14);
-}
-
-.SideNavigation-Footer {
-  padding-top: 20px;
-}
-
-.SideNavigation-Social {
-  display: flex;
-}
-
-.SideNavigation-SocialLink {
-  border: 1px dotted transparent;
-  border-radius: 30px;
-  color: $gray-3;
-  margin-bottom: 15px;
-
-  &:link,
-  &:hover,
-  &:visited,
-  &:active {
-    color: inherit;
-    text-decoration: none;
+  .v-navigation-drawer--is-mobile::after(.v-navigation-drawer--close)
+    + .v-navigation-drawer__content {
+    @include visually-hidden;
+  }
+  .v-navigation-drawer--bottom.v-navigation-drawer--is-mobile {
+    min-width: inherit;
   }
 
-  &:focus {
-    color: inherit;
-    text-decoration: none;
-    border: 1px dotted $gray-3;
-    outline: none;
+  .SideNavigation-Menu {
+    @include lessThan($small) {
+      padding-top: 50px;
+    }
   }
 
-  & + & {
-    margin-left: 10px;
+  .SideNavigation-LanguageLabel {
+    display: block;
+    margin-bottom: 5px;
+    @include font-size(14);
   }
 
-  img {
-    width: 30px;
+  .SideNavigation-Footer {
+    position: relative;
+    padding: 0 20px 20px 12px;
   }
-}
+
+  .SideNavigation-Social {
+    display: flex;
+  }
+
+  .SideNavigation-SocialLink {
+    border: 1px dotted transparent;
+    border-radius: 30px;
+    color: $gray-3;
+    margin-bottom: 15px;
+    &:link,
+    &:hover,
+    &:visited,
+    &:active {
+      color: inherit;
+      text-decoration: none;
+    }
+    &:focus {
+      color: inherit;
+      text-decoration: none;
+      border: 1px dotted $gray-3;
+      outline: none;
+    }
+    & + & {
+      margin-left: 10px;
+    }
+    img {
+      width: 30px;
+    }
+  }
+
 
 .SideNavigation-Copyright {
   display: inline-block;
@@ -527,9 +552,10 @@ export default Vue.extend({
   @include font-size(10);
 }
 
-.SideNavigation-LicenseLink {
-  &:focus {
-    outline: 1px dotted $gray-3;
+  .SideNavigation-LicenseLink {
+    &:focus {
+      outline: 1px dotted $gray-3;
+    }
   }
 }
 

@@ -5,6 +5,7 @@
         {{ $t('感染状況・医療提供体制の分析') }}
       </h3>
     </div>
+
     <div class="MonitoringComment-comments">
       <v-row class="MonitoringComment-row">
         <v-col class="MonitoringComment-col">
@@ -56,10 +57,16 @@ type CommentKey = {
   [key: string]: MonitoringComment
 }
 
-export default Vue.extend({
+const options = {
   components: {
     MonitoringCommentFrame,
     MonitoringCommentCardImageSwipe,
+  },
+  props: {
+    mdiChevronRight: {
+      type: String,
+      default: () => mdiChevronRight,
+    },
   },
   data() {
     const monitoringComment: CommentKey = formatMonitoringComment(
@@ -77,7 +84,9 @@ export default Vue.extend({
         : this.monitoringComment[item].display['@en']
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

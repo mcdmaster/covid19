@@ -13,17 +13,17 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
 import AppLink from '@/components/AppLink.vue'
 import AntennaIcon from '@/static/antenna.svg'
 
-export default Vue.extend({
+const options = {
   components: {
     AppLink,
     AntennaIcon,
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" module>

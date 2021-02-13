@@ -69,3 +69,5 @@ export function formatTable(data: DataType[]): TableDateType {
     datasets,
   }
 }
+
+export default options

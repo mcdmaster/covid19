@@ -91,10 +91,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
 /* eslint-disable vue/prop-name-casing */
-export default Vue.extend({
+const options = {
   props: {
     陽性者数: {
       type: Number,
@@ -133,7 +131,9 @@ export default Vue.extend({
       required: true,
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" module>

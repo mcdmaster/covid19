@@ -86,7 +86,6 @@
 <script lang="ts">
 import { mdiAlert } from '@mdi/js'
 import Vue from 'vue'
-import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 
 import DataView from '@/components/DataView.vue'
 import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
@@ -158,7 +157,9 @@ export default Vue.extend({
       table.setAttribute('tabindex', '0')
     })
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

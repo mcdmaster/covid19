@@ -121,6 +121,14 @@ export default Vue.extend({
       type: String,
       default: '',
     },
+    mdiClose: {
+      type: String,
+      default: () => mdiClose,
+    },
+    mdiClipboardOutline: {
+      type: String,
+      default: () => mdiClipboardOutline,
+    },
   },
   data() {
     return {
@@ -210,7 +218,9 @@ export default Vue.extend({
       window.open(url)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

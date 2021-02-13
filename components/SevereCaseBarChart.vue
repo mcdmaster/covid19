@@ -55,14 +55,7 @@ import dayjs from 'dayjs'
 import Vue from 'vue'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import OpenDataLink from '@/components/OpenDataLink.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
 import calcDayBeforeRatio from '@/utils/calcDayBeforeRatio'
 import { getGraphSeriesStyle } from '@/utils/colors'
@@ -109,13 +102,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
 > = {
   created() {
     this.canvas = process.browser
-  },
-  components: {
-    DataView,
-    DataViewTable,
-    DataViewDataSetPanel,
-    ScrollableChart,
-    OpenDataLink,
   },
   props: {
     title: {
@@ -172,10 +158,10 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayData() {
       const style = getGraphSeriesStyle(1)[0]
       return {
-        labels: this.chartData.map((d) => d.label),
+        labels: this.chartData.map((d: any) => d.label),
         datasets: [
           {
-            data: this.chartData.map((d) => d.transition),
+            data: this.chartData.map((d: any) => d.transition),
             backgroundColor: style.fillColor,
             borderColor: style.strokeColor,
             borderWidth: 1,
@@ -282,8 +268,8 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         datasets: [
           {
             data: [
-              Math.max(...this.chartData.map((d) => d.transition)),
-              Math.min(...this.chartData.map((d) => d.transition)),
+              Math.max(...this.chartData.map((d: any) => d.transition)),
+              Math.min(...this.chartData.map((d: any) => d.transition)),
             ],
             backgroundColor: 'transparent',
             borderWidth: 0,
@@ -365,7 +351,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       return options
     },
     scaledTicksYAxisMax() {
-      const values = this.chartData.map((d) => d.transition)
+      const values = this.chartData.map((d: any) => d.transition)
       return Math.max(...values)
     },
     tableHeaders() {
@@ -380,13 +366,13 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     tableData() {
       return this.chartData
-        .map((d, _) => {
+        .map((d: any, _any: any) => {
           return {
             text: d.label,
             transition: d.transition.toLocaleString(),
           }
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
   },
@@ -403,5 +389,5 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>

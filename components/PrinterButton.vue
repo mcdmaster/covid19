@@ -23,7 +23,7 @@
 import PrinterWhiteIcon from '@/static/printer-white.svg'
 import PrinterIcon from '@/static/printer.svg'
 
-export default {
+const options = {
   components: {
     PrinterIcon,
     PrinterWhiteIcon,
@@ -52,6 +52,8 @@ export default {
     },
   },
 }
+
+export default options
 </script>
 
 <style lang="scss" scoped>

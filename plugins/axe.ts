@@ -16,8 +16,6 @@ if (NODE_ENV === 'development' && VUE_AXE === 'true') {
           id: 'color-contrast',
           enabled: false,
         },
-      ],
-    },
-    clearConsoleOnUpdate: false,
-  })
-}
+      }
+
+export default options

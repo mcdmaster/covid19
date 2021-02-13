@@ -103,13 +103,7 @@ import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import {
   DisplayData,
   yAxesBgPlugin,
@@ -123,9 +117,6 @@ import {
 } from '@/utils/colors'
 import { getNumberToFixedFunction } from '@/utils/monitoringStatusValueFormatters'
 
-interface HTMLElementEvent<T extends HTMLElement> extends MouseEvent {
-  currentTarget: T
-}
 type Data = {
   canvas: boolean
   displayLegends: boolean[]
@@ -179,12 +170,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   created() {
     this.canvas = process.browser
   },
-  components: {
-    DataView,
-    DataViewTable,
-    DataViewDataSetPanel,
-    ScrollableChart,
-  },
   props: {
     title: {
       type: String,
@@ -212,7 +197,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     getFormatter: {
       type: Function,
       required: false,
-      default: (_: number) => getNumberToFixedFunction(),
+      default: (_any: number) => getNumberToFixedFunction(),
     },
     date: {
       type: String,
@@ -378,10 +363,10 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     tableData() {
       return this.labels
-        .map((label, i) => {
+        .map((label: string, i: number) => {
           return Object.assign(
             { text: label },
-            ...(this.dataLabels as string[]).map((_, j) => {
+            ...(this.dataLabels as string[]).map((_any, j) => {
               if (this.chartData[j][i] === null) {
                 return {
                   [j]: '',
@@ -393,7 +378,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
             })
           )
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
     displayOption() {
@@ -521,10 +506,10 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayDataHeader() {
       const sums = Array.from(this.displayData.datasets[0].data.keys()).map(
         (i) =>
-          this.displayData.datasets[0].data[i] +
-          this.displayData.datasets[1].data[i] +
-          this.displayData.datasets[2].data[i] +
-          this.displayData.datasets[3].data[i]
+          this.displayData.datasets[0].data[i as number] +
+          this.displayData.datasets[1].data[i as number] +
+          this.displayData.datasets[2].data[i as number] +
+          this.displayData.datasets[3].data[i as number]
       )
       const max = sums.reduce((a, b) => Math.max(a, b), 0)
       const n = sums.indexOf(max)
@@ -668,15 +653,15 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       return Array.from(this.chartData[0].keys())
         .map(
           (i) =>
-            this.chartData[0][i] +
-            this.chartData[1][i] +
-            this.chartData[2][i] +
-            this.chartData[3][i]
+            this.chartData[0][i as number] +
+            this.chartData[1][i as number] +
+            this.chartData[2][i as number] +
+            this.chartData[3][i as number]
         )
         .reduce((a, b) => Math.max(a, b), 0)
     },
     scaledTicksYAxisMaxRight() {
-      return this.chartData[5].reduce((a, b) => Math.max(a, b), 0)
+      return this.chartData[5].reduce((a: any, b: any) => Math.max(a, b), 0)
     },
   },
   methods: {
@@ -698,7 +683,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style module lang="scss">

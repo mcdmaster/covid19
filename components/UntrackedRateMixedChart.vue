@@ -106,13 +106,7 @@ import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import {
   DisplayData,
   yAxesBgPlugin,
@@ -175,12 +169,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
 > = {
   created() {
     this.canvas = process.browser
-  },
-  components: {
-    DataView,
-    DataViewTable,
-    DataViewDataSetPanel,
-    ScrollableChart,
   },
   props: {
     title: {
@@ -360,10 +348,10 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     tableData() {
       return this.labels
-        .map((label, i) => {
+        .map((label: any, i: number) => {
           return Object.assign(
             { text: label },
-            ...this.chartData.map((_, j) => {
+            ...this.chartData.map((_any: any, j: number) => {
               const data = this.chartData[j]
               if (data[i] === null) {
                 return {
@@ -376,7 +364,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
             })
           )
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
     displayOption() {
@@ -508,7 +496,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayDataHeader() {
       const { datasets } = this.displayData
       const sums = Array.from(datasets[0].data.keys()).map(
-        (i) => datasets[0].data[i] + datasets[1].data[i]
+        (i) => datasets[0].data[i as number] + datasets[1].data[i as number]
       )
       const max = sums.reduce((a, b) => Math.max(a, b), 0)
       const n = sums.indexOf(max)
@@ -638,12 +626,20 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     scaledTicksYAxisMax() {
       const max = Array.from(this.chartData[0].keys())
-        .map((i) => this.chartData[0][i] + this.chartData[1][i])
-        .reduce((a, b) => Math.max(a, b), 0)
-      return this.chartData[2].reduce((a, b) => Math.max(a, b), max)
+        .map(
+          (i) => this.chartData[0][i as number] + this.chartData[1][i as number]
+        )
+        .reduce((a: number, b: number) => Math.max(a, b), 0)
+      return this.chartData[2].reduce(
+        (a: number, b: number) => Math.max(a, b),
+        max
+      )
     },
     scaledTicksYAxisMaxRight() {
-      return this.chartData[3].reduce((a, b) => Math.max(a, b), 0)
+      return this.chartData[3].reduce(
+        (a: number, b: number) => Math.max(a, b),
+        0
+      )
     },
   },
   methods: {
@@ -652,7 +648,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       this.displayLegends = this.displayLegends.slice()
     },
     makeLineData(value: number): number[] {
-      return this.chartData[0].map((_) => value)
+      return this.chartData[0].map((_any: any) => value)
     },
   },
   mounted() {
@@ -668,7 +664,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style module lang="scss">

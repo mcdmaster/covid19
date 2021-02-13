@@ -42,7 +42,7 @@ import DashedRectangleTimeBarChart from '@/components/DashedRectangleTimeBarChar
 import positiveStatus from '@/data/positive_status.json'
 import formatGraph from '@/utils/formatGraph'
 
-export default {
+const options = {
   components: {
     DashedRectangleTimeBarChart,
   },
@@ -64,4 +64,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

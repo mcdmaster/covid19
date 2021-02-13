@@ -58,7 +58,7 @@ import {
   getNumberToLocaleStringFunction,
 } from '@/utils/monitoringStatusValueFormatters'
 
-export default {
+const options = {
   components: {
     UntrackedRateMixedChart,
   },
@@ -112,4 +112,6 @@ export default {
     }
   },
 }
+
+export default options
 </script>

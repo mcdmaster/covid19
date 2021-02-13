@@ -62,14 +62,7 @@ import Vue from 'vue'
 import { TranslateResult } from 'vue-i18n'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataView from '@/components/DataView.vue'
-import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
-import OpenDataLink from '@/components/OpenDataLink.vue'
-import ScrollableChart from '@/components/ScrollableChart.vue'
+import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
 import {
   DataSets,
   DataSetsPoint,
@@ -135,13 +128,6 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   created() {
     this.canvas = process.browser
   },
-  components: {
-    DataView,
-    DataViewTable,
-    DataViewDataSetPanel,
-    ScrollableChart,
-    OpenDataLink,
-  },
   props: {
     title: {
       type: String,
@@ -198,7 +184,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   }),
   computed: {
     makeDashedRectangleData() {
-      const max = Math.max(...this.chartData.map((d) => d.transition))
+      const max = Math.max(...this.chartData.map((d: any) => d.transition))
       const firstDay = this.chartData[0].label
       return [
         { x: firstDay, y: 0 },
@@ -225,12 +211,12 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayData() {
       const style = getGraphSeriesStyle(1)[0]
       return {
-        labels: this.chartData.map((d) => d.label),
+        labels: this.chartData.map((d: any) => d.label),
         datasets: [
           {
             type: 'bar',
             label: this.dataKind,
-            data: this.chartData.map((d) => {
+            data: this.chartData.map((d: any) => {
               return d.transition
             }),
             backgroundColor: style.fillColor,
@@ -352,7 +338,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         labels: ['2020-01-01'],
         datasets: [
           {
-            data: [Math.max(...this.chartData.map((d) => d.transition))],
+            data: [Math.max(...this.chartData.map((d: any) => d.transition))],
             backgroundColor: 'transparent',
             borderWidth: 0,
           },
@@ -433,7 +419,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       return options
     },
     scaledTicksYAxisMax() {
-      const values = this.chartData.map((d) => d.transition)
+      const values = this.chartData.map((d: any) => d.transition)
       return Math.max(...values) + this.addedValue
     },
     tableHeaders() {
@@ -448,13 +434,13 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     tableData() {
       return this.chartData
-        .map((d, _) => {
+        .map((d: any, _: any) => {
           return {
             text: d.label,
             transition: d.transition.toLocaleString(),
           }
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
   },
@@ -471,5 +457,5 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>

@@ -50,7 +50,6 @@
     "nuxt-i18n": "6.20.0",
     "vue": "2.6.12",
     "vue-chartjs": "3.5.1",
-    "vue-meta": "2.4.0",
     "vue-scrollto": "2.20.0",
     "vue-spinner": "1.0.4"
   },
@@ -59,12 +58,15 @@
     "@babel/runtime-corejs3": "7.12.13",
     "@mdi/js": "5.9.55",
     "@nuxt/typescript-build": "2.0.4",
+    "@nuxtjs/device": "2.0.0",
     "@nuxtjs/eslint-config": "3.1.0",
     "@nuxtjs/eslint-config-typescript": "3.0.0",
     "@nuxtjs/google-analytics": "2.4.0",
     "@nuxtjs/stylelint-module": "4.0.0",
     "@nuxtjs/vuetify": "1.11.3",
     "@types/chart.js": "2.9.30",
+    "@vue/compiler-core": "3.0.5",
+    "@vue/server-renderer": "3.0.5",
     "core-js": "3.8.3",
     "eslint": "7.16.0",
     "eslint-config-prettier": "6.15.0",
@@ -78,14 +80,15 @@
     "nuxt-svg-loader": "1.2.0",
     "nuxt-webfontloader": "1.1.0",
     "prettier": "2.2.1",
+    "purgecss": "4.0.0",
     "rimraf": "3.0.2",
+    "sass": "1.32.6",
     "stylelint": "13.8.0",
     "stylelint-config-prettier": "8.0.2",
     "stylelint-config-standard": "20.0.0",
     "stylelint-scss": "3.18.0",
-    "ts-loader": "8.0.17",
     "typescript": "4.1.5",
     "vue-axe": "2.4.4",
-    "vue-template-compiler": "2.6.12"
+    "vuetify": "2.4.3"
   }
 }

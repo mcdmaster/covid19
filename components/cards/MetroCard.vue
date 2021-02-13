@@ -39,7 +39,7 @@ import dayjs from 'dayjs'
 import MetroBarChart from '@/components/MetroBarChart.vue'
 import MetroData from '@/data/metro.json'
 
-export default {
+const options = {
   components: {
     MetroBarChart,
   },
@@ -94,4 +94,6 @@ export default {
     },
   },
 }
+
+export default options
 </script>

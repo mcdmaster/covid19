@@ -24,5 +24,7 @@ export default DataViewDataSetPanel.extend({
       default: '',
     },
   },
-})
+}
+
+export default options
 </script>

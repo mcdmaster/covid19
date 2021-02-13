@@ -75,20 +75,10 @@
 </template>
 
 <script>
-import AppLink from '@/components/AppLink.vue'
-import DataView from '@/components/DataView.vue'
-import MonitoringItemsOverviewTableInfectionStatus from '@/components/MonitoringItemsOverviewTableInfectionStatus.vue'
-import MonitoringItemsOverviewTableMedicalSystem from '@/components/MonitoringItemsOverviewTableMedicalSystem.vue'
 import monitoringItemsData from '@/data/monitoring_items.json'
 import { formatMonitoringItems } from '@/utils/formatMonitoringItems'
 
-export default {
-  components: {
-    DataView,
-    MonitoringItemsOverviewTableInfectionStatus,
-    MonitoringItemsOverviewTableMedicalSystem,
-    AppLink,
-  },
+const options = {
   data() {
     const monitoringItems = formatMonitoringItems(monitoringItemsData.data)
     return {
@@ -97,6 +87,8 @@ export default {
     }
   },
 }
+
+export default options
 </script>
 
 <style lang="scss" module>

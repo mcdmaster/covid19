@@ -40,7 +40,7 @@ import News from '@/data/news.json'
 import TokyoAlert from '@/data/tokyo_alert.json'
 import { convertDatetimeToISO8601Format } from '@/utils/formatDate'
 
-export default Vue.extend({
+const options = {
   components: {
     PageHeader,
     WhatsNew,
@@ -50,7 +50,6 @@ export default Vue.extend({
   },
   data() {
     const { lastUpdate } = Data
-
     return {
       TokyoAlert,
       headerItem: {
@@ -74,7 +73,9 @@ export default Vue.extend({
       title: this.$t('都内の最新感染動向') as string,
     }
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>
@@ -83,20 +84,17 @@ export default Vue.extend({
     display: flex;
     flex-wrap: wrap;
     align-items: flex-end;
-
     @include lessThan($small) {
       flex-direction: column;
       align-items: baseline;
     }
   }
-
   .UpdatedAt {
     @include font-size(14);
 
     color: $gray-3;
     margin-bottom: 0.2rem;
   }
-
   .Annotation {
     @include font-size(12);
 

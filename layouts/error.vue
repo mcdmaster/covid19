@@ -22,9 +22,7 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
-export default Vue.extend({
+const options = {
   layout: 'empty',
   props: {
     error: {
@@ -42,7 +40,9 @@ export default Vue.extend({
         : (this.$t('現在ご利用できません') as string)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

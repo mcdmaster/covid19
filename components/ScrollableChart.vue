@@ -10,11 +10,11 @@
 </template>
 
 <script lang="ts">
-import Vue, { PropType } from 'vue'
+import Vue from 'nuxt-property-decorator'
 import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import { DisplayData } from '@/plugins/vue-chart'
-import { EventBus, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
+import type { DisplayData } from '@/plugins/vue-chart'
+import { $on, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
 
 type Data = {
   chartWidth: number
@@ -43,8 +43,8 @@ const options: ThisTypedComponentOptionsWithRecordProps<
 > = {
   props: {
     displayData: {
-      type: Object as PropType<DisplayData>,
-      required: true,
+      type: Object,
+      default: {} as DisplayData,
     },
     isWeekly: {
       type: Boolean,

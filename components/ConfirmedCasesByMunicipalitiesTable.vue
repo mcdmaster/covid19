@@ -65,5 +65,7 @@ export default Vue.extend({
       table.setAttribute('tabindex', '0')
     })
   },
-})
+}
+
+export default options
 </script>

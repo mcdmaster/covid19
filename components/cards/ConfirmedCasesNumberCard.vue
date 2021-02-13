@@ -53,7 +53,7 @@ import TimeBarChart from '@/components/TimeBarChart.vue'
 import Data from '@/data/data.json'
 import formatGraph from '@/utils/formatGraph'
 
-export default {
+const options = {
   components: {
     TimeBarChart,
     AppLink,
@@ -69,6 +69,8 @@ export default {
     }
   },
 }
+
+export default options
 </script>
 
 <style lang="scss" scoped>

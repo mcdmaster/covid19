@@ -359,14 +359,14 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     tableHeaders() {
       return [
         { text: this.$t('日付'), value: 'text' },
-        ...this.displayData.datasets.map((text, value) => {
+        ...this.displayData.datasets.map((text: any, value: any) => {
           return { text: text.label, value: String(value), align: 'end' }
         }),
       ]
     },
     tableData() {
       return this.displayData.datasets[0].data
-        .map((_, i) => {
+        .map((_any: any, i: number) => {
           return Object.assign(
             { text: this.periods[i] },
             ...this.displayData.datasets!.map((_, j) => {
@@ -398,7 +398,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default Vue.extend(options)
+export default options
 </script>
 
 <style module lang="scss">
