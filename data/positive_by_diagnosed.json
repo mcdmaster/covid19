@@ -1,5 +1,5 @@
 {
-    "date": "2021\/2\/3 19:45",
+    "date": "2021\/2\/13 19:00",
     "data": [
         {
             "diagnosed_date": "2020-01-23",
@@ -1355,19 +1355,19 @@
         },
         {
             "diagnosed_date": "2020-12-26",
-            "count": 760
+            "count": 762
         },
         {
             "diagnosed_date": "2020-12-27",
-            "count": 524
+            "count": 530
         },
         {
             "diagnosed_date": "2020-12-28",
-            "count": 919
+            "count": 923
         },
         {
             "diagnosed_date": "2020-12-29",
-            "count": 1102
+            "count": 1105
         },
         {
             "diagnosed_date": "2020-12-30",
@@ -1375,15 +1375,15 @@
         },
         {
             "diagnosed_date": "2020-12-31",
-            "count": 879
+            "count": 887
         },
         {
             "diagnosed_date": "2021-01-01",
-            "count": 799
+            "count": 800
         },
         {
             "diagnosed_date": "2021-01-02",
-            "count": 887
+            "count": 888
         },
         {
             "diagnosed_date": "2021-01-03",
@@ -1399,7 +1399,7 @@
         },
         {
             "diagnosed_date": "2021-01-06",
-            "count": 2546
+            "count": 2549
         },
         {
             "diagnosed_date": "2021-01-07",
@@ -1407,111 +1407,147 @@
         },
         {
             "diagnosed_date": "2021-01-08",
-            "count": 2272
+            "count": 2277
         },
         {
             "diagnosed_date": "2021-01-09",
-            "count": 1749
+            "count": 1751
         },
         {
             "diagnosed_date": "2021-01-10",
-            "count": 1374
+            "count": 1383
         },
         {
             "diagnosed_date": "2021-01-11",
-            "count": 901
+            "count": 906
         },
         {
             "diagnosed_date": "2021-01-12",
-            "count": 1927
+            "count": 1934
         },
         {
             "diagnosed_date": "2021-01-13",
-            "count": 1010
+            "count": 1016
         },
         {
             "diagnosed_date": "2021-01-14",
-            "count": 1906
+            "count": 1914
         },
         {
             "diagnosed_date": "2021-01-15",
-            "count": 1754
+            "count": 1762
         },
         {
             "diagnosed_date": "2021-01-16",
-            "count": 1428
+            "count": 1441
         },
         {
             "diagnosed_date": "2021-01-17",
-            "count": 809
+            "count": 836
         },
         {
             "diagnosed_date": "2021-01-18",
-            "count": 1170
+            "count": 1209
         },
         {
             "diagnosed_date": "2021-01-19",
-            "count": 1405
+            "count": 1429
         },
         {
             "diagnosed_date": "2021-01-20",
-            "count": 1257
+            "count": 1266
         },
         {
             "diagnosed_date": "2021-01-21",
-            "count": 1201
+            "count": 1208
         },
         {
             "diagnosed_date": "2021-01-22",
-            "count": 1038
+            "count": 1048
         },
         {
             "diagnosed_date": "2021-01-23",
-            "count": 846
+            "count": 855
         },
         {
             "diagnosed_date": "2021-01-24",
-            "count": 469
+            "count": 478
         },
         {
             "diagnosed_date": "2021-01-25",
-            "count": 731
+            "count": 740
         },
         {
             "diagnosed_date": "2021-01-26",
-            "count": 1070
+            "count": 1075
         },
         {
             "diagnosed_date": "2021-01-27",
-            "count": 923
+            "count": 926
         },
         {
             "diagnosed_date": "2021-01-28",
-            "count": 802
+            "count": 807
         },
         {
             "diagnosed_date": "2021-01-29",
-            "count": 752
+            "count": 756
         },
         {
             "diagnosed_date": "2021-01-30",
-            "count": 578
+            "count": 599
         },
         {
             "diagnosed_date": "2021-01-31",
-            "count": 303
+            "count": 312
         },
         {
             "diagnosed_date": "2021-02-01",
-            "count": 497
+            "count": 522
         },
         {
             "diagnosed_date": "2021-02-02",
-            "count": 490
+            "count": 666
         },
         {
             "diagnosed_date": "2021-02-03",
-            "count": 6
+            "count": 570
+        },
+        {
+            "diagnosed_date": "2021-02-04",
+            "count": 560
+        },
+        {
+            "diagnosed_date": "2021-02-05",
+            "count": 601
+        },
+        {
+            "diagnosed_date": "2021-02-06",
+            "count": 389
+        },
+        {
+            "diagnosed_date": "2021-02-07",
+            "count": 192
+        },
+        {
+            "diagnosed_date": "2021-02-08",
+            "count": 396
+        },
+        {
+            "diagnosed_date": "2021-02-09",
+            "count": 525
+        },
+        {
+            "diagnosed_date": "2021-02-10",
+            "count": 447
+        },
+        {
+            "diagnosed_date": "2021-02-11",
+            "count": 231
+        },
+        {
+            "diagnosed_date": "2021-02-12",
+            "count": 281
         }
     ]
 }

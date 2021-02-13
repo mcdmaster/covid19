@@ -3,10 +3,11 @@
     <div class="StayingPopulation">
       <div class="StayingPopulation-title">
         {{ $t('●緊急事態宣言中の都内の滞在人口の増減状況') }}<br />
+        <v-icon color="#D9D9D9">{{ mdiChevronRight }}</v-icon>
         <app-link
-          to="https://www.seisakukikaku.metro.tokyo.lg.jp/information/corona-people-flow-analysis.html"
-          >{{ $t('詳細はこちら') }}</app-link
-        ><v-icon color="#D9D9D9">{{ mdiChevronRight }}</v-icon>
+          to="https://www.seisakukikaku.metro.tokyo.lg.jp/information/corona-people-flow-analysis.html#nav1"
+          >{{ $t('詳細はこちら') }}
+        </app-link>
       </div>
       <div
         v-if="['ja', 'ja-basic'].includes($i18n.locale)"
@@ -48,7 +49,7 @@ export default Vue.extend({
       mdiChevronRight,
       StayingPopulation,
       placeName: StayingPopulation.data.place.display,
-      date: dayjs(StayingPopulation.data.date).format('YYYY年MM月DD'),
+      date: dayjs(StayingPopulation.data.date).format('YYYY年MM月DD日'),
     }
   },
 })
@@ -77,7 +78,7 @@ export default Vue.extend({
     vertical-align: middle;
     text-align: center;
     writing-mode: vertical-rl;
-    font-weight: bold;
+    font-weight: 600;
 
     @include font-size(12);
   }
