@@ -67,19 +67,12 @@
 
 <script lang="ts">
 import dayjs from 'dayjs'
-import Vue from 'vue'
 import VueI18n from 'vue-i18n'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import DataTable from '@/components/DataTable.vue'
 import Data from '@/data/data.json'
 import formatGraph from '@/utils/formatGraph'
-import { DataType, formatTable, TableDateType } from '@/utils/formatTable'
+import { DataType, formatTable } from '@/utils/formatTable'
 
-interface MetaData {
-  endCursor: string
-  updated: string
-}
 type Data = {
   dataLength: number
   sumInfoOfPatients: {
@@ -93,29 +86,9 @@ type Data = {
   endCursor: string
   patientsData: DataType[]
 }
-type Methods = {
-  fetchOpenAPI: () => Promise<{ patientsData: DataType; metaData: MetaData }>
-  fetchIfNoCache: () => void
-  onChangeItemsPerPage: (itemsPerPage: Data['itemsPerPage']) => void
-  onChangePage: (page: number) => void
-  translateWord: (word: string) => string | VueI18n.TranslateResult
-  translateDate: (date: string) => string | VueI18n.TranslateResult
-  translateAge: (age: string) => VueI18n.TranslateResult
-}
-type Computed = {
-  patientsTable: TableDateType
-  dataMargin: number
-}
-type Props = {}
 
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
-  components: { DataTable },
+const options = {
+  components: ['DataTable.vue'],
   data() {
     // 感染者数グラフ
     const patientsGraph = formatGraph(Data.patients_summary.data)
@@ -175,26 +148,26 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       // メモリ上に次ページのデータがなければ先読みしてページネーション時の待ち時間を減らす
       if (this.dataMargin <= 0) setTimeout(() => this.$fetch(), 0)
     },
-    onChangeItemsPerPage(itemsPerPage) {
+    onChangeItemsPerPage(itemsPerPage: number) {
       this.itemsPerPage = itemsPerPage
       this.endCursor = ''
       this.patientsData = []
       this.$fetch()
     },
-    onChangePage(page) {
+    onChangePage(page: number) {
       this.page = page
       this.fetchIfNoCache()
     },
-    translateDate(date) {
+    translateDate(date: string) {
       const day = dayjs(date)
       if (!day.isValid()) return date
       return this.$d(day.toDate(), 'date')
     },
-    translateAge(_age) {
+    translateAge(_age: string) {
       const [age, dai] = _age.split(/(代)$/, 2)
       return dai ? this.$t('{age}代', { age }) : this.$t(_age)
     },
-    translateWord(word) {
+    translateWord(word: string) {
       // 文字列が `null` or 以下の記号だった場合は翻訳しない
       // 全角のハイフン, 半角のハイフン, 全角のダッシュ, 全角ハイフンマイナス
       const notTranslateWords = ['-', '‐', '―', '－', null]

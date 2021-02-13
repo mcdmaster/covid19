@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import { mdiBullhorn } from '@mdi/js'
-import Vue from 'vue'
 
 import AppLink from '@/components/AppLink.vue'
 
@@ -25,7 +24,9 @@ const options = {
       mdiBullhorn,
     }
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

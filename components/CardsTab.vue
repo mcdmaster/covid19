@@ -20,14 +20,13 @@
 
 <script lang="ts">
 import { mdiChartTimelineVariant } from '@mdi/js'
-import Vue from 'vue'
 
 import { EventBus, TOGGLE_EVENT } from '@/utils/tab-event-bus.ts'
 
 const CardsMonitoring = () => import('@/components/CardsMonitoring.vue')
 const CardsReference = () => import('@/components/CardsReference.vue')
 
-export default Vue.extend({
+const options = {
   components: {
     CardsMonitoring,
     CardsReference,
@@ -47,7 +46,9 @@ export default Vue.extend({
       EventBus.$emit(TOGGLE_EVENT)
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

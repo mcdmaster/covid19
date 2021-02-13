@@ -1,4 +1,4 @@
-type DataType = {
+export type DataType = {
   children: [
     {
       attr: '陽性患者数'

@@ -35,123 +35,95 @@
 // 確定日別による陽性者数の推移
 // import PositiveNumberByDiagnosedDateCard from '@/components/cards/PositiveNumberByDiagnosedDateCard.vue'
 // 検査実施件数
-import TestedNumberCard from '@/components/cards/TestedNumberCard.vue'
+// import TestedNumberCard from '@/components/cards/TestedNumberCard.vue'
 // 新型コロナコールセンター相談件数
-import TelephoneAdvisoryReportsNumberCard from '@/components/cards/TelephoneAdvisoryReportsNumberCard.vue'
+// import TelephoneAdvisoryReportsNumberCard from '@/components/cards/TelephoneAdvisoryReportsNumberCard.vue'
 // 受診相談窓口における相談件数
-import MonitoringConsultationDeskReportsNumberCard from '@/components/cards/MonitoringConsultationDeskReportsNumberCard.vue'
+// import MonitoringConsultationDeskReportsNumberCard from '@/components/cards/MonitoringConsultationDeskReportsNumberCard.vue'
 // 東京都発熱相談センターにおける相談件数
-import TokyoFeverConsultationCenterReportsNumberCard from '@/components/cards/TokyoFeverConsultationCenterReportsNumberCard.vue'
+// import TokyoFeverConsultationCenterReportsNumberCard from '@/components/cards/TokyoFeverConsultationCenterReportsNumberCard.vue'
 // 都営地下鉄の利用者数の推移
 // import MetroCard from '@/components/cards/MetroCard.vue'
 // 都庁来庁者数の推移
 // import AgencyCard from '@/components/cards/AgencyCard.vue'
 /* eslint-enable simple-import-sort/sort */
 
-import { Vue, Component } from 'nuxt-property-decorator'
-import type { NuxtOptionsHead as MetaInfo } from '@nuxt/types/config/head'
 import type { NuxtConfig } from '@nuxt/types'
-import { getLinksLanguageAlternative } from '@/utils/i18nUtils'
+import type { NuxtOptionsHead as MetaInfo } from '@nuxt/types/config/head'
+import { Component, Vue } from 'nuxt-property-decorator'
+
 import { convertDateToSimpleFormat } from '@/utils/formatDate'
+import { getLinksLanguageAlternative } from '@/utils/i18nUtils'
 
 @Component({
-  components: {
-    // ---- モニタリング項目
-    ConfirmedCasesDetailsCard,
-    ConfirmedCasesNumberCard,
-    MonitoringItemsOverviewCard,
-    MonitoringConfirmedCasesNumberCard,
-    ConsultationAboutFeverNumberCard,
-    UntrackedRateCard,
-    PositiveRateCard,
-    TokyoRulesApplicationNumberCard,
-    HospitalizedNumberCard,
-    SevereCaseCard,
-    // ---- その他 参考指標
-    ConfirmedCasesAttributesCard,
-    ConfirmedCasesByMunicipalitiesCard,
-    PositiveNumberByDevelopedDateCard,
-    PositiveNumberByDiagnosedDateCard,
-    TestedNumberCard,
-    TelephoneAdvisoryReportsNumberCard,
-    MonitoringConsultationDeskReportsNumberCard,
-    TokyoFeverConsultationCenterReportsNumberCard,
-    MetroCard,
-    AgencyCard,
-  },
+  components: {},
 })
 export default class CardContainer extends Vue implements NuxtConfig {
   data() {
-    return {
-      title: '',
-      updatedAt: '',
-      cardComponent: '',
-    }
-  },
-  computed: () => {
+    let title, updatedAt, cardComponent
     switch (this.$route.params.card) {
       // NOTE: 以下，ブラウザでの表示順に合わせて条件分岐を行う
       // ---- モニタリング項目
       // 検査陽性者の状況
       case 'details-of-confirmed-cases':
-        this.cardComponent = 'confirmed-cases-details-card'
+        cardComponent = 'confirmed-cases-details-card'
         break
       // 報告日別による陽性者数の推移
       case 'number-of-confirmed-cases':
-        this.cardComponent = 'confirmed-cases-number-card'
+        cardComponent = 'confirmed-cases-number-card'
         break
       // モニタリング項目
       case 'monitoring-items-overview':
-        this.cardComponent = 'monitoring-items-overview-card'
+        cardComponent = 'monitoring-items-overview-card'
         break
       // モニタリング項目(1)新規陽性者数
       case 'monitoring-number-of-confirmed-cases':
-        this.cardComponent = 'monitoring-confirmed-cases-number-card'
+        cardComponent = 'monitoring-confirmed-cases-number-card'
         break
       // モニタリング項目(2)#7119における発熱等相談件数
       case 'number-of-reports-to-consultations-about-fever-in-7119':
-        this.cardComponent = 'consultation-about-fever-number-card'
+        cardComponent = 'consultation-about-fever-number-card'
         break
       // モニタリング項目(3)新規陽性者における接触歴等不明者数
       case 'untracked-rate':
-        this.cardComponent = 'untracked-rate-card'
+        cardComponent = 'untracked-rate-card'
         break
       // モニタリング項目(4)検査の陽性率
       case 'positive-rate':
-        this.cardComponent = 'positive-rate-card'
+        cardComponent = 'positive-rate-card'
         break
       // モニタリング項目(5)救急医療の東京ルールの適用件数
       case 'number-of-tokyo-rules-applied':
-        this.cardComponent = 'tokyo-rules-application-number-card'
+        cardComponent = 'tokyo-rules-application-number-card'
         break
       // モニタリング項目(6)入院患者数
       case 'number-of-hospitalized':
-        this.cardComponent = 'hospitalized-number-card'
+        cardComponent = 'hospitalized-number-card'
         break
       // モニタリング項目(7)重症患者数
       case 'positive-status-severe-case':
-        this.cardComponent = 'severe-case-card'
+        cardComponent = 'severe-case-card'
         break
       // ---- その他 参考指標
       // 陽性者の属性
       case 'attributes-of-confirmed-cases':
-        this.cardComponent = 'confirmed-cases-attributes-card'
+        cardComponent = 'confirmed-cases-attributes-card'
         break
       // 陽性者数（区市町村別）
       case 'number-of-confirmed-cases-by-municipalities':
-        this.cardComponent = 'confirmed-cases-by-municipalities-card'
+        cardComponent = 'confirmed-cases-by-municipalities-card'
         break
       // 発症日別による陽性者数の推移
       case 'positive-number-by-developed-date':
-        this.cardComponent = 'positive-number-by-developed-date-card'
+        cardComponent = 'positive-number-by-developed-date-card'
         break
       // 確定日別による陽性者数の推移
       case 'positive-number-by-diagnosed-date':
-        this.cardComponent = 'positive-number-by-diagnosed-date-card'
+        cardComponent = 'positive-number-by-diagnosed-date-card'
         break
       // 検査実施件数
       case 'number-of-tested':
-        this.cardComponent = 'tested-number-card'
+        cardComponent = 'tested-number-card'
         break
       // 新型コロナコールセンター相談件数
       case 'number-of-reports-to-covid19-telephone-advisory-center':
@@ -159,7 +131,7 @@ export default class CardContainer extends Vue implements NuxtConfig {
         break
       // 受診相談窓口における相談件数
       case 'monitoring-number-of-reports-to-covid19-consultation-desk':
-        this.cardComponent = 'monitoring-consultation-desk-reports-number-card'
+        cardComponent = 'monitoring-consultation-desk-reports-number-card'
         break
       // 東京都発熱相談センターにおける相談件数
       case 'number-of-reports-to-tokyo-fever-consultation-center':
@@ -167,7 +139,7 @@ export default class CardContainer extends Vue implements NuxtConfig {
         break
       // 都営地下鉄の利用者数の推移
       case 'predicted-number-of-toei-subway-passengers':
-        this.cardComponent = 'metro-card'
+        cardComponent = 'metro-card'
         break
       // 都庁来庁者数の推移
       case 'agency':
@@ -209,7 +181,7 @@ export default class CardContainer extends Vue implements NuxtConfig {
         {
           hid: 'og:url',
           property: 'og:url',
-          content: `${this.url}${this.$route.path}/`,
+          content: `${url}${this.$route.path}/`,
         },
         {
           hid: 'og:title',
@@ -237,6 +209,7 @@ export default class CardContainer extends Vue implements NuxtConfig {
           })}: ${this.$tc(
             '当サイトは新型コロナウイルス感染症 (COVID-19) に関する最新情報を提供するために、東京都が開設したものです。'
           )}`,
+        },
         {
           hid: 'og:image',
           property: 'og:image',
@@ -252,6 +225,4 @@ export default class CardContainer extends Vue implements NuxtConfig {
     return mInfo
   }
 }
-
-export default options
 </script>

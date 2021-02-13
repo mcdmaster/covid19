@@ -31,7 +31,6 @@
 
 <script lang="ts">
 import { mdiInformation } from '@mdi/js'
-import Vue from 'vue'
 
 import AppLink from '@/components/AppLink.vue'
 import { convertDateToISO8601Format } from '@/utils/formatDate'
@@ -54,11 +53,6 @@ const options = {
       type: String,
       default: () => mdiInformation,
     },
-  },
-  data() {
-    return {
-      mdiInformation,
-    }
   },
   methods: {
     formattedDate(dateString: string) {

@@ -4,8 +4,6 @@
 
 <script lang="ts">
 /* eslint-disable simple-import-sort/sort -- ブラウザでの表示順に合わせて各 card の component を import する */
-import Vue from 'vue'
-
 // 陽性者の属性
 const ConfirmedCasesAttributesCard = () =>
   import('@/components/cards/ConfirmedCasesAttributesCard.vue')
@@ -35,7 +33,7 @@ const MetroCard = () => import('@/components/cards/MetroCard.vue')
 const AgencyCard = () => import('@/components/cards/AgencyCard.vue')
 /* eslint-enable simple-import-sort/sort */
 
-export default Vue.extend({
+const options = {
   data() {
     return {
       rows: [

@@ -86,12 +86,13 @@
 <script lang="ts">
 import { mdiAlert } from '@mdi/js'
 import Vue from 'vue'
+import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 
 import DataView from '@/components/DataView.vue'
 import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
 import OpenDataLink from '@/components/OpenDataLink.vue'
 
-export default Vue.extend({
+const options = {
   components: { DataView, DataViewDataSetPanel, OpenDataLink, ScaleLoader },
   props: {
     title: {

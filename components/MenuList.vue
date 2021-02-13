@@ -32,7 +32,6 @@ import CovidIcon from '@/static/covid.svg'
 import MaskTrashIcon from '@/static/masktrash.svg'
 import ParentIcon from '@/static/parent.svg'
 import SupportIcon from '@/static/support.svg'
-const isPath = require('is-svg-path')
 
 type MenuItem = {
   iconPath?: string
@@ -42,7 +41,7 @@ type MenuItem = {
   divider?: boolean
 }
 
-export default Vue.extend({
+const options = {
   components: { AppLink, CovidIcon, MaskTrashIcon, ParentIcon, SupportIcon },
   props: {
     items: {
@@ -50,7 +49,9 @@ export default Vue.extend({
       required: true,
     },
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

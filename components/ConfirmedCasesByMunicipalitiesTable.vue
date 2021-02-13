@@ -31,7 +31,7 @@ import Vue from 'vue'
 import DataView from '@/components/DataView.vue'
 import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
 
-export default Vue.extend({
+const options = {
   components: { DataView, DataViewDataSetPanel },
   props: {
     title: {

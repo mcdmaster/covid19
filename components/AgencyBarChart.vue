@@ -66,67 +66,15 @@
 </template>
 
 <script lang="ts">
-import { Chart, ChartOptions } from 'chart.js'
-import Vue from 'vue'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
+import { ChartOptions } from 'chart.js'
 
 import DataView from '@/components/DataView.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
+import DataViewTable from '@/components/DataViewTable.vue'
 import ScrollableChart from '@/components/ScrollableChart.vue'
-import { DataSets, DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
-import { getGraphSeriesStyle, SurfaceStyle } from '@/utils/colors'
+import { yAxesBgPlugin } from '@/plugins/vue-chart'
+import { getGraphSeriesStyle } from '@/utils/colors'
 
-interface AgencyDataSets extends DataSets {
-  label: string
-}
-interface AgencyDisplayData extends DisplayData {
-  datasets: AgencyDataSets[]
-}
-interface AgencyData extends AgencyDisplayData {
-  labels: string[]
-}
-
-interface HTMLElementEvent<T extends HTMLElement> extends MouseEvent {
-  currentTarget: T
-}
-type Data = {
-  colors: SurfaceStyle[]
-  canvas: boolean
-  displayLegends: boolean[]
-}
-type Methods = {
-  onClickLegend: (i: number) => void
-}
-type Computed = {
-  displayData: AgencyDisplayData
-  displayOption: ChartOptions
-  displayDataHeader: AgencyDisplayData
-  displayOptionHeader: ChartOptions
-  tableHeaders: TableHeader[]
-  tableData: TableItem[]
-}
-
-type Props = {
-  title: string
-  titleId: string
-  chartId: string
-  chartData: AgencyData
-  date: string
-  items: string[]
-  periods: string[]
-  unit: string
-}
-
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
+const options = {
   created() {
     this.canvas = process.browser
   },
@@ -176,7 +124,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayData() {
       return {
         labels: this.chartData.labels,
-        datasets: this.chartData.datasets.map((item, index) => {
+        datasets: this.chartData.datasets.map((item: any, index: number) => {
           return {
             label: this.items[index] as string,
             data: item.data,
@@ -278,7 +226,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayDataHeader() {
       return {
         labels: this.chartData.labels,
-        datasets: this.chartData.datasets.map((item, index) => {
+        datasets: this.chartData.datasets.map((item: any, index: number) => {
           return {
             label: this.items[index] as string,
             data: item.data,
@@ -369,7 +317,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         .map((_any: any, i: number) => {
           return Object.assign(
             { text: this.periods[i] },
-            ...this.displayData.datasets!.map((_, j) => {
+            ...this.displayData.datasets!.map((_any: any, j: number) => {
               return {
                 [j]: this.displayData.datasets[j].data[i].toLocaleString(),
               }
@@ -380,7 +328,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
   },
   methods: {
-    onClickLegend(i) {
+    onClickLegend(i: number) {
       this.displayLegends[i] = !this.displayLegends[i]
       this.displayLegends = this.displayLegends.slice()
     },

@@ -42,7 +42,6 @@
 
 <script lang="ts">
 import { mdiChevronRight } from '@mdi/js'
-import Vue from 'vue'
 
 import MonitoringCommentFrame from '@/components/MonitoringCommentFrame.vue'
 import monitoringItemsData from '@/data/monitoring_items.json'
@@ -74,7 +73,6 @@ const options = {
     )
     return {
       monitoringComment,
-      mdiChevronRight,
     }
   },
   methods: {

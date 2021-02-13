@@ -4,8 +4,6 @@
 
 <script lang="ts">
 /* eslint-disable simple-import-sort/sort -- ブラウザでの表示順に合わせて各 card の component を import する */
-import Vue from 'vue'
-
 // 検査陽性者の状況
 const ConfirmedCasesDetailsCard = () =>
   import('@/components/cards/ConfirmedCasesDetailsCard.vue')
@@ -36,7 +34,7 @@ const HospitalizedNumberCard = () =>
 const SevereCaseCard = () => import('@/components/cards/SevereCaseCard.vue')
 /* eslint-enable simple-import-sort/sort */
 
-export default Vue.extend({
+const options = {
   data() {
     return {
       rows: [

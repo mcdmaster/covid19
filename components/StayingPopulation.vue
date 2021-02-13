@@ -30,11 +30,10 @@
 <script lang="ts">
 import { mdiChevronRight } from '@mdi/js'
 import dayjs from 'dayjs'
-import Vue from 'vue'
 
 import StayingPopulation from '@/data/staying_population.json'
 
-export default Vue.extend({
+const options = {
   filters: {
     formatDate(text: string) {
       return dayjs(text).format('YYYY/MM')
@@ -52,7 +51,9 @@ export default Vue.extend({
       date: dayjs(StayingPopulation.data.date).format('YYYY年MM月DD日'),
     }
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss" scoped>

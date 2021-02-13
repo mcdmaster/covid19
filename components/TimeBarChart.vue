@@ -61,64 +61,20 @@
 </template>
 
 <script lang="ts">
-import { Chart } from 'chart.js'
 import dayjs from 'dayjs'
 import Vue from 'vue'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
 import DataSelector from '@/components/DataSelector.vue'
 import DataView from '@/components/DataView.vue'
 import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
+import DataViewTable from '@/components/DataViewTable.vue'
 import OpenDataLink from '@/components/OpenDataLink.vue'
 import ScrollableChart from '@/components/ScrollableChart.vue'
-import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
+import { yAxesBgPlugin } from '@/plugins/vue-chart'
 import calcDayBeforeRatio from '@/utils/calcDayBeforeRatio'
 import { getGraphSeriesStyle } from '@/utils/colors'
-import { GraphDataType } from '@/utils/formatGraph'
 
-type Data = {
-  dataKind: 'transition' | 'cumulative'
-  canvas: boolean
-}
-type Methods = {}
-
-type Computed = {
-  displayInfo: {
-    lText: string
-    sText: string
-    unit: string
-  }
-  displayData: DisplayData
-  displayOption: Chart.ChartOptions
-  displayDataHeader: DisplayData
-  displayOptionHeader: Chart.ChartOptions
-  scaledTicksYAxisMax: number
-  tableHeaders: TableHeader[]
-  tableData: TableItem[]
-}
-type Props = {
-  title: string
-  titleId: string
-  chartId: string
-  chartData: GraphDataType[]
-  date: string
-  unit: string
-  url: string
-  yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[]
-  byDate: boolean
-}
-
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
+const options = {
   created() {
     this.canvas = process.browser
     this.dataKind =

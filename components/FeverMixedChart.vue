@@ -84,72 +84,18 @@
 </template>
 
 <script lang="ts">
-import { Chart } from 'chart.js'
 import dayjs from 'dayjs'
-import Vue from 'vue'
-import { TranslateResult } from 'vue-i18n'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
 import DataView from '@/components/DataView.vue'
 import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
+import DataViewTable from '@/components/DataViewTable.vue'
 import ScrollableChart from '@/components/ScrollableChart.vue'
-import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
+import { yAxesBgPlugin } from '@/plugins/vue-chart'
 import calcDayBeforeRatio from '@/utils/calcDayBeforeRatio'
-import { getGraphSeriesColor, SurfaceStyle } from '@/utils/colors'
+import { getGraphSeriesColor } from '@/utils/colors'
 import { getNumberToLocaleStringFunction } from '@/utils/monitoringStatusValueFormatters'
 
-type Data = {
-  canvas: boolean
-  displayLegends: boolean[]
-  colors: SurfaceStyle[]
-}
-type Methods = {
-  makeLineData: (value: number) => number[]
-  onClickLegend: (i: number) => void
-}
-type DisplayInfo = {
-  lText: string
-  sText: string
-  sTextUnder: string
-  unit: string
-}
-
-type Computed = {
-  displayInfo: DisplayInfo
-  displayData: DisplayData
-  displayOption: Chart.ChartOptions
-  displayDataHeader: DisplayData
-  displayOptionHeader: Chart.ChartOptions
-  scaledTicksYAxisMax: number
-  tableHeaders: TableHeader[]
-  tableData: TableItem[]
-}
-
-type Props = {
-  title: string
-  titleId: string
-  chartId: string
-  chartData: number[][]
-  getFormatter: Function
-  date: string
-  labels: string[]
-  dataLabels: string[] | TranslateResult[]
-  tableLabels: string[] | TranslateResult[]
-  unit: string
-  yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[]
-}
-
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
+const options = {
   created() {
     this.canvas = process.browser
   },
@@ -278,17 +224,17 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     tableHeaders() {
       return [
         { text: this.$t('日付'), value: 'text' },
-        ...(this.tableLabels as string[]).map((text, i) => {
+        ...(this.tableLabels as string[]).map((text: string, i: number) => {
           return { text, value: String(i), align: 'end' }
         }),
       ]
     },
     tableData() {
       return this.labels
-        .map((label, i) => {
+        .map((label: any, i: number) => {
           return Object.assign(
             { text: label },
-            ...this.chartData.map((_, j) => {
+            ...this.chartData.map((_any: any, j: number) => {
               const data = this.chartData[j]
               if (data[i] === null) {
                 return {
@@ -301,7 +247,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
             })
           )
         })
-        .sort((a, b) => dayjs(a.text).unix() - dayjs(b.text).unix())
+        .sort((a: any, b: any) => dayjs(a.text).unix() - dayjs(b.text).unix())
         .reverse()
     },
     displayOption() {
@@ -410,7 +356,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     displayDataHeader() {
       const { datasets } = this.displayData
       const sums = Array.from(datasets[0].data.keys()).map(
-        (i) => datasets[0].data[i] + datasets[1].data[i]
+        (i: any) => datasets[0].data[i] + datasets[1].data[i]
       )
       const max = sums.reduce((a, b) => Math.max(a, b), 0)
       const n = sums.indexOf(max)
@@ -512,18 +458,18 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
     scaledTicksYAxisMax() {
       const max = Array.from(this.chartData[0].keys())
-        .map((i) => this.chartData[0][i] + this.chartData[1][i])
+        .map((i: any) => this.chartData[0][i] + this.chartData[1][i])
         .reduce((a, b) => Math.max(a, b), 0)
-      return this.chartData[2].reduce((a, b) => Math.max(a, b), max)
+      return this.chartData[2].reduce((a: any, b: any) => Math.max(a, b), max)
     },
   },
   methods: {
-    onClickLegend(i) {
+    onClickLegend(i: number) {
       this.displayLegends[i] = !this.displayLegends[i]
       this.displayLegends = this.displayLegends.slice()
     },
     makeLineData(value: number): number[] {
-      return this.chartData[0].map((_) => value)
+      return this.chartData[0].map((_any: any) => value)
     },
   },
   mounted() {

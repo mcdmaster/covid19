@@ -18,15 +18,15 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-
 import monitoringCommentImage from '@/data/monitoring_comment_image.json'
 
-export default Vue.extend({
+const options = {
   data() {
     return {
       monitoringCommentImage,
     }
   },
-})
+}
+
+export default options
 </script>

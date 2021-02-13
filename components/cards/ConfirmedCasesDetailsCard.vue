@@ -50,22 +50,20 @@
   </v-col>
 </template>
 
-<script>
+<script lang="ts">
 import dayjs from 'dayjs'
 
 import Data from '@/data/data.json'
-import formatConfirmedCases from '@/utils/formatConfirmedCases'
+import formatConfirmedCases, { DataType } from '@/utils/formatConfirmedCases'
 
 const options = {
-  components: {
-    DataView,
-    ConfirmedCasesDetailsTable,
-    AppLink,
-  },
+  components: ['DataView.vue', 'ConfirmedCasesDetailsTable.vue', 'AppLink.vue'],
   data() {
-    const mainSummary = Data.main_summary
     // 検査陽性者の状況
-    const confirmedCases = formatConfirmedCases(mainSummary)
+    const mainSummary = { ...Data.main_summary }
+    const confirmedCases = formatConfirmedCases(
+      (mainSummary as unknown) as DataType
+    )
 
     const date = dayjs(mainSummary.children[0].date).format('YYYY/MM/DD HH:mm')
 

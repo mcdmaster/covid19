@@ -86,61 +86,17 @@
 </template>
 
 <script lang="ts">
-import { Chart, ChartData, ChartOptions } from 'chart.js'
+import { ChartOptions } from 'chart.js'
 import Vue from 'vue'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
 import AppLink from '@/components/AppLink.vue'
 import DataView from '@/components/DataView.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
+import DataViewTable from '@/components/DataViewTable.vue'
 import ScrollableChart from '@/components/ScrollableChart.vue'
-import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
-import { getGraphSeriesStyle, SurfaceStyle } from '@/utils/colors'
+import { yAxesBgPlugin } from '@/plugins/vue-chart'
+import { getGraphSeriesStyle } from '@/utils/colors'
 
-interface HTMLElementEvent<T extends HTMLElement> extends MouseEvent {
-  currentTarget: T
-}
-
-type Data = {
-  colors: SurfaceStyle[]
-  canvas: boolean
-  displayLegends: boolean[]
-}
-type Methods = {
-  onClickLegend: (i: number) => void
-}
-type Computed = {
-  displayData: DisplayData
-  tableHeaders: TableHeader[]
-  tableData: TableItem[]
-  displayOption: Chart.ChartOptions
-  displayDataHeader: DisplayData
-  displayOptionHeader: Chart.ChartOptions
-}
-type Props = {
-  chartData: ChartData
-  chartOption: ChartOptions
-  chartId: string
-  title: string
-  titleId: string
-  date: string
-  items: string[]
-  periods: string[]
-  unit: string
-  tooltipsTitle: Chart.ChartTooltipCallback['title']
-  tooltipsLabel: Chart.ChartTooltipCallback['label']
-}
-
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
+const options = {
   created() {
     this.canvas = process.browser
   },
@@ -195,10 +151,12 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   }),
   computed: {
     displayData() {
-      const datasets = this.chartData.labels!.map((label, i) => {
+      const datasets = this.chartData.labels!.map((label: any, i: number) => {
         return {
           label: label as string,
-          data: this.chartData.datasets!.map((d) => d.data![i]) as number[],
+          data: this.chartData.datasets!.map(
+            (d: any) => d.data![i]
+          ) as number[],
           backgroundColor: this.colors[i].fillColor,
           borderColor: this.colors[i].strokeColor,
           borderWidth: 1,
@@ -222,7 +180,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
         .map((_any: any, i: number) => {
           return Object.assign(
             { text: this.periods[i] },
-            ...this.chartData.labels!.map((_, j) => {
+            ...this.chartData.labels!.map((_any: any, j: number) => {
               return {
                 [j]: this.displayData.datasets[j].data[i],
               }
@@ -313,16 +271,18 @@ const options: ThisTypedComponentOptionsWithRecordProps<
       return options
     },
     displayDataHeader() {
-      const datasets = this.chartData.labels!.map((label, i) => {
+      const datasets = this.chartData.labels!.map((label: any, i: number) => {
         return {
           label: label as string,
-          data: this.chartData.datasets!.map((d) => d.data![i]) as number[],
+          data: this.chartData.datasets!.map(
+            (d: any) => d.data![i]
+          ) as number[],
           backgroundColor: 'transparent',
           borderWidth: 0,
         }
       })
       return {
-        labels: this.chartData.datasets!.map((d) => d.label!),
+        labels: this.chartData.datasets!.map((d: any) => d.label!),
         datasets,
       }
     },
@@ -400,7 +360,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
   },
   methods: {
-    onClickLegend(i) {
+    onClickLegend(i: number) {
       this.displayLegends[i] = !this.displayLegends[i]
       this.displayLegends = this.displayLegends.slice()
     },

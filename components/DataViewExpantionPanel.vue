@@ -24,8 +24,8 @@
 </template>
 
 <script lang="ts">
-import { mdiChevronRight } from '@mdi/js'
-import Vue from 'vue'
+import { mdiChevronRight, mdiOpenInNew } from '@mdi/js'
+import { Emit } from 'nuxt-property-decorator'
 
 import { TOGGLE_EVENT } from '@/utils/card-event-bus'
 

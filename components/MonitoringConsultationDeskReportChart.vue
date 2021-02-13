@@ -83,71 +83,19 @@
 </template>
 
 <script lang="ts">
-import { Chart } from 'chart.js'
 import dayjs from 'dayjs'
 import Vue from 'vue'
-import { TranslateResult } from 'vue-i18n'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
 import DataView from '@/components/DataView.vue'
 import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
+import DataViewTable from '@/components/DataViewTable.vue'
 import OpenDataLink from '@/components/OpenDataLink.vue'
 import ScrollableChart from '@/components/ScrollableChart.vue'
-import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
+import { yAxesBgPlugin } from '@/plugins/vue-chart'
 import calcDayBeforeRatio from '@/utils/calcDayBeforeRatio'
 import { getGraphSeriesColor, SurfaceStyle } from '@/utils/colors'
 
-type Data = {
-  canvas: boolean
-  displayLegends: boolean[]
-  colors: SurfaceStyle[]
-}
-type Methods = {
-  makeLineData: (value: number) => number[]
-  onClickLegend: (i: number) => void
-}
-
-type Computed = {
-  displayInfo: [
-    {
-      lText: string
-      sText: string
-      sTextUnder: string
-      unit: string
-    }
-  ]
-  displayData: DisplayData
-  displayOption: Chart.ChartOptions
-  displayDataHeader: DisplayData
-  displayOptionHeader: Chart.ChartOptions
-  scaledTicksYAxisMax: number
-  tableHeaders: TableHeader[]
-  tableData: TableItem[]
-}
-
-type Props = {
-  title: string
-  titleId: string
-  chartId: string
-  chartData: number[][]
-  date: string
-  labels: string[]
-  dataLabels: string[] | TranslateResult[]
-  unit: string
-  url: string
-}
-
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
+const options = {
   created() {
     this.canvas = process.browser
   },
@@ -466,7 +414,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
   },
   methods: {
-    onClickLegend(i) {
+    onClickLegend(i: number) {
       this.displayLegends[i] = !this.displayLegends[i]
       this.displayLegends = this.displayLegends.slice()
     },

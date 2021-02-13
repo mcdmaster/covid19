@@ -77,76 +77,18 @@
 </template>
 
 <script lang="ts">
-import { Chart } from 'chart.js'
 import dayjs from 'dayjs'
 import Vue from 'vue'
-import { TranslateResult } from 'vue-i18n'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
 import DataSelector from '@/components/DataSelector.vue'
 import DataView from '@/components/DataView.vue'
 import DataViewDataSetPanel from '@/components/DataViewDataSetPanel.vue'
-import DataViewTable, {
-  TableHeader,
-  TableItem,
-} from '@/components/DataViewTable.vue'
+import DataViewTable from '@/components/DataViewTable.vue'
 import ScrollableChart from '@/components/ScrollableChart.vue'
-import { DisplayData, yAxesBgPlugin } from '@/plugins/vue-chart'
-import { getGraphSeriesStyle, SurfaceStyle } from '@/utils/colors'
+import { yAxesBgPlugin } from '@/plugins/vue-chart'
+import { getGraphSeriesStyle } from '@/utils/colors'
 
-type Data = {
-  dataKind: 'transition' | 'cumulative'
-  canvas: boolean
-  displayLegends: boolean[]
-  colors: SurfaceStyle[]
-  isSmall: boolean
-}
-type Methods = {
-  sum: (array: number[]) => number
-  cumulative: (array: number[]) => number[]
-  pickLastNumber: (chartDataArray: number[][]) => number[]
-  cumulativeSum: (chartDataArray: number[][]) => number[]
-  eachArraySum: (chartDataArray: number[][]) => number[]
-  onClickLegend: (i: number) => void
-  handleResize: () => void
-}
-
-type Computed = {
-  displayInfo: {
-    lText: string
-    sText: string
-    unit: string
-  }
-  displayData: DisplayData
-  displayOption: Chart.ChartOptions
-  displayDataHeader: DisplayData
-  displayOptionHeader: Chart.ChartOptions
-  scaledTicksYAxisMax: number
-  tableHeaders: TableHeader[]
-  tableData: TableItem[]
-}
-
-type Props = {
-  title: string
-  titleId: string
-  chartId: string
-  chartData: number[][]
-  date: string
-  items: string[]
-  labels: string[]
-  dataLabels: string[] | TranslateResult[]
-  tableLabels: string[] | TranslateResult[]
-  unit: string
-  yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[]
-}
-
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
+const options = {
   created() {
     this.canvas = process.browser
     this.dataKind =
@@ -534,7 +476,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
   },
   methods: {
-    onClickLegend(i) {
+    onClickLegend(i: number) {
       this.displayLegends[i] = !this.displayLegends[i]
       this.displayLegends = this.displayLegends.slice()
     },

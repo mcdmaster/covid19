@@ -58,11 +58,10 @@
 
 <script lang="ts">
 import dayjs from 'dayjs'
-import Vue from 'vue'
 
 import InfectionMedicalcareprovisionStatus from '@/data/infection_medicalcareprovision_status.json'
 
-export default Vue.extend({
+const options = {
   data() {
     return {
       statuses: InfectionMedicalcareprovisionStatus,
@@ -74,7 +73,9 @@ export default Vue.extend({
       ).format('MM/DD'),
     }
   },
-})
+}
+
+export default options
 </script>
 
 <style lang="scss">

@@ -97,76 +97,15 @@
 </template>
 
 <script lang="ts">
-import { Chart } from 'chart.js'
 import dayjs from 'dayjs'
 import Vue from 'vue'
-import { TranslateResult } from 'vue-i18n'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
 
-import { TableHeader, TableItem } from '@/components/DataViewTable.vue'
-import {
-  DisplayData,
-  yAxesBgPlugin,
-  yAxesBgRightPlugin,
-} from '@/plugins/vue-chart'
+import { yAxesBgPlugin, yAxesBgRightPlugin } from '@/plugins/vue-chart'
 import calcDayBeforeRatio from '@/utils/calcDayBeforeRatio'
-import {
-  getGraphSeriesColor,
-  getGraphSeriesStyle,
-  SurfaceStyle,
-} from '@/utils/colors'
+import { getGraphSeriesColor, getGraphSeriesStyle } from '@/utils/colors'
 import { getNumberToFixedFunction } from '@/utils/monitoringStatusValueFormatters'
 
-type Data = {
-  canvas: boolean
-  displayLegends: boolean[]
-  colors: SurfaceStyle[]
-}
-type Methods = {
-  onClickLegend: (i: number) => void
-}
-type DisplayInfo = {
-  lText: string
-  sText: string
-  sTextUnder: string
-  unit: string
-}
-type Computed = {
-  displayInfo: DisplayInfo[]
-  displayData: DisplayData
-  displayOption: Chart.ChartOptions
-  displayDataHeader: DisplayData
-  displayOptionHeader: Chart.ChartOptions
-  scaledTicksYAxisMax: number
-  scaledTicksYAxisMaxRight: number
-  tableHeaders: TableHeader[]
-  tableData: TableItem[]
-}
-
-type Props = {
-  title: string
-  titleId: string
-  infoTitles: string[]
-  chartId: string
-  chartData: number[][]
-  getFormatter: Function
-  date: string
-  labels: string[]
-  dataLabels: string[] | TranslateResult[]
-  tableLabels: string[] | TranslateResult[]
-  unit: string
-  optionUnit: string
-  yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[]
-  yAxesBgRightPlugin: Chart.PluginServiceRegistrationOptions[]
-}
-
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
+const options = {
   created() {
     this.canvas = process.browser
   },
@@ -665,7 +604,7 @@ const options: ThisTypedComponentOptionsWithRecordProps<
     },
   },
   methods: {
-    onClickLegend(i) {
+    onClickLegend(i: number) {
       this.displayLegends[i] = !this.displayLegends[i]
       this.displayLegends = this.displayLegends.slice()
     },
