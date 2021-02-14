@@ -1,5 +1,4 @@
-import { NuxtConfig } from '@nuxt/types'
-
+import type { NuxtConfig } from '@nuxt/types'
 import i18n from './nuxt-i18n.config'
 const environment = process.env.NODE_ENV || 'development'
 
@@ -113,7 +112,7 @@ const config: NuxtConfig = {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: ['@/assets/_variables.scss'],
+    customVariables: ['@/assets/_variables.scss',],
     optionsPath: './plugins/vuetify.options.ts',
     treeShake: true,
     defaultAssets: false,
