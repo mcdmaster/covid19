@@ -108,16 +108,6 @@ const config: NuxtConfig = {
     'nuxt-webfontloader',
   ],
   /*
-   ** vuetify module configuration
-   ** https://github.com/nuxt-community/vuetify-module
-   */
-  vuetify: {
-    customVariables: ['@/assets/_variables.scss',],
-    optionsPath: './plugins/vuetify.options.ts',
-    treeShake: true,
-    defaultAssets: false,
-  },
-  /*
    * Webfontloader
    * https://github.com/Developmint/nuxt-webfontloader
    */
@@ -167,10 +157,23 @@ const config: NuxtConfig = {
     // https://ja.nuxtjs.org/api/configuration-build/#hardsource
     // hardSource: process.env.NODE_ENV === 'development'
   },
+  /*
+   ** vuetify module configuration
+   ** https://github.com/nuxt-community/vuetify-module
+   */
+  vuetify: {
+    customVariables: [
+      '@/assets/_variables.scss',
+      '@/assets/_monitoringItemsTableCommon.scss',
+    ],
+    optionsPath: '@/plugins/vuetify.options.ts',
+    treeShake: true,
+    defaultAssets: false,
+  },
   purgeCSS: {
     paths: [
-      './node_modules/vuetify/dist/vuetify.js',
-      './node_modules/vue-spinner/src/ScaleLoader.vue',
+      'vuetify/dist/vuetify.js',
+      'vue-spinner/src/ScaleLoader.vue',
     ],
     whitelist: ['DataCard', 'GraphLegend'],
     whitelistPatterns: [/(col|row|v-window)/],
