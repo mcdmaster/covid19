@@ -1,5 +1,4 @@
 import type { NuxtConfig } from '@nuxt/types'
-import i18n from './nuxt-i18n.config'
 const environment = process.env.NODE_ENV || 'development'
 
 const config: NuxtConfig = {
@@ -10,6 +9,9 @@ const config: NuxtConfig = {
   // mode: 'universal',
   target: 'static',
   components: true,
+  i18n: {
+    vueI18n: '@/nuxt-i18n.config',
+  },
   /*
    ** Headers of the page
    */
@@ -56,13 +58,6 @@ const config: NuxtConfig = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'apple-touch-icon', href: '/apple-touch-icon-precomposed.png' },
     ],
-    script: [
-      {
-        src:
-          'https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver',
-        defer: true,
-      },
-    ],
   },
   /*
    ** Customize the progress-bar color
@@ -89,23 +84,23 @@ const config: NuxtConfig = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxtjs/stylelint-module',
-    '@nuxtjs/vuetify',
     '@nuxt/typescript-build',
     '@nuxtjs/google-analytics',
     '@nuxtjs/gtm',
+    '@nuxtjs/pwa',
+    '@nuxtjs/stylelint-module',
+    '@nuxtjs/vuetify',
+    'nuxt-i18n',
+    'nuxt-svg-loader',
+    'nuxt-webfontloader',
   ],
   /*
    ** Nuxt.js modules
    */
   modules: [
-    '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     ['@nuxtjs/dotenv', { filename: `.env.${environment}` }],
-    ['nuxt-i18n', i18n],
-    'nuxt-svg-loader',
     ['vue-scrollto/nuxt', { duration: 1000, offset: -72 }],
-    'nuxt-webfontloader',
   ],
   /*
    * Webfontloader

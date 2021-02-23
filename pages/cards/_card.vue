@@ -48,17 +48,15 @@
 // import AgencyCard from '@/components/cards/AgencyCard.vue'
 /* eslint-enable simple-import-sort/sort */
 
-import type { NuxtConfig } from '@nuxt/types'
+import Vue from '@nuxt/types'
 import type { NuxtOptionsHead as MetaInfo } from '@nuxt/types/config/head'
-import { Component, Vue } from 'nuxt-property-decorator'
 
 import { convertDateToSimpleFormat } from '@/utils/formatDate'
 import { getLinksLanguageAlternative } from '@/utils/i18nUtils'
 
-@Component({
+const options = {
   components: {},
-})
-export default class CardContainer extends Vue implements NuxtConfig {
+  
   data() {
     let title, updatedAt, cardComponent
     switch (this.$route.params.card) {
@@ -151,7 +149,7 @@ export default class CardContainer extends Vue implements NuxtConfig {
       title,
       updatedAt,
     }
-  }
+  },
 
   head() {
     const url = 'https://stopcovid19.metro.tokyo.lg.jp'
@@ -223,6 +221,8 @@ export default class CardContainer extends Vue implements NuxtConfig {
       ],
     }
     return mInfo
-  }
+  },
 }
+
+export default options
 </script>

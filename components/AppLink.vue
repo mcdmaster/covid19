@@ -37,6 +37,7 @@ const options = {
     to: {
       type: String,
       required: true,
+      default: '',
     },
     showIcon: {
       type: Boolean,
@@ -57,32 +58,32 @@ const options = {
   },
   computed: {
     isExternal(): boolean {
-      return isExternal(this.to)
+      return isExternal(this.$props.to)
     },
     linkTag(): string {
-      return this.isExternal ? 'a' : 'nuxt-link'
+      return this.$props.isExternal ? 'a' : 'nuxt-link'
     },
     attr(): ExternalAttr | InternalAttr {
-      if (this.isExternal) {
+      if (this.$props.isExternal) {
         return {
-          href: this.to,
+          href: this.$props.to,
           target: '_blank',
           rel: 'noopener noreferrer',
           class: 'ExternalLink',
         }
       } else {
         return {
-          to: this.to,
+          to: this.$props.to,
           class: 'Link',
         }
       }
     },
     _showIcon(): boolean {
       // 指定がない場合、外部なら表示、内部なら表示しない
-      return this.showIcon ?? this.isExternal
+      return this.$props.showIcon ?? this.$props.isExternal
     },
     _iconSize(): string {
-      return `${this.iconSize / 10}rem`
+      return `${this.$props.iconSize / 10}rem`
     },
   },
 }

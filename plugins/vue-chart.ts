@@ -1,16 +1,7 @@
 import { Plugin } from '@nuxt/types'
-import { ChartData, ChartOptions } from 'chart.js'
-import Vue, { PropType } from 'vue'
+import type { ChartData, ChartOptions } from 'chart.js'
 import { Bar, Doughnut, Line, mixins } from 'vue-chartjs'
-
 import { useDayjsAdapter } from './chartjs-adapter-dayjs'
-
-type ChartVCData = { chartData: ChartData }
-type ChartVCMethod = {
-  renderChart(chartData: ChartData, options: ChartOptions): void
-}
-type ChartVCComputed = unknown
-type ChartVCProps = { options: Object; displayLegends: boolean[] | null }
 
 const VueChartPlugin: Plugin = ({ app }) => {
   useDayjsAdapter(app.i18n)
@@ -21,7 +12,15 @@ const rgba0 = 'rgba(255,255,255,0)'
 const rgba1 = 'rgba(255,255,255,1)'
 
 const createCustomChart = () => {
+
   const { reactiveProp } = mixins
+
+  type ChartVCData = { chartData: ChartData }
+  type ChartVCMethod = {
+    renderChart(chartData: ChartData, options: ChartOptions): void
+  }
+  type ChartVCComputed = unknown
+  type ChartVCProps = { options: Object; displayLegends: boolean[] | null }
 
   const watchDisplayLegends = function (this: Vue, v?: boolean[] | null) {
     if (v == null) {
@@ -36,56 +35,50 @@ const createCustomChart = () => {
     })
     chart.update()
   }
+  
+  const generalChart = {
+    'general-chart': {
+      components: {
+        ChartVCData: {} as ChartVCData,
+        ChartVCMethod: {} as ChartVCMethod,
+        ChartVCComputed: {} as ChartVCComputed,
+        ChartVCProps: {} as ChartVCProps,
+      },
+      mixins: reactiveProp,
+      props: {
+        displayLegends: [] = [],
+        options: {} as ChartOptions,
+      },
+      watch: {
+        displayLegends: watchDisplayLegends,
+        width() {
+          setTimeout(() => this.$data._chart.resize())
+          this.$parent.$emit('update-width')
+        },
+      },
+      mounted() {
+        setTimeout(() => this.renderChart(this.chartData, this.options))
+      },
+    },
+  }
 
-  const generalChart = Vue.component<
-    ChartVCData,
-    ChartVCMethod,
-    ChartVCComputed,
-    ChartVCProps
-  >('general-chart', {
-    mixins: [reactiveProp],
-    props: {
-      displayLegends: {
-        type: Array,
-        default: () => null,
-      },
-      options: {
-        type: Object as PropType<ChartOptions>,
-        default: () => {},
-      },
-    },
-    watch: {
-      displayLegends: watchDisplayLegends,
-      width() {
-        setTimeout(() => this.$data._chart.resize())
-        this.$parent.$emit('update-width')
-      },
-    },
-    mounted() {
-      setTimeout(() => this.renderChart(this.chartData, this.options))
-    },
-  })
-
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'line-chart',
-    {
+  const lineChart = {
+    'line-chart': {
       mixins: [reactiveProp, Line, generalChart],
-    }
-  )
+    },
+  }
 
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'bar',
-    {
+  const barChart = {
+    'bar': {
       mixins: [reactiveProp, Bar, generalChart],
-    }
-  )
+    },
+  }
 
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'doughnut-chart',
-    {
+  const doughnutChart = {
+    'doughnut-chart': {
       mixins: [reactiveProp, Doughnut, generalChart],
-    }
-  )
+    },
+  }
 }
 
 export default VueChartPlugin

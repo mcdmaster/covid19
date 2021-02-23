@@ -32,9 +32,8 @@
 </template>
 
 <script lang="ts">
-import type { NuxtConfig } from '@nuxt/types'
+import Vue from '@nuxt/types'
 import type { NuxtOptionsHead as MetaInfo } from '@nuxt/types/config/head'
-import { Component, Vue } from 'nuxt-property-decorator'
 import ScaleLoader from 'vue-spinner/src/ScaleLoader.vue'
 
 import DevelopmentModeMark from '@/components/DevelopmentModeMark.vue'
@@ -47,15 +46,14 @@ import {
   LinkPropertyHref,
 } from '@/utils/i18nUtils'
 
-@Component({
+const options = {
   components: {
     DevelopmentModeMark,
     ScaleLoader,
     SideNavigation,
     NoScript,
   },
-})
-export default class Default extends Vue implements NuxtConfig {
+
   data() {
     let hasNavigation = true
     let loading = true
@@ -71,28 +69,28 @@ export default class Default extends Vue implements NuxtConfig {
       loading,
       isOpenNavigation: false,
     }
-  }
+  },
 
   mounted() {
     this.$data.loading = false
     this.getMatchMedia().addListener(this.closeNavigation)
-  }
+  },
 
   beforeDestroy() {
     this.getMatchMedia().removeListener(this.closeNavigation)
-  }
+  },
 
   openNavigation() {
     this.$data.isOpenNavigation = true
-  }
+  },
 
   closeNavigation() {
     this.$data.isOpenNavigation = false
-  }
+  },
 
   getMatchMedia() {
     return window.matchMedia('(min-width: 601px)')
-  }
+  },
 
   head() {
     const { htmlAttrs, meta } = this.$nuxtI18nSeo()
@@ -191,8 +189,10 @@ export default class Default extends Vue implements NuxtConfig {
       ],
     }
     return mInfo
-  }
+  },
 }
+
+export default options
 </script>
 <style lang="scss">
 .app {
