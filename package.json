@@ -88,13 +88,13 @@
     "terser-webpack-plugin": "5.1.1",
     "typescript": "4.1.5",
     "vue-axe": "2.4.4",
+    "vue-template-compiler": "2.6.12",
     "watchpack": "2.1.1",
     "webpack": "5.24.0"
   },
   "resolutions": {
-    "vue/@vue/server-renderer": "3.x",
-    "vue/vue-server-renderer": "2.x",
-    "vue/vue-template-compiler": "2.x"
+    "@vue/server-renderer/vue-server-renderer": "*",
+    "@vue/compiler-core/vue-template-compiler": "*"
   },
   "engines": {
     "node": ">=10.23.2"
