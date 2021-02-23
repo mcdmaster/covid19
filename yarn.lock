@@ -1077,6 +1077,7 @@
     scule "^0.1.1"
     semver "^7.3.4"
     upath "^2.0.1"
+    vue-template-compiler "^2.6.12"
 
 "@nuxt/config@2.15.1":
   version "2.15.1"
@@ -1272,6 +1273,7 @@
     vue-meta "^2.4.0"
     vue-no-ssr "^1.1.1"
     vue-router "^3.5.1"
+    vue-template-compiler "^2.6.12"
     vuex "^3.6.2"
 
 "@nuxt/vue-renderer@2.15.1":
@@ -1291,7 +1293,7 @@
     vue-meta "^2.4.0"
     vue-server-renderer "^2.6.12"
 
-"@nuxt/webpack@2.15.1", "@nuxt/webpack@^2.15.1":
+"@nuxt/webpack@2.15.1":
   version "2.15.1"
   resolved "https://registry.yarnpkg.com/@nuxt/webpack/-/webpack-2.15.1.tgz#c6bc0677661cfb8d49c18de688f585d8e56fb0ab"
   integrity sha512-X4sc1TUy7KM4UEzZhU1zKLiRx5g0dUbkKRT74KQelu05WOdYCckjGWyLSh5EIH7enNjtZmwUd+EU192VoSiYuA==
@@ -1333,6 +1335,7 @@
     url-loader "^4.1.1"
     vue-loader "^15.9.6"
     vue-style-loader "^4.1.2"
+    vue-template-compiler "^2.6.12"
     webpack "^4.46.0"
     webpack-bundle-analyzer "^4.4.0"
     webpack-dev-middleware "^4.1.0"
@@ -2004,7 +2007,7 @@
     "@vue/shared" "3.0.5"
     csstype "^2.6.8"
 
-"@vue/server-renderer@3.0.5", "@vue/server-renderer@3.x":
+"@vue/server-renderer@3.0.5":
   version "3.0.5"
   resolved "https://registry.yarnpkg.com/@vue/server-renderer/-/server-renderer-3.0.5.tgz#1197e7d7b7874e15de284798a3932ec425ffe593"
   integrity sha512-aB4TymBESEbCJ6A9HfeFpS3U9dC6dRa1zUqWHJqGlikqKr38n0VSYA3lNt0Qnkd6SFDSN6Kn5O34Ih3saMk9KA==
@@ -10353,7 +10356,7 @@ vue-scrollto@2.20.0:
   dependencies:
     bezier-easing "2.1.0"
 
-vue-server-renderer@2.x, vue-server-renderer@^2.6.12:
+vue-server-renderer@*, vue-server-renderer@^2.6.12:
   version "2.6.12"
   resolved "https://registry.yarnpkg.com/vue-server-renderer/-/vue-server-renderer-2.6.12.tgz#a8cb9c49439ef205293cb41c35d0d2b0541653a5"
   integrity sha512-3LODaOsnQx7iMFTBLjki8xSyOxhCtbZ+nQie0wWY4iOVeEtTg1a3YQAjd82WvKxrWHHTshjvLb7OXMc2/dYuxw==
@@ -10379,6 +10382,14 @@ vue-style-loader@^4.1.0, vue-style-loader@^4.1.2:
   dependencies:
     hash-sum "^1.0.2"
     loader-utils "^1.0.2"
+
+vue-template-compiler@*, vue-template-compiler@2.6.12:
+  version "2.6.12"
+  resolved "https://registry.yarnpkg.com/vue-template-compiler/-/vue-template-compiler-2.6.12.tgz#947ed7196744c8a5285ebe1233fe960437fcc57e"
+  integrity sha512-OzzZ52zS41YUbkCBfdXShQTe69j1gQDZ9HIX8miuC9C3rBCk9wIRjLiZZLrmX9V+Ftq/YEyv1JaVr5Y/hNtByg==
+  dependencies:
+    de-indent "^1.0.2"
+    he "^1.1.0"
 
 vue-template-es2015-compiler@^1.9.0:
   version "1.9.1"
