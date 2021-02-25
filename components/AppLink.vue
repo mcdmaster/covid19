@@ -18,7 +18,7 @@
 <script lang="ts">
 import { mdiOpenInNew } from '@mdi/js'
 
-import { isExternal } from '@/utils/urls.ts'
+import { isExternal } from '@/utils/urls'
 
 type InternalAttr = {
   to: String

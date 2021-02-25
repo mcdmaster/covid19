@@ -86,7 +86,7 @@
     "ts-loader": "8.0.17",
     "typescript": "4.2.2",
     "ufo": "0.6.7",
-    "vue": "3.0.5",
+    "vue": "3.0.6",
     "vue-axe": "2.4.4",
     "watchpack": "2.1.1",
     "webpack": "5.24.2"

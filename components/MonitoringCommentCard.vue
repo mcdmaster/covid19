@@ -43,6 +43,8 @@
 <script lang="ts">
 import { mdiChevronRight } from '@mdi/js'
 
+import AppLink from '@/components/AppLink.vue'
+import MonitoringCommentCardImageSwipe from '@/components/MonitoringCommentCardImageSwipe.vue'
 import MonitoringCommentFrame from '@/components/MonitoringCommentFrame.vue'
 import monitoringItemsData from '@/data/monitoring_items.json'
 import {
@@ -50,14 +52,13 @@ import {
   MonitoringComment,
 } from '@/utils/formatMonitoringItems'
 
-import MonitoringCommentCardImageSwipe from './MonitoringCommentCardImageSwipe.vue'
-
 type CommentKey = {
   [key: string]: MonitoringComment
 }
 
 const options = {
   components: {
+    AppLink,
     MonitoringCommentFrame,
     MonitoringCommentCardImageSwipe,
   },
