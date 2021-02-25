@@ -21,23 +21,19 @@
     "stylelint:fix": "stylelint --fix '**/*.{css,scss,vue}'",
     "test": "echo 'skip tests (there is no test)'"
   },
-  "browserslist": [
-    "defaults",
-    "not IE <= 10"
-  ],
   "dependencies": {
     "@nuxtjs/dotenv": "1.4.1",
     "@nuxtjs/gtm": "2.4.0",
     "@nuxtjs/pwa": "3.3.5",
-    "@vue/runtime-core": "3.0.5",
-    "@vue/runtime-dom": "3.0.5",
+    "@vue/runtime-core": "3.0.6",
+    "@vue/runtime-dom": "3.0.6",
     "axe-core": "4.1.2",
     "chart.js": "2.9.4",
     "cross-env": "7.0.3",
     "dayjs": "1.10.4",
     "netlify-lambda": "2.0.3",
     "nuxt": "2.15.2",
-    "nuxt-i18n": "6.20.2",
+    "nuxt-i18n": "6.20.3",
     "vue-chartjs": "3.5.1",
     "vue-router": "4.0.4",
     "vue-scrollto": "2.20.0",
@@ -45,31 +41,32 @@
   },
   "devDependencies": {
     "@mdi/js": "5.9.55",
-    "@nuxt/babel-preset-app": "2.15.2",
     "@nuxt/types": "2.15.2",
-    "@nuxt/typescript-build": "2.0.5",
+    "@nuxt/typescript-build": "2.0.6",
     "@nuxt/webpack": "2.15.2",
     "@nuxtjs/device": "2.0.0",
     "@nuxtjs/eslint-config": "5.0.0",
     "@nuxtjs/eslint-config-typescript": "5.0.0",
     "@nuxtjs/google-analytics": "2.4.0",
+    "@nuxtjs/router": "1.5.1",
     "@nuxtjs/stylelint-module": "4.0.0",
     "@nuxtjs/vuetify": "1.11.3",
     "@types/chart.js": "2.9.30",
-    "@vue/reactivity": "3.0.5",
-    "@vue/compiler-core": "3.0.5",
-    "@vue/compiler-dom": "3.0.5",
-    "@vue/server-renderer": "3.0.5",
+    "@vue/compiler-core": "3.0.6",
+    "@vue/compiler-dom": "3.0.6",
+    "@vue/reactivity": "3.0.6",
+    "@vue/server-renderer": "3.0.6",
     "@webassemblyjs/floating-point-hex-parser": "1.11.0",
     "@webassemblyjs/helper-numbers": "1.11.0",
     "@webassemblyjs/helper-wasm-section": "1.11.0",
     "@webassemblyjs/wasm-edit": "1.11.0",
     "@webassemblyjs/wasm-opt": "1.11.0",
     "core-js": "3.9.0",
-    "csstype": "3.0.6",
+    "css-loader": "4.x",
+    "csstype": "3.0.7",
     "es-module-lexer": "0.4.0",
     "eslint": "7.20.0",
-    "eslint-config-prettier": "8.0.0",
+    "eslint-config-prettier": "8.1.0",
     "eslint-plugin-prettier": "3.3.1",
     "eslint-plugin-simple-import-sort": "7.0.0",
     "eslint-plugin-tsdoc": "0.2.11",
@@ -78,6 +75,10 @@
     "nuxt-property-decorator": "2.9.1",
     "nuxt-svg-loader": "1.2.0",
     "nuxt-webfontloader": "1.1.0",
+    "postcss": "7.x",
+    "postcss-import": "14.0.0",
+    "postcss-loader": "4.x",
+    "postcss-url": "10.1.1",
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
     "sass": "1.32.8",
@@ -86,19 +87,19 @@
     "stylelint-config-standard": "20.0.0",
     "stylelint-scss": "3.19.0",
     "terser-webpack-plugin": "5.1.1",
-    "typescript": "4.1.5",
+    "typescript": "4.2.2",
+    "ufo": "0.6.7",
+    "vue": "3.0.5",
     "vue-axe": "2.4.4",
     "watchpack": "2.1.1",
-    "webpack": "5.24.0"
+    "webpack": "5.24.2"
   },
-  "resolutions": {
-    "@vue/server-renderer/vue-server-renderer": "*",
-    "@vue/compiler-core/vue-template-compiler": "*",
-    "vue/vue-server-renderer": "2.x",
-    "vue/@vue/server-renderer": "3.x"
-  },
+  "browserslist": [
+    "defaults",
+    "not IE <= 10"
+  ],
   "engines": {
-    "node": ">=10.23.2"
+    "node": ">=12.0.0"
   },
   "husky": {
     "hooks": {
@@ -110,5 +111,14 @@
       "eslint --fix"
     ],
     "*.{css,scss,vue}": "stylelint"
+  },
+  "optionalDependencies": {
+    "vue": "2.6.12",
+    "vue-server-renderer": "2.x",
+    "vue-template-compiler": "2.x"
+  },
+  "resolutions": {
+    "@vue/server-renderer/vue": "3.x",
+    "@vue/compiler-*/vue": "3.x"
   }
 }

@@ -99,8 +99,9 @@ const config: NuxtConfig = {
    */
   modules: [
     // Doc: https://github.com/nuxt-community/dotenv-module
-    ['@nuxtjs/dotenv', { filename: `.env.${environment}` }],
-    ['vue-scrollto/nuxt', { duration: 1000, offset: -72 }],
+    ['@nuxtjs/dotenv', { filename: `.env.${environment}`, }],
+    ['@nuxtjs/router', { fileName: '.router.ts', }, ],
+    ['vue-scrollto/nuxt', { duration: 1000, offset: -72, }],
   ],
   /*
    * Webfontloader
