@@ -75,10 +75,6 @@
     "nuxt-property-decorator": "2.9.1",
     "nuxt-svg-loader": "1.2.0",
     "nuxt-webfontloader": "1.1.0",
-    "postcss": "7.x",
-    "postcss-import": "14.0.0",
-    "postcss-loader": "4.x",
-    "postcss-url": "10.1.1",
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
     "sass": "1.32.8",
@@ -87,6 +83,7 @@
     "stylelint-config-standard": "20.0.0",
     "stylelint-scss": "3.19.0",
     "terser-webpack-plugin": "5.1.1",
+    "ts-loader": "8.0.17",
     "typescript": "4.2.2",
     "ufo": "0.6.7",
     "vue": "3.0.5",
@@ -99,7 +96,7 @@
     "not IE <= 10"
   ],
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=10.23.2"
   },
   "husky": {
     "hooks": {
