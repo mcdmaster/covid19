@@ -1,6 +1,6 @@
 import { NuxtVueI18n } from 'nuxt-i18n/types'
 
-const dateTimeFormatsCommon = {
+type dateTimeFormatsCommon = {
   dateTime: {
     year: 'numeric',
     month: 'short',
@@ -32,12 +32,12 @@ const options: NuxtVueI18n.Options.AllOptionsInterface = {
   vueI18n: {
     fallbackLocale: 'ja',
     dateTimeFormats: {
-      ja: dateTimeFormatsCommon,
-      en: dateTimeFormatsCommon,
-      'zh-cn': dateTimeFormatsCommon,
-      'zh-tw': dateTimeFormatsCommon,
-      ko: dateTimeFormatsCommon,
-      'ja-basic': dateTimeFormatsCommon,
+      'ja': {} as dateTimeFormatsCommon,
+      'en': {} as dateTimeFormatsCommon,
+      'zh-cn': {} as dateTimeFormatsCommon,
+      'zh-tw': {} as dateTimeFormatsCommon,
+      'ko': {} as dateTimeFormatsCommon,
+      'ja-basic': {} as dateTimeFormatsCommon,
     },
     formatFallbackMessages: true,
   },
