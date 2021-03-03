@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable simple-import-sort/sort -- ブラウザでの表示順に合わせて各 card の component を import する */
+/* eslint-disable simple-import-sort/imports -- ブラウザでの表示順に合わせて各 card の component を import する */
 // ---- モニタリング項目
 // 検査陽性者の状況
 // import ConfirmedCasesDetailsCard from '@/components/cards/ConfirmedCasesDetailsCard.vue'
@@ -45,8 +45,7 @@
 // 都営地下鉄の利用者数の推移
 // import MetroCard from '@/components/cards/MetroCard.vue'
 // 都庁来庁者数の推移
-// import AgencyCard from '@/components/cards/AgencyCard.vue'
-/* eslint-enable simple-import-sort/sort */
+import AgencyCard from '@/components/cards/AgencyCard.vue'
 
 import Vue from '@nuxt/types'
 import type { NuxtOptionsHead as MetaInfo } from '@nuxt/types/config/head'
@@ -143,7 +142,7 @@ const options = {
       case 'agency':
         cardComponent = 'agency-card'
     }
-    /* eslint-enable simple-import-sort/sort */
+    /* eslint-enable simple-import-sort/imports */
     return {
       cardComponent,
       title,
