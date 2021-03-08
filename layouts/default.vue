@@ -80,16 +80,16 @@ const options = {
     this.getMatchMedia().removeListener(this.closeNavigation)
   },
 
-  openNavigation() {
-    this.$data.isOpenNavigation = true
-  },
-
-  closeNavigation() {
-    this.$data.isOpenNavigation = false
-  },
-
-  getMatchMedia() {
-    return window.matchMedia('(min-width: 601px)')
+  methods: {
+    openNavigation () {
+      this.$data.isOpenNavigation = true
+    },
+    closeNavigation () {
+      this.$data.isOpenNavigation = false
+    },
+    getMatchMedia () {
+      return window.matchMedia('(min-width: 601px)')
+    },
   },
 
   head() {

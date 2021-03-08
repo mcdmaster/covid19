@@ -1,4 +1,5 @@
 import type { NuxtConfig } from '@nuxt/types'
+import i18n from './nuxt-i18n.config'
 const environment = process.env.NODE_ENV || 'development'
 
 const config: NuxtConfig = {
@@ -9,9 +10,7 @@ const config: NuxtConfig = {
   // mode: 'universal',
   target: 'static',
   components: true,
-  i18n: {
-    vueI18n: '@/nuxt-i18n.config',
-  },
+  i18n: i18n,
   /*
    ** Headers of the page
    */
@@ -76,7 +75,7 @@ const config: NuxtConfig = {
       ssr: true,
     },
     {
-      src: '@/plugins/axe',
+      src: '@/plugins/axe.ts',
       ssr: true,
     },
   ],
@@ -84,7 +83,6 @@ const config: NuxtConfig = {
    ** Nuxt.js dev-modules
    */
   buildModules: [
-    '@nuxt/typescript-build',
     '@nuxtjs/google-analytics',
     '@nuxtjs/gtm',
     '@nuxtjs/pwa',
@@ -100,7 +98,6 @@ const config: NuxtConfig = {
   modules: [
     // Doc: https://github.com/nuxt-community/dotenv-module
     ['@nuxtjs/dotenv', { filename: `.env.${environment}`, }],
-    ['@nuxtjs/router', { fileName: '.router.ts', }, ],
     ['vue-scrollto/nuxt', { duration: 1000, offset: -72, }],
   ],
   /*
@@ -148,7 +145,7 @@ const config: NuxtConfig = {
     },
     extend(config) {
       // default externals option is undefined
-      config.externals = [{ moment: 'moment' }]
+      config.externals = [{ moment: 'moment', }]
     },
     // https://ja.nuxtjs.org/api/configuration-build/#hardsource
     // hardSource: process.env.NODE_ENV === 'development'
