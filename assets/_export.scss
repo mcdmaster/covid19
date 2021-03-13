@@ -1,0 +1,9 @@
+@import url('_monitoringItemsTableCommon.scss');
+@import url('_variables.scss');
+
+:export {
+  $gray-2: $gray-2,
+  font-size(),
+  button-text(),
+  card-container(),
+};
