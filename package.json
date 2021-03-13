@@ -42,6 +42,8 @@
     "vuetify": "3.0.0-alpha.1"
   },
   "devDependencies": {
+    "@babel/core": "7.13.8",
+    "@babel/runtime-corejs3": "7.13.8",
     "@mdi/js": "5.9.55",
     "@nuxt/types": "2.15.3",
     "@nuxt/typescript-build": "2.1.0",
