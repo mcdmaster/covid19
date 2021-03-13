@@ -1,5 +1,6 @@
 import type { NuxtConfig } from '@nuxt/types'
 import i18n from './nuxt-i18n.config'
+const variablesScss = '@/assets/_export.scss'
 const environment = process.env.NODE_ENV || 'development'
 
 const config: NuxtConfig = {
@@ -144,6 +145,15 @@ const config: NuxtConfig = {
         },
       },
     },
+    loaders: {
+      test: /\.mjs$/i,
+      loader: 'vue-style-loader!css-loader!sass-loader',
+      sass: {
+        sassOptions: {
+          additionalData: `@import '${variablesScss}'`,
+        },
+      },
+    },
     extend(config) {
       // default externals option is undefined
       config.externals = [{ moment: 'moment' }]
@@ -156,10 +166,7 @@ const config: NuxtConfig = {
    ** https://github.com/nuxt-community/vuetify-module
    */
   vuetify: {
-    customVariables: [
-      '@/assets/_variables.scss',
-      '@/assets/_monitoringItemsTableCommon.scss',
-    ],
+    customVariables: [variablesScss],
     optionsPath: '@/plugins/vuetify.options.ts',
     treeShake: true,
     defaultAssets: false,
@@ -170,7 +177,6 @@ const config: NuxtConfig = {
       'vue-spinner/src/ScaleLoader.vue',
     ],
     whitelist: ['DataCard', 'GraphLegend'],
-    whitelistPatterns: [/(col|row|v-window)/],
   },
   manifest: {
     name: '東京都 新型コロナウイルス感染症対策サイト',
