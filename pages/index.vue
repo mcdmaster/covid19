@@ -1,30 +1,14 @@
 <template>
-  <div v-scroll="onScroll">
+  <div>
     <site-top-upper />
-    <lazy-cards-tab v-if="$vuetify.breakpoint.smAndUp || showCardsTab" />
+    <lazy-cards-tab v-if="$vuetify.breakpoint.smAndUp || showCardsTab"  v-scroll.self="onScroll" />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { ThisTypedComponentOptionsWithRecordProps } from 'vue/types/options'
+import Vue from '@nuxt/types'
 
-type Data = {
-  showCardsTab: boolean
-}
-type Methods = {
-  onScroll: () => void
-}
-type Computed = {}
-type Props = {}
-
-const options: ThisTypedComponentOptionsWithRecordProps<
-  Vue,
-  Data,
-  Methods,
-  Computed,
-  Props
-> = {
+const options: Vue.NuxtConfig = {
   data() {
     return {
       showCardsTab: false,
@@ -37,5 +21,5 @@ const options: ThisTypedComponentOptionsWithRecordProps<
   },
 }
 
-export default options
+export default options as Vue.NuxtAppOptions
 </script>

@@ -18,6 +18,10 @@ type dateTimeFormatsCommon = {
     month: 'long',
     day: 'numeric',
   },
+  dateWithoutDay: {
+    year: 'numeric',
+    month: 'short',
+  },
   dateWithDayOfWeek: {
     weekday: 'short',
     month: 'short',
@@ -32,12 +36,12 @@ const options: NuxtVueI18n.Options.AllOptionsInterface = {
   vueI18n: {
     fallbackLocale: 'ja',
     dateTimeFormats: {
-      ['ja']: dateTimeFormatsCommon,
-      ['en']: dateTimeFormatsCommon,
-      ['zh-cn']: dateTimeFormatsCommon,
-      ['zh-tw']: dateTimeFormatsCommon,
-      ['ko']: dateTimeFormatsCommon,
-      ['ja-basic']: dateTimeFormatsCommon,
+      ['ja']: {} as dateTimeFormatsCommon,
+      ['en']: {} as dateTimeFormatsCommon,
+      ['zh-cn']: {} as dateTimeFormatsCommon,
+      ['zh-tw']: {} as dateTimeFormatsCommon,
+      ['ko']: {} as dateTimeFormatsCommon,
+      ['ja-basic']: {} as dateTimeFormatsCommon,
     },
     formatFallbackMessages: true,
   },

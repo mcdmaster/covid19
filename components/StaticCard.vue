@@ -13,6 +13,7 @@ export default options
 </script>
 
 <style lang="scss">
+@import url('@/assets/_variables.scss');
 .StaticCard {
   @include card-container();
   @include font-size(16);

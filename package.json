@@ -10,10 +10,10 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development GENERATE_ENV=development nuxt dev",
     "dev-no-axe": "cross-env NODE_ENV=dev-no-axe GENERATE_ENV=development nuxt dev",
-    "build": "nuxt build",
+    "build": "yarn --ignore-platform --ignore-engines --ignore-optional nuxt build",
     "start": "cross-env NODE_ENV=production nuxt start",
-    "generate:deploy": "cross-env GENERATE_ENV=production NODE_OPTIONS=--max_old_space_size=2048 nuxt build --fail-on-page-error && yarn functions:build",
-    "generate:dev": "cross-env GENERATE_ENV=development NODE_OPTIONS=--max_old_space_size=2048 nuxt build --fail-on-page-error && yarn functions:build",
+    "generate:deploy": "cross-env GENERATE_ENV=production NODE_OPTIONS=--max_old_space_size=2048 nuxt build --fail-on-page-error && yarn --ignore-platform --ignore-engines --ignore-optional functions:build",
+    "generate:dev": "cross-env GENERATE_ENV=development NODE_OPTIONS=--max_old_space_size=2048 nuxt build --fail-on-page-error && yarn --ignore-platform --ignore-engines --ignore-optional functions:build",
     "generate": "eslint \"./**/*.{js,ts,vue}\" && nuxt build",
     "test": "echo 'skip tests (there is no test)'",
     "lint": "eslint \"./**/*.{js,ts,vue}\"",
@@ -51,7 +51,8 @@
     "vue-meta": "2.4.0",
     "vue-router": "4.0.5",
     "vue-scrollto": "2.20.0",
-    "vue-spinner": "1.0.4"
+    "vue-spinner": "1.0.4",
+    "vuetify": "3.0.0-alpha.1"
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
@@ -97,7 +98,7 @@
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
     "sass": "1.32.8",
-    "sass-loader": "9.0.3",
+    "sass-loader": "10.1.1",
     "schema-utils": "3.0.0",
     "style-loader": "2.0.0",
     "stylelint": "13.12.0",

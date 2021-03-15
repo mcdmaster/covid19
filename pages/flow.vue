@@ -533,6 +533,7 @@ export default options
 </script>
 
 <style lang="scss" module>
+@import url('@/assets/_variables.scss');
 /* stylelint-disable no-descending-specificity */
 
 $fzSmall: 14;

@@ -29,10 +29,9 @@ export function useDayjsAdapter(nuxtI18n: NuxtAppOptions['i18n']) {
   dayjs.extend(customParseFormat)
 
   // set locale when page onload
-  setLocale(nuxtI18n.locale)
-  nuxtI18n.onLanguageSwitched = (_: string, newLocale: string) => {
-    setLocale(newLocale)
-  }
+  (nuxtI18n as Object).append({ nuxtonLanguageSwitched: (_: string, newLocale: string) => {
+    return setLocale(newLocale)
+  }})
 
   _adapters._date.override({
     _id: 'dayjs', // for debug
