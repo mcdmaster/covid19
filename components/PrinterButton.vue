@@ -57,6 +57,7 @@ export default options
 </script>
 
 <style lang="scss" scoped>
+@import url('@/assets/_variables.scss');
 .PrinterButton {
   @include button-text('md');
 

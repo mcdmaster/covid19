@@ -231,6 +231,7 @@ export default options
 </script>
 
 <style lang="scss">
+@import url('@/assets/_variables.scss');
 .Contacts {
   &-Card {
     @include card-container();

@@ -10,6 +10,24 @@
       <v-row class="MonitoringComment-row">
         <v-col class="MonitoringComment-col">
           <v-col cols="12">
+            <p v-if="['ja', 'ja-basic'].includes($i18n.locale)">
+              <span
+                v-for="(item, i) in monitoringCommentSummary"
+                :key="i"
+                class="MonitoringComment-summary"
+              >
+                {{ item['@ja'] }}
+              </span>
+            </p>
+            <p v-else>
+              <span
+                v-for="(item, i) in monitoringCommentSummary"
+                :key="i"
+                class="MonitoringComment-summary"
+              >
+                {{ item['@en'] }}
+              </span>
+            </p>
             <h4>{{ $t('感染状況') }}</h4>
             <monitoring-comment-frame
               :level="monitoringComment['総括コメント-感染状況'].level - 1"
@@ -62,18 +80,20 @@ const options = {
     MonitoringCommentFrame,
     MonitoringCommentCardImageSwipe,
   },
-  props: {
-    mdiChevronRight: {
-      type: String,
-      default: () => mdiChevronRight,
-    },
-  },
-  data() {
+  data(): {
+    monitoringComment: CommentKey
+    mdiChevronRight: string
+    monitoringCommentSummary: { '@ja': string; '@en': string }[]
+  } {
     const monitoringComment: CommentKey = formatMonitoringComment(
       monitoringItemsData.data
     )
+    const monitoringCommentSummary = monitoringItemsData.data.専門家3行コメント
+
     return {
       monitoringComment,
+      mdiChevronRight,
+      monitoringCommentSummary,
     }
   },
   methods: {
@@ -124,6 +144,9 @@ export default options
     }
   }
 
+  .MonitoringComment-summary {
+    @include font-size(12);
+  }
   .MonitoringComment-comments {
     h4 {
       margin-bottom: 1px;

@@ -51,7 +51,8 @@
     "vue-meta": "2.4.0",
     "vue-router": "4.0.5",
     "vue-scrollto": "2.20.0",
-    "vue-spinner": "1.0.4"
+    "vue-spinner": "1.0.4",
+    "vuetify": "3.0.0-alpha.1"
   },
   "devDependencies": {
     "@babel/core": "7.13.10",
@@ -97,7 +98,7 @@
     "prettier": "2.2.1",
     "rimraf": "3.0.2",
     "sass": "1.32.8",
-    "sass-loader": "9.0.3",
+    "sass-loader": "10.1.1",
     "schema-utils": "3.0.0",
     "style-loader": "2.0.0",
     "stylelint": "13.12.0",
