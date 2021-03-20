@@ -1,9 +1,8 @@
-import { Plugin } from '@nuxt/types'
-import { ChartData, ChartOptions } from 'chart.js'
-import Vue, { PropType } from 'vue'
+import Vue, { Plugin } from '@nuxt/types'
+import { Chart, ChartData, ChartOptions } from 'chart.js'
 import { Bar, Doughnut, Line, mixins } from 'vue-chartjs'
-
-import { useDayjsAdapter } from './chartjs-adapter-dayjs'
+import { useDayjsAdapter } from '@/plugins/chartjs-adapter-dayjs'
+import { EventBus } from '@/utils/card-event-bus'
 
 type ChartVCData = { chartData: ChartData }
 type ChartVCMethod = {
@@ -12,15 +11,15 @@ type ChartVCMethod = {
 type ChartVCComputed = unknown
 type ChartVCProps = { options: Object; displayLegends: boolean[] | null }
 
-const VueChartPlugin: Plugin = ({ app }) => {
+const VueChartPlugin: Plugin = (app: any, inject?: any) => {
   useDayjsAdapter(app.i18n)
-  createCustomChart()
+  createCustomChart(app, inject)
 }
 
 const rgba0 = 'rgba(255,255,255,0)'
 const rgba1 = 'rgba(255,255,255,1)'
 
-const createCustomChart = () => {
+const createCustomChart = (app: any, inject: any) => {
   const { reactiveProp } = mixins
 
   const watchDisplayLegends = function (this: Vue, v?: boolean[] | null) {
@@ -30,69 +29,76 @@ const createCustomChart = () => {
     if (v.length === 0) {
       return
     }
-    const chart: Chart = this.$data._chart
+    const chart = new Chart(app.parent.context, app.parent.$config)
+    inject('chart', () => chart)
     v.forEach((display, i) => {
       chart.getDatasetMeta(i).hidden = !display
     })
     chart.update()
   }
 
-  const generalChart = Vue.component<
-    ChartVCData,
-    ChartVCMethod,
-    ChartVCComputed,
-    ChartVCProps
-  >('general-chart', {
-    mixins: [reactiveProp],
-    props: {
-      displayLegends: {
-        type: Array,
-        default: () => null,
+  const generalChart: Vue.NuxtConfig &
+    (ChartVCData | ChartVCMethod | ChartVCComputed | ChartVCProps) = {
+    'general-chart': {
+      mixins: [reactiveProp],
+      data() {
+        const { context, $config } = app._chart
+        const chartData = context.data
+        const options = $config
+        return { chartData, options }
       },
-      options: {
-        type: Object as PropType<ChartOptions>,
-        default: () => {},
+      methods: {
+        renderChart(chartData: ChartData, options: ChartOptions): void {},
+      },
+      props: {
+        displayLegends: {
+          type: Array,
+          default: () => [],
+        },
+        options: {
+          type: Object as ChartOptions,
+          default: () => {},
+        },
+      },
+      $watch: {
+        displayLegends: watchDisplayLegends,
+        width() {
+          setTimeout(() => app._chart.resize())
+          EventBus.$emit('update-width')
+        },
+      },
+      mounted() {
+        setTimeout(() =>
+          this.methods.renderChart(this.data().chartData, this.data().options)
+        )
       },
     },
-    watch: {
-      displayLegends: watchDisplayLegends,
-      width() {
-        setTimeout(() => this.$data._chart.resize())
-        this.$parent.$emit('update-width')
-      },
-    },
-    mounted() {
-      setTimeout(() => this.renderChart(this.chartData, this.options))
-    },
-  })
+  }
 
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'line-chart',
-    {
+  const lineChart = {
+    'line-chart': {
       mixins: [reactiveProp, Line, generalChart],
-    }
-  )
+    },
+  }
 
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'bar',
-    {
+  const barChart = {
+    bar: {
       mixins: [reactiveProp, Bar, generalChart],
-    }
-  )
+    },
+  }
 
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'doughnut-chart',
-    {
+  const doughnutChart = {
+    'doughnut-chart': {
       mixins: [reactiveProp, Doughnut, generalChart],
-    }
-  )
+    },
+  }
 }
 
-export default VueChartPlugin
+export default ({ app }: any, inject: any) => VueChartPlugin(app, inject)
 
 export const yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[] = [
   {
-    beforeDraw(chartInstance) {
+    beforeDraw(chartInstance: any) {
       const ctx = chartInstance.ctx as CanvasRenderingContext2D
 
       // プロットエリアマスク用
@@ -126,7 +132,7 @@ export const yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[] = [
 
 export const yAxesBgRightPlugin: Chart.PluginServiceRegistrationOptions[] = [
   {
-    beforeDraw(chartInstance) {
+    beforeDraw(chartInstance: any) {
       const ctx = chartInstance.ctx as CanvasRenderingContext2D
 
       // プロットエリアマスク用
