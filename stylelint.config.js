@@ -13,7 +13,7 @@ module.exports = {
     'function-calc-no-invalid': [
       true,
       {
-        patterns: ['math.ceil()', 'math.div()', '$num * 100000vw'],
+        patterns: ['math.div()', 'math.ceil()'],
       },
     ],
   },

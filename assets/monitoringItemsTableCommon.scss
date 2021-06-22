@@ -95,10 +95,10 @@ $default-boxdiff: 35px;
 
 $px: 0;
 $vw: 1;
-$num: calc(math.div($px, $vw * 1000));
+$num: calc(math.div($px, $vw * 1000) * 100000);
 @function px2vw($px, $vw) {
   @if $vw > 0 {
-    @return calc(math.ceil($num * 100000vw));
+    @return #{calc(math.ceil($num))};
   }
   @return $px * 1px;
 }
