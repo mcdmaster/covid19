@@ -57,17 +57,19 @@
   },
   "devDependencies": {
     "@babel/core": "7.14.6",
-    "@babel/runtime-corejs3": "7.14.7",
     "@mdi/js": "5.9.55",
     "@nuxt/typescript-build": "2.1.0",
+    "@nuxt/webpack": "2.15.7",
     "@nuxtjs/eslint-config": "6.0.1",
     "@nuxtjs/eslint-config-typescript": "6.0.1",
     "@nuxtjs/google-analytics": "2.4.0",
     "@nuxtjs/stylelint-module": "4.0.0",
     "@nuxtjs/vuetify": "1.12.1",
     "@types/chart.js": "2.9.31",
+    "@types/core-js": "2.5.4",
     "@types/lodash": "4.14.170",
     "@types/node": "14.17.3",
+    "@vue/compiler-sfc": "3.1.2",
     "core-js": "3.14.0",
     "danger": "10.6.4",
     "eslint": "7.28.0",
@@ -84,14 +86,14 @@
     "nuxt-webfontloader": "1.1.0",
     "prettier": "2.3.1",
     "quicktype": "15.0.260",
+    "regenerator-runtime": "0.13.7",
     "stylelint": "13.13.1",
     "stylelint-config-prettier": "8.0.2",
     "stylelint-config-standard": "22.0.0",
     "stylelint-scss": "3.19.0",
-    "ts-loader": "8.3.0",
+    "ts-loader": "8.0.18",
     "ts-node": "10.0.0",
     "typescript": "4.3.4",
-    "vue-axe": "2.4.4",
-    "vue-template-compiler": "2.6.14"
+    "vue-axe": "2.4.4"
   }
 }

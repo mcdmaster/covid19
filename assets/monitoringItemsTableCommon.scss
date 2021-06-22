@@ -1,5 +1,5 @@
-@use 'sass:math';
-
+@use 'sass:math' as math;
+  
 $default-bdw: 3px;
 $default-boxdiff: 35px;
 
@@ -93,14 +93,17 @@ $default-boxdiff: 35px;
   }
 }
 
-$px: 0;
-$vw: 1;
-$num: calc(math.div($px, $vw * 1000));
-@function px2vw($px, $vw) {
-  @if $vw > 0 {
-    @return calc(math.ceil($num * 100000vw));
+@function div($a, $b) {
+  @if function-exists('math.div') {
+    @return math.div($a, $b);
   }
-  @return $px * 1px;
+  @else {
+    @return #{$a / $b};
+  }
+}
+
+@function px2vw($px, $vw) {
+  @return if($vw > 0, div($px * 100, $vw) + if($px % $vw > 0, 100, 0), #{$px}px);
 }
 
 @mixin override($vw, $bdw, $fz, $boxdiff) {
