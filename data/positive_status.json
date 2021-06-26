@@ -1,5 +1,5 @@
 {
-    "date": "2021\/6\/21 18:00",
+    "date": "2021\/6\/26 17:30",
     "data": [
         {
             "date": "2020-02-28",
@@ -2400,6 +2400,31 @@
             "date": "2021-06-21",
             "hospitalized": 1282,
             "severe_case": 47
+        },
+        {
+            "date": "2021-06-22",
+            "hospitalized": 1285,
+            "severe_case": 45
+        },
+        {
+            "date": "2021-06-23",
+            "hospitalized": 1301,
+            "severe_case": 44
+        },
+        {
+            "date": "2021-06-24",
+            "hospitalized": 1360,
+            "severe_case": 43
+        },
+        {
+            "date": "2021-06-25",
+            "hospitalized": 1385,
+            "severe_case": 38
+        },
+        {
+            "date": "2021-06-26",
+            "hospitalized": 1427,
+            "severe_case": 37
         }
     ]
 }
