@@ -61,7 +61,7 @@
     "@nuxt/typescript-build": "2.1.0",
     "@nuxtjs/eslint-config": "6.0.1",
     "@nuxtjs/eslint-config-typescript": "6.0.1",
-    "@nuxtjs/google-analytics": "2.4.0",
+    "@nuxtjs/google-gtag": "1.0.4",
     "@nuxtjs/stylelint-module": "4.0.0",
     "@nuxtjs/vuetify": "1.12.1",
     "@types/chart.js": "2.9.31",

@@ -104,8 +104,8 @@ const config: NuxtConfig = {
         },
       },
     ],
-    '@nuxtjs/google-analytics',
-    '@nuxtjs/gtm',
+    // '@nuxtjs/google-analytics',
+    // '@nuxtjs/gtm',
     'nuxt-purgecss',
   ],
   /*
@@ -119,6 +119,25 @@ const config: NuxtConfig = {
     'nuxt-svg-loader',
     ['vue-scrollto/nuxt', { duration: 1000, offset: -72 }],
     'nuxt-webfontloader',
+    [
+      '@nuxtjs/google-gtag',
+      {
+        id: process.env.GOOGLE_ANALYTICS_ID,
+        config: {
+          anonymize_ip: true,
+          send_page_view: false,
+        },
+        additionalAccounts: [
+          {
+            id: process.env.GTM_CONTAINER_ID,
+            config: {
+              pageTracking: true,
+              enabled: true,
+            },
+          },
+        ],
+      },
+    ],
   ],
   /*
    ** vuetify module configuration
@@ -139,31 +158,17 @@ const config: NuxtConfig = {
       families: ['Roboto:100,300,400,500,700,900&display=swap'],
     },
   },
-  googleAnalytics: {
-    id: process.env.GOOGLE_ANALYTICS_ID, // .env.production などに設定してください。
-  },
+  // googleAnalytics: {
+  //   id: process.env.GOOGLE_ANALYTICS_ID, // .env.production などに設定してください。
+  // },
   /*
    ** @nuxtjs/gtm config
    */
-  gtm: {
-    id: process.env.GTM_CONTAINER_ID,
-    pageTracking: true,
-    enabled: true,
-  },
-  /*
-   * nuxt-i18n による自動リダイレクトを停止したためコメントアウト
-   * @todo 「Cookieがあるときのみ、その言語にリダイレクトする」を実装する場合は復活させる
-   * 実装しない場合は以下の記述を完全に削除する
-   */
-  /* optionalCookies: [
-    {
-      name: 'i18n_redirected',
-      label: 'i18n Redirection Cookie',
-      description:
-        'For automatically switching UI languages in accordance with locale preferences in the web browser configuration.',
-      cookies: ['i18n_redirected']
-    }
-  ], */
+  // gtm: {
+  //   id: process.env.GTM_CONTAINER_ID,
+  //   pageTracking: true,
+  //   enabled: true,
+  // },
   build: {
     babel: {
       presets() {
