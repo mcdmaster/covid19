@@ -7,13 +7,24 @@
   "engines": {
     "node": ">=14.16.0"
   },
+  "runtimeArgs": [
+    "--max_old_space_size=4096M",
+    "--max_executable_size=4096M",
+    "--optimize-for-size",
+    "--fail-on-page-error"
+  ],
+  "fork-ts-checker": {
+    "typescript": {
+      "memoryLimit": 4096
+    }
+  },
   "scripts": {
-    "dev": "cross-env NODE_ENV=development GENERATE_ENV=development nuxt",
-    "dev-no-axe": "cross-env NODE_ENV=dev-no-axe GENERATE_ENV=development nuxt",
+    "dev": "nuxt dev",
+    "dev-no-axe": "cross-env NODE_ENV=dev-no-axe nuxt dev",
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production nuxt start",
-    "generate:deploy": "cross-env GENERATE_ENV=production NODE_OPTIONS=--max_old_space_size=2048 nuxt generate --fail-on-page-error && yarn functions:build",
-    "generate:dev": "cross-env GENERATE_ENV=development NODE_OPTIONS=--max_old_space_size=2048 nuxt generate --fail-on-page-error && yarn functions:build",
+    "generate:deploy": "cross-env GENERATE_ENV=production nuxt generate && yarn functions:build",
+    "generate:dev": "cross-env GENERATE_ENV=development nuxt generate && yarn functions:build",
     "generate": "eslint \"./**/*.{js,ts,vue}\" && nuxt generate",
     "test": "echo 'skip tests (there is no test)'",
     "lint": "eslint \"./**/*.{js,ts,vue}\"",
@@ -34,39 +45,36 @@
     "*.{css,scss,vue}": "stylelint"
   },
   "resolutions": {
-    "@nuxtjs/vuetify/**/sass": "1.32.12"
+    "@nuxtjs/vuetify/**/sass": "1.32.13"
   },
   "dependencies": {
     "@nuxt/types": "2.15.7",
     "@nuxtjs/dotenv": "1.4.1",
-    "@nuxtjs/gtm": "2.4.0",
     "@nuxtjs/pwa": "3.3.5",
     "axe-core": "4.2.3",
-    "chart.js": "2.9.4",
+    "chart.js": "3.4.0",
     "cross-env": "7.0.3",
     "dayjs": "1.10.5",
     "netlify-lambda": "2.0.10",
     "nuxt": "2.15.7",
     "nuxt-i18n": "6.27.2",
     "vue": "2.6.14",
-    "vue-chartjs": "3.5.1",
     "vue-meta": "2.4.0",
-    "vue-scrollto": "2.20.0",
     "vue-spinner": "1.0.4"
   },
   "devDependencies": {
     "@babel/core": "7.14.6",
-    "@babel/runtime-corejs3": "7.14.7",
     "@mdi/js": "5.9.55",
+    "@nuxt/cli": "2.15.7",
     "@nuxt/typescript-build": "2.1.0",
     "@nuxtjs/eslint-config": "6.0.1",
     "@nuxtjs/eslint-config-typescript": "6.0.1",
-    "@nuxtjs/google-analytics": "2.4.0",
     "@nuxtjs/stylelint-module": "4.0.0",
     "@nuxtjs/vuetify": "1.12.1",
-    "@types/chart.js": "2.9.31",
+    "@types/core-js": "2.5.4",
     "@types/lodash": "4.14.170",
     "@types/node": "14.17.4",
+    "@types/regenerator-runtime": "0.13.0",
     "core-js": "3.15.2",
     "danger": "10.6.6",
     "eslint": "7.29.0",
@@ -75,6 +83,7 @@
     "eslint-plugin-simple-import-sort": "7.0.0",
     "eslint-plugin-tsdoc": "0.2.11",
     "husky": "6.0.0",
+    "jiti": "1.10.1",
     "lint-staged": "11.0.0",
     "lodash": "4.17.21",
     "nuxt-property-decorator": "2.9.1",
@@ -83,6 +92,7 @@
     "nuxt-webfontloader": "1.1.0",
     "prettier": "2.3.2",
     "quicktype": "15.0.260",
+    "regenerator-runtime": "0.13.7",
     "stylelint": "13.13.1",
     "stylelint-config-prettier": "8.0.2",
     "stylelint-config-standard": "22.0.0",
@@ -90,7 +100,9 @@
     "ts-loader": "8.3.0",
     "ts-node": "10.0.0",
     "typescript": "4.3.5",
+    "unctx": "1.0.1",
     "vue-axe": "2.4.4",
+    "vue-scrollto": "^2.20.0",
     "vue-template-compiler": "2.6.14"
   }
 }

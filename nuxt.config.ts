@@ -1,7 +1,11 @@
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
+
 import { NuxtConfig } from '@nuxt/types'
 
 // eslint-disable-next-line no-restricted-imports
 import i18n from './nuxt-i18n.config'
+import { fileURLToPath } from 'url'
 const environment = process.env.NODE_ENV || 'development'
 
 const config: NuxtConfig = {
@@ -104,8 +108,6 @@ const config: NuxtConfig = {
         },
       },
     ],
-    '@nuxtjs/google-analytics',
-    '@nuxtjs/gtm',
     'nuxt-purgecss',
   ],
   /*
@@ -150,33 +152,21 @@ const config: NuxtConfig = {
     pageTracking: true,
     enabled: true,
   },
-  /*
-   * nuxt-i18n による自動リダイレクトを停止したためコメントアウト
-   * @todo 「Cookieがあるときのみ、その言語にリダイレクトする」を実装する場合は復活させる
-   * 実装しない場合は以下の記述を完全に削除する
-   */
-  /* optionalCookies: [
-    {
-      name: 'i18n_redirected',
-      label: 'i18n Redirection Cookie',
-      description:
-        'For automatically switching UI languages in accordance with locale preferences in the web browser configuration.',
-      cookies: ['i18n_redirected']
-    }
-  ], */
   build: {
+    /*
     babel: {
       presets() {
         return [
           [
             '@nuxt/babel-preset-app',
             {
-              corejs: { version: '3.14' },
+              corejs: { version: '3.15.2' },
             },
           ],
         ]
       },
     },
+    */
     postcss: {
       preset: {
         autoprefixer: {
@@ -188,6 +178,10 @@ const config: NuxtConfig = {
     extend(config) {
       // default externals option is undefined
       config.externals = [{ moment: 'moment' }]
+      config.resolve!.alias = { 
+        'vue?': 'vue/dist/vue.esm.js',
+        '@': `${fileURLToPath('file://' + __dirname)}`,
+      }
     },
     // https://ja.nuxtjs.org/api/configuration-build/#hardsource
     // hardSource: process.env.NODE_ENV === 'development'

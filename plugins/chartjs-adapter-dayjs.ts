@@ -35,7 +35,7 @@ export function useDayjsAdapter(nuxtI18n: NuxtAppOptions['i18n']) {
   }
 
   _adapters._date.override({
-    _id: 'dayjs', // for debug
+    // _id: 'dayjs', for debug
 
     formats() {
       return DEFAULT_FORMATS
@@ -51,20 +51,20 @@ export function useDayjsAdapter(nuxtI18n: NuxtAppOptions['i18n']) {
       return dayjs(time).format(format)
     },
 
-    add(time, amount, unit) {
-      return dayjs(time).add(amount, unit)
+    add(time, amount, unit): any {
+      return dayjs(time).add(amount, unit as dayjs.OpUnitType)
     },
 
     diff(max, min, unit) {
       return dayjs(max).diff(dayjs(min), unit)
     },
 
-    startOf(time, unit, _) {
-      return dayjs(time).startOf(unit)
+    startOf(time, unit, _): any {
+      return dayjs(time).startOf(unit as dayjs.OpUnitType)
     },
 
-    endOf(time, unit) {
-      return dayjs(time).endOf(unit)
+    endOf(time, unit): any {
+      return dayjs(time).endOf(unit as dayjs.OpUnitType)
     },
   })
 }

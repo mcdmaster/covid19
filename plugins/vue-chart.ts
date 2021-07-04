@@ -1,7 +1,6 @@
-import { Plugin } from '@nuxt/types'
-import { Chart, ChartData, ChartOptions } from 'chart.js'
-import Vue, { PropType } from 'vue'
-import { Bar, Doughnut, Line, mixins } from 'vue-chartjs'
+import Vue from 'vue'
+import { Plugin, NuxtConfig } from '@nuxt/types'
+import { BarController, Chart, ChartData, ChartOptions, DoughnutController, LineController, registerables } from 'chart.js'
 
 import { useDayjsAdapter } from '@/plugins/chartjs-adapter-dayjs'
 
@@ -12,16 +11,15 @@ type ChartVCMethod = {
 type ChartVCComputed = unknown
 type ChartVCProps = { options: Object; displayLegends: boolean[] | null }
 
-const VueChartPlugin: Plugin = ({ app }) => {
+const VueChartPlugin: Plugin = ({ app }: any) => {
   useDayjsAdapter(app.i18n)
-  createCustomChart()
+  createCustomChart(app)
 }
 
 const rgba0 = 'rgba(255,255,255,0)'
 const rgba1 = 'rgba(255,255,255,1)'
 
-const createCustomChart = () => {
-  const { reactiveProp } = mixins
+const createCustomChart = (app: any) => {
 
   const watchDisplayLegends = function (this: Vue, v?: boolean[] | null) {
     if (v == null) {
@@ -37,65 +35,52 @@ const createCustomChart = () => {
     chart.update()
   }
 
-  const generalChart = Vue.component<
-    ChartVCData,
-    ChartVCMethod,
-    ChartVCComputed,
-    ChartVCProps
-  >(
-    'GeneralChart', // eslint-disable-next-line vue/one-component-per-file
-    {
-      mixins: [reactiveProp],
-      props: {
-        displayLegends: {
-          type: Array,
-          default: () => null,
-        },
-        options: {
-          type: Object as PropType<ChartOptions>,
-          default: () => {},
-        },
+  const generalChart: NuxtConfig = {
+    // eslint-disable-next-line vue/one-component-per-file
+    props: {
+      displayLegends: {
+        type: Array,
+        default: () => null,
       },
-      watch: {
-        displayLegends: watchDisplayLegends,
-        width() {
-          setTimeout(() => this.$data._chart.resize())
-          this.$parent.$emit('update-width')
-        },
+      options: {
+        type: Object as ChartOptions,
+        default: () => {},
       },
-      mounted() {
-        setTimeout(() => this.renderChart(this.chartData, this.options))
+    },
+    $watch: {
+      displayLegends: watchDisplayLegends,
+      width() {
+        setTimeout(() => app._chart.resize())
+        app.$emit('update-width')
       },
-    }
-  )
+    },
+    mounted() {
+      setTimeout(() => this.renderChart(this.chartData, this.options))
+    },
+  }
 
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'LineChart', // eslint-disable-next-line vue/one-component-per-file
-    {
-      mixins: [reactiveProp, Line, generalChart],
-    }
-  )
-
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'Bar', // eslint-disable-next-line vue/one-component-per-file
-    {
-      mixins: [reactiveProp, Bar, generalChart],
-    }
-  )
-
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'DoughnutChart', // eslint-disable-next-line vue/one-component-per-file
-    {
-      mixins: [reactiveProp, Doughnut, generalChart],
-    }
-  )
+  Vue.component('LineChart', {
+    data() { return { ...generalChart } },
+    mixins: [LineController.defaults],
+    render(h: any) { return h(this.data) },
+  })
+  Vue.component('Bar', {
+    data() { return { ...generalChart } },
+    mixins: [BarController.defaults],
+    render(h: any) { return h(this.data) },
+  })
+  Vue.component('DoughnutChart', {
+    data() { return { ...generalChart } },
+    mixins: [DoughnutController.defaults],
+    render(h: any) { return h(this.data) },
+  })
 }
 
 export default VueChartPlugin
 
-export const yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[] = [
+export const yAxesBgPlugin = [
   {
-    beforeDraw(chartInstance) {
+    beforeDraw(chartInstance: Chart) {
       const ctx = chartInstance.ctx as CanvasRenderingContext2D
 
       // プロットエリアマスク用
@@ -127,9 +112,9 @@ export const yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[] = [
   },
 ]
 
-export const yAxesBgRightPlugin: Chart.PluginServiceRegistrationOptions[] = [
+export const yAxesBgRightPlugin = [
   {
-    beforeDraw(chartInstance) {
+    beforeDraw(chartInstance: Chart) {
       const ctx = chartInstance.ctx as CanvasRenderingContext2D
 
       // プロットエリアマスク用
