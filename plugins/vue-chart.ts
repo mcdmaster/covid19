@@ -1,101 +1,111 @@
-import { Plugin } from '@nuxt/types'
-import { Chart, ChartData, ChartOptions } from 'chart.js'
-import Vue, { PropType } from 'vue'
-import { Bar, Doughnut, Line, mixins } from 'vue-chartjs'
+import { NuxtAppOptions, NuxtConfig, Plugin } from '@nuxt/types'
+import { Chart, ChartData, ChartOptions, ChartType } from 'chart.js'
+import CreateElement from 'vue'
+import Vue from 'vue/types/umd'
 
 import { useDayjsAdapter } from '@/plugins/chartjs-adapter-dayjs'
 
-type ChartVCData = { chartData: ChartData }
-type ChartVCMethod = {
-  renderChart(chartData: ChartData, options: ChartOptions): void
-}
-type ChartVCComputed = unknown
-type ChartVCProps = { options: Object; displayLegends: boolean[] | null }
-
-const VueChartPlugin: Plugin = ({ app }) => {
-  useDayjsAdapter(app.i18n)
-  createCustomChart()
+const VueChartPlugin: Plugin = (app) => {
+  useDayjsAdapter((app as NuxtAppOptions).i18n)
+  createCustomChart(app)
 }
 
-const rgba0 = 'rgba(255,255,255,0)'
-const rgba1 = 'rgba(255,255,255,1)'
-
-const createCustomChart = () => {
-  const { reactiveProp } = mixins
-
+const createCustomChart = (app: any) => {
   const watchDisplayLegends = function (this: Vue, v?: boolean[] | null) {
-    if (v == null) {
+    if (v == null || v.length === 0) {
       return
     }
-    if (v.length === 0) {
-      return
-    }
-    const chart: Chart = this.$data._chart
+    const chart: Chart = app.$data._chart
     v.forEach((display, i) => {
       chart.getDatasetMeta(i).hidden = !display
     })
     chart.update()
   }
 
-  const generalChart = Vue.component<
-    ChartVCData,
-    ChartVCMethod,
-    ChartVCComputed,
-    ChartVCProps
-  >(
-    'GeneralChart', // eslint-disable-next-line vue/one-component-per-file
-    {
-      mixins: [reactiveProp],
-      props: {
-        displayLegends: {
-          type: Array,
-          default: () => null,
-        },
-        options: {
-          type: Object as PropType<ChartOptions>,
-          default: () => {},
-        },
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _generalChart: NuxtConfig = {
+    // eslint-disable-next-line vue/one-component-per-file
+    props: {
+      displayLegends: {
+        type: Array,
+        default: null,
       },
-      watch: {
-        displayLegends: watchDisplayLegends,
-        width() {
-          setTimeout(() => this.$data._chart.resize())
-          this.$parent.$emit('update-width')
+      options: {
+        // eslint-disable-next-line no-new-object
+        type: Object,
+        default: {} as ChartOptions,
+      },
+    },
+    data() {
+      return {
+        chartData: {} as Object,
+      }
+    },
+    created() {
+      this.$watch(
+        'update-width',
+        () => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const _width = (): void => {
+            this.$props.displayLegends = watchDisplayLegends
+            setTimeout(() => app._chart.resize())
+            app.$emit('update-width')
+          }
         },
-      },
-      mounted() {
-        setTimeout(() => this.renderChart(this.chartData, this.options))
-      },
-    }
-  )
-
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'LineChart', // eslint-disable-next-line vue/one-component-per-file
-    {
-      mixins: [reactiveProp, Line, generalChart],
-    }
-  )
-
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'Bar', // eslint-disable-next-line vue/one-component-per-file
-    {
-      mixins: [reactiveProp, Bar, generalChart],
-    }
-  )
-
-  Vue.component<ChartVCData, ChartVCMethod, ChartVCComputed, ChartVCProps>(
-    'DoughnutChart', // eslint-disable-next-line vue/one-component-per-file
-    {
-      mixins: [reactiveProp, Doughnut, generalChart],
-    }
-  )
+        { immediate: true }
+      )
+    },
+    // ported from vue-chartjs@3.5.1
+    mounted() {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      function _renderChart(data: ChartData, options: ChartOptions) {
+        let chartType = {} as ChartType
+        if (app._chart) {
+          chartType = app._chart.chartType
+          app._chart.destroy()
+        }
+        if (!app.$refs.canvas) {
+          throw new Error(
+            'Please remove the <template></template> tags from your chart component. See https://vue-chartjs.org/guide/#vue-single-file-components'
+          )
+        }
+        app._chart = new Chart(app._chart.ctx, {
+          type: chartType,
+          data,
+          options,
+          plugins: app._plugins,
+        })
+      }
+    },
+  }
 }
+// eslint-disable-next-line vue/one-component-per-file
+Vue.component('LineChart', {
+  render() {
+    return new CreateElement({ name: 'lineChart' })
+  },
+})
+// eslint-disable-next-line vue/one-component-per-file
+Vue.component('Bar', {
+  render() {
+    return new CreateElement({ name: 'bar' })
+  },
+})
+// eslint-disable-next-line vue/one-component-per-file
+Vue.component('Doughnut', {
+  render() {
+    return new CreateElement({ name: 'doughnut' })
+  },
+})
 
 export default VueChartPlugin
 
-export const yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[] = [
+const rgba0 = 'rgba(255,255,255,0)'
+const rgba1 = 'rgba(255,255,255,1)'
+
+const yAxesBgPlugin = [
   {
-    beforeDraw(chartInstance) {
+    beforeDraw(chartInstance: Chart) {
       const ctx = chartInstance.ctx as CanvasRenderingContext2D
 
       // プロットエリアマスク用
@@ -127,9 +137,9 @@ export const yAxesBgPlugin: Chart.PluginServiceRegistrationOptions[] = [
   },
 ]
 
-export const yAxesBgRightPlugin: Chart.PluginServiceRegistrationOptions[] = [
+const yAxesBgRightPlugin = [
   {
-    beforeDraw(chartInstance) {
+    beforeDraw(chartInstance: Chart) {
       const ctx = chartInstance.ctx as CanvasRenderingContext2D
 
       // プロットエリアマスク用
@@ -181,12 +191,14 @@ export const yAxesBgRightPlugin: Chart.PluginServiceRegistrationOptions[] = [
   },
 ]
 
+export { yAxesBgPlugin, yAxesBgRightPlugin }
+
 export interface DataSets<T = number> extends ChartData {
-  data: T[]
+  data(): (Object | T)[] | Object
 }
 
 export interface DataSetsPoint<T = { x: string; y: number }> extends ChartData {
-  data: T[]
+  data(): (Object | T)[] | Object
 }
 
 export interface DisplayData<T = number, U = string> {
