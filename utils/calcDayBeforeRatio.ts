@@ -27,9 +27,9 @@ export default function ({
   digit = 0,
 }: DayBeforeRatioParameters): DayBeforeRatioData {
   const lastDay = displayData.labels!.slice(-1)[0]
-  const data = displayData.datasets[dataIndex].data.toString()
-  const lastDayData = parseInt(data.slice(-1)[0])
-  const lastBeforeData = parseInt(data.slice(-2)[0])
+  const data = displayData.datasets[dataIndex].data as Object
+  const lastDayData = parseInt(String(data).slice(-1)[0])
+  const lastBeforeData = parseInt(String(data).slice(-2)[0])
   const dayBeforeRatio = lastDayData - lastBeforeData
   const formatter = getCommaSeparatedNumberToFixedFunction(digit)
 

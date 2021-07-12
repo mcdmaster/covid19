@@ -2,18 +2,22 @@
   <v-col cols="12" md="6">
     <div class="StayingPopulation">
       <div class="StayingPopulation-title">
-        {{ $t('都内の滞在人口の増減状況') }}<br />
-        <v-icon color="#D9D9D9">{{ mdiChevronRight }}</v-icon>
-        <app-link
-          to="https://www.seisakukikaku.metro.tokyo.lg.jp/information/corona-people-flow-analysis.html#nav1"
-          >{{ $t('詳細はこちら') }}
-        </app-link>
+        <h3 class="StayingPopulation-heading">
+          {{ $t('都内の滞在人口の増減状況（毎週月曜日更新）') }}
+        </h3>
+        <div class="StayingPopulation-link">
+          <v-icon color="#D9D9D9">{{ mdiChevronRight }}</v-icon>
+          <app-link
+            to="https://www.seisakukikaku.metro.tokyo.lg.jp/information/corona-people-flow-analysis.html#top"
+            >{{ $t('詳細はこちら') }}
+          </app-link>
+        </div>
       </div>
       <div class="StayingPopulation-place">
         {{ placeName }}
       </div>
       <div class="StayingPopulation-state">
-        [ {{ $t('{date}時点', { date }) }} ]<br />
+        [ {{ $t('{date}〜{enddate}', { date, enddate }) }} ]<br />
         <span v-for="(datum, index) in formattedData" :key="index">
           {{
             $t('{month}比 {rateWithArrow}', {
@@ -127,7 +131,13 @@ export default Vue.extend<Data, Methods, Computed, Props>({
     padding: 2px 15px;
     text-align: left;
     @include card-h2();
-    @include font-size(12);
+
+    .StayingPopulation-heading,
+    .StayingPopulation-link {
+      @include font-size(12);
+
+      font-weight: 600;
+    }
   }
   .StayingPopulation-place {
     padding: 5px 5px 5px 5px;

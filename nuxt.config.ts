@@ -107,6 +107,7 @@ const config: NuxtConfig = {
         },
       },
     ],
+    ['nuxt-i18n', i18n],
     'nuxt-purgecss',
   ],
   /*
@@ -116,7 +117,6 @@ const config: NuxtConfig = {
     '@nuxtjs/pwa',
     // Doc: https://github.com/nuxt-community/dotenv-module
     ['@nuxtjs/dotenv', { filename: `.env.${environment}` }],
-    ['nuxt-i18n', i18n],
     'nuxt-svg-loader',
     ['vue-scrollto/nuxt', { duration: 1000, offset: -72 }],
     'nuxt-webfontloader',
@@ -127,7 +127,7 @@ const config: NuxtConfig = {
    */
   vuetify: {
     customVariables: ['@/assets/variables.scss'],
-    optionsPath: './plugins/vuetify.options.ts',
+    optionsPath: '@/plugins/vuetify.options',
     treeShake: true,
     defaultAssets: false,
   },
@@ -152,20 +152,6 @@ const config: NuxtConfig = {
     enabled: true,
   },
   build: {
-    /*
-    babel: {
-      presets() {
-        return [
-          [
-            '@nuxt/babel-preset-app',
-            {
-              corejs: { version: '3.15.2' },
-            },
-          ],
-        ]
-      },
-    },
-    */
     postcss: {
       preset: {
         autoprefixer: {
@@ -177,7 +163,14 @@ const config: NuxtConfig = {
     extend(config) {
       // default externals option is undefined
       config.externals = [{ moment: 'moment' }]
-      // config.resolve.alias = { 'vue?': 'vue.esm.js' }
+      config.resolve!.alias!.vue = 'vue/dist/vue.runtime.esm.js'
+      config.module!.rules.push({
+        test: /\.mjs$/i,
+        loader: 'vue-loader',
+        options: {
+          context: 'javascript/auto',
+        },
+      })
     },
   },
   purgeCSS: {
